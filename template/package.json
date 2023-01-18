@@ -1,0 +1,70 @@
+{
+  "name": "@acme/template-primitive",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A template example.",
+  "keywords": [
+    "solid"
+  ],
+  "homepage": "https://github.com/p7gg/acme/tree/main/packages/template-primitive#readme",
+  "bugs": {
+    "url": "https://github.com/p7gg/acme/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p7gg/acme.git"
+  },
+  "license": "MIT",
+  "author": "Gabriel Silva <gbos360@hotmail.com>",
+  "contributors": [],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "worker": {
+      "import": "./dist/server.js",
+      "require": "./dist/server.cjs"
+    },
+    "browser": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "deno": {
+      "import": "./dist/server.js",
+      "require": "./dist/server.cjs"
+    },
+    "node": {
+      "import": "./dist/server.js",
+      "require": "./dist/server.cjs"
+    },
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "main": "./dist/server.cjs",
+  "module": "./dist/server.js",
+  "browser": {
+    "./dist/server.cjs": "./dist/index.cjs",
+    "./dist/server.js": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsx ../../scripts/build.ts --ssr",
+    "clean": "rimraf .turbo dist coverage node_modules",
+    "dev": "vite serve ./dev",
+    "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
+  },
+  "devDependencies": {
+    "@acme/tsconfig": "workspace:*",
+    "eslint": "^8.32.0",
+    "eslint-config-acme": "workspace:*",
+    "solid-js": "^1.6.9",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "vite-plugin-solid": "^2.5.0"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.6.0"
+  }
+}
