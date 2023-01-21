@@ -34,8 +34,8 @@ importers:
       '@vanilla-extract/css': ^1.9.2
       '@vanilla-extract/css-utils': ^0.1.3
       '@vanilla-extract/recipes': ^0.3.0
-      '@vanilla-extract/vite-plugin': ^3.7.0
       '@wish-ui/tsconfig': workspace:*
+      '@wish-ui/vite-plugin': workspace:*
       eslint: ^8.32.0
       eslint-config-wish: workspace:*
       rainbow-sprinkles: ^0.15.1
@@ -49,8 +49,8 @@ importers:
       '@vanilla-extract/css': 1.9.2
       '@vanilla-extract/css-utils': 0.1.3
       '@vanilla-extract/recipes': 0.3.0_@vanilla-extract+css@1.9.2
-      '@vanilla-extract/vite-plugin': 3.7.0_vite@4.0.4
       '@wish-ui/tsconfig': link:../tsconfig
+      '@wish-ui/vite-plugin': link:../vite-plugin
       eslint: 8.32.0
       eslint-config-wish: link:../eslint-config
       rainbow-sprinkles: 0.15.1_hpj5gdpvjxi7cjz6tqlxfhxlra
@@ -1016,6 +1016,7 @@ packages:
       '@babel/core': 7.20.12
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@vanilla-extract/css-utils/0.1.3:
     resolution: {integrity: sha512-PZAcHROlgtCUGI2y0JntdNwvPwCNyeVnkQu6KTYKdmxBbK3w72XJUmLFYapfaFfgami4I9CTLnrJTPdtmS3gpw==}
@@ -1057,6 +1058,7 @@ packages:
       outdent: 0.8.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@vanilla-extract/private/1.0.3:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
@@ -1067,21 +1069,6 @@ packages:
       '@vanilla-extract/css': ^1.0.0
     dependencies:
       '@vanilla-extract/css': 1.9.2
-    dev: true
-
-  /@vanilla-extract/vite-plugin/3.7.0_vite@4.0.4:
-    resolution: {integrity: sha512-Sq54d1f+Bww09e9Q5acFsNKjlSYMQ4GewJthdb3CVwUeGVzV10rJBChw6zufs7ndmJVCzQ4I2IcNMy2OiAlkmA==}
-    peerDependencies:
-      vite: ^2.2.3 || ^3.0.0 || 4
-    dependencies:
-      '@vanilla-extract/integration': 6.0.1
-      outdent: 0.8.0
-      postcss: 8.4.21
-      postcss-load-config: 3.1.4_postcss@8.4.21
-      vite: 4.0.4
-    transitivePeerDependencies:
-      - supports-color
-      - ts-node
     dev: true
 
   /abbrev/1.1.1:
@@ -1807,6 +1794,7 @@ packages:
     resolution: {integrity: sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==}
     hasBin: true
     requiresBuild: true
+    dev: false
 
   /esbuild/0.15.18:
     resolution: {integrity: sha512-x/R72SmW3sSFRm5zrrIjAhCeQSAWoni3CmHEqfQrZIQTM3lVCdehdwuIqaOtfC2slvpdlLa62GYoN8SxT23m6Q==}
@@ -2119,6 +2107,7 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       require-like: 0.1.2
+    dev: false
 
   /execa/5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
@@ -2686,6 +2675,7 @@ packages:
 
   /javascript-stringify/2.1.0:
     resolution: {integrity: sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==}
+    dev: false
 
   /jiti/1.16.2:
     resolution: {integrity: sha512-OKBOVWmU3FxDt/UH4zSwiKPuc1nihFZiOD722FuJlngvLz2glX1v2/TJIgoA4+mrpnXxHV6dSAoCvPcYQtoG5A==}
@@ -2794,6 +2784,7 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /lru-cache/5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
@@ -3470,6 +3461,7 @@ packages:
 
   /require-like/0.1.2:
     resolution: {integrity: sha512-oyrU88skkMtDdauHDuKVrgR+zuItqr6/c//FXzvmxRGMexSDc6hNvJInGW3LL46n+8b50RykrvwSUIIQH2LQ5A==}
+    dev: false
 
   /resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}

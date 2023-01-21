@@ -1,4 +1,4 @@
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
+import { vanillaExtractPlugin } from '@wish-ui/vite-plugin'
 
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
