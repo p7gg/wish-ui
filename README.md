@@ -8,13 +8,13 @@ This turborepo uses [pnpm](https://pnpm.io) as a package manager. It includes th
 
 ### Apps and Packages
 
-- `eslint-config-acme`: `eslint` configurations
-- `@acme/tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `eslint-config-wish`: `eslint` configurations
+- `@wish-ui/tsconfig`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-- Rename folders in `packages/*` to replace `acme` with your desired scope
-- Search and replace `acme` with your desired scope
+- Rename folders in `packages/*` to replace `wish-ui` with your desired scope
+- Search and replace `wish-ui` with your desired scope
 - Re-run `yarn install`
 
 ### Utilities

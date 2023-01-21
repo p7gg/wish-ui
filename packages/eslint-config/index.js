@@ -75,8 +75,8 @@ module.exports = {
           'error',
           {
             groups: [
-              // `solid` first, `acme` second
-              ['^solid', '^acme'],
+              // `solid` first, `wish-ui` second
+              ['^solid', '^wish-ui'],
               // Packages starting with `@`
               ['^@'],
               // Packages starting with a character

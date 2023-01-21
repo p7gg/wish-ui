@@ -1,18 +1,18 @@
 {
-  "name": "@acme/template-primitive",
+  "name": "@wish-ui/template-primitive",
   "version": "0.0.0",
   "private": false,
   "description": "A template example.",
   "keywords": [
     "solid"
   ],
-  "homepage": "https://github.com/p7gg/acme/tree/main/packages/template-primitive#readme",
+  "homepage": "https://github.com/p7gg/wish-ui/tree/main/packages/template-primitive#readme",
   "bugs": {
-    "url": "https://github.com/p7gg/acme/issues"
+    "url": "https://github.com/p7gg/wish-ui/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/p7gg/acme.git"
+    "url": "git+https://github.com/p7gg/wish-ui.git"
   },
   "license": "MIT",
   "author": "Gabriel Silva <gbos360@hotmail.com>",
@@ -56,9 +56,9 @@
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@acme/tsconfig": "workspace:*",
+    "@wish-ui/tsconfig": "workspace:*",
     "eslint": "^8.32.0",
-    "eslint-config-acme": "workspace:*",
+    "eslint-config-wish": "workspace:*",
     "solid-js": "^1.6.9",
     "typescript": "^4.9.4",
     "vite": "^4.0.4",

@@ -1,20 +1,20 @@
 {
-  "name": "eslint-config-acme",
+  "name": "eslint-config-wish",
   "version": "0.0.0",
   "private": false,
-  "description": "Acme eslint config.",
+  "description": "Wish-UI eslint config.",
   "keywords": [
     "solid",
-    "acme",
+    "wish-ui",
     "eslint"
   ],
-  "homepage": "https://github.com/p7gg/acme/tree/main/packages/eslint-config#readme",
+  "homepage": "https://github.com/p7gg/wish-ui/tree/main/packages/eslint-config#readme",
   "bugs": {
-    "url": "https://github.com/p7gg/acme/issues"
+    "url": "https://github.com/p7gg/wish-ui/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/p7gg/acme.git"
+    "url": "git+https://github.com/p7gg/wish-ui.git"
   },
   "license": "MIT",
   "author": "Gabriel Silva <gbos360@hotmail.com>",

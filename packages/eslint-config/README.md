@@ -1,11 +1,11 @@
 ## Installation
 
 ```bash
-npm install eslint-config-acme
+npm install eslint-config-wish
 # or
-yarn add eslint-config-acme
+yarn add eslint-config-wish
 # or
-pnpm add eslint-config-acme
+pnpm add eslint-config-wish
 ```
 
 ## How to use it

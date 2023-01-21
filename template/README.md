@@ -1,11 +1,11 @@
 ## Installation
 
 ```bash
-npm install @acme/template-primitive
+npm install @wish-ui/template-primitive
 # or
-yarn add @acme/template-primitive
+yarn add @wish-ui/template-primitive
 # or
-pnpm add @acme/template-primitive
+pnpm add @wish-ui/template-primitive
 ```
 
 ## How to use it
