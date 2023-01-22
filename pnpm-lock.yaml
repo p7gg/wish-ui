@@ -28,6 +28,23 @@ importers:
       turbo: 1.7.0
       typescript: 4.9.4
 
+  apps/docs:
+    specifiers:
+      '@wish-ui/tsconfig': workspace:*
+      eslint-config-wish: workspace:*
+      solid-js: ^1.6.6
+      typescript: ^4.9.4
+      vite: ^4.0.3
+      vite-plugin-solid: ^2.5.0
+    dependencies:
+      solid-js: 1.6.9
+    devDependencies:
+      '@wish-ui/tsconfig': link:../../packages/tsconfig
+      eslint-config-wish: link:../../packages/eslint-config
+      typescript: 4.9.4
+      vite: 4.0.4
+      vite-plugin-solid: 2.5.0_solid-js@1.6.9+vite@4.0.4
+
   packages/core:
     specifiers:
       '@radix-ui/colors': ^0.1.8
