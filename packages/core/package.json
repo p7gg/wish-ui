@@ -55,7 +55,7 @@
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@radix-ui/colors": "^0.1.8"
+    "@radix-ui/colors": "^0.1.8",
   },
   "devDependencies": {
     "@vanilla-extract/css": "^1.9.2",
