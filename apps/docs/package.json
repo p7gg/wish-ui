@@ -11,13 +11,13 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.9.4",
-    "vite": "^4.0.3",
-    "vite-plugin-solid": "^2.5.0",
+    "@wish-ui/tsconfig": "workspace:*",
     "eslint-config-wish": "workspace:*",
-    "@wish-ui/tsconfig": "workspace:*"
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
-    "solid-js": "^1.6.6"
+    "solid-js": "^1.6.9"
   }
 }
