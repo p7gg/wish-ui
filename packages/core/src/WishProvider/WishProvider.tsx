@@ -1,4 +1,4 @@
-import { createContext, createEffect, ParentComponent, useContext } from 'solid-js'
+import { createContext, createEffect, on, ParentComponent, useContext } from 'solid-js'
 
 import type { WishTheme, WishThemeOverrides } from '../theme'
 
@@ -18,9 +18,19 @@ export const useWishTheme = () => useContext(WishContext).theme
 
 export interface WishProviderProps {
   theme?: WishThemeOverrides
+  withGlobalStyles?: boolean
 }
 
 export const WishProvider: ParentComponent<WishProviderProps> = (props) => {
+  createEffect(
+    on(
+      () => props.withGlobalStyles,
+      () => {
+        if (props.withGlobalStyles) import('../theme/global.css')
+      },
+    ),
+  )
+
   createEffect(() => {
     document.documentElement.setAttribute(
       'data-wish-theme',
