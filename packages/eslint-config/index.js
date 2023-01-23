@@ -9,6 +9,26 @@ module.exports = {
     '@typescript-eslint',
     'simple-import-sort', // Plugin for sorting imports in file.
   ],
+  ignorePatterns: [
+    '*.min.*',
+    '*.d.ts',
+    'CHANGELOG.md',
+    'README.md',
+    'dist',
+    'LICENSE*',
+    'output',
+    'out',
+    'coverage',
+    'public',
+    'temp',
+    'package-lock.json',
+    'pnpm-lock.yaml',
+    'yarn.lock',
+    '__snapshots__',
+    '!.github',
+    '!.vitepress',
+    '!.vscode',
+  ],
   rules: {
     'no-console': 'warn',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -76,7 +96,7 @@ module.exports = {
           {
             groups: [
               // `solid` first, `wish-ui` second
-              ['^solid', '^wish-ui'],
+              ['^solid', '^@wish-ui'],
               // Packages starting with `@`
               ['^@'],
               // Packages starting with a character
