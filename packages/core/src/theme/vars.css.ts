@@ -1,11 +1,15 @@
+import { blackA, whiteA } from '@radix-ui/colors'
 import { createGlobalTheme } from '@vanilla-extract/css'
 
-import { colorVars } from './colorVars.css'
+import { themeVars } from './theme-vars.css'
 
-export const rootVars = createGlobalTheme(':root', {
+const rootVars = createGlobalTheme(':root', {
   colors: {
     white: 'rgb(255, 255, 255)',
     black: 'rgb(0, 0, 0)',
+
+    ...blackA,
+    ...whiteA,
   },
   fonts: {
     sans: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
@@ -25,11 +29,11 @@ export const rootVars = createGlobalTheme(':root', {
     black: '900',
   },
   fontSizes: {
-    xs: '12px',
-    sm: '14px',
-    md: '16px',
-    lg: '18px',
-    xl: '20px',
+    xs: '.75rem',
+    sm: '.875rem',
+    md: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
   },
   lineHeights: {
     none: '1',
@@ -40,21 +44,21 @@ export const rootVars = createGlobalTheme(':root', {
     loose: '2',
   },
   radii: {
-    xs: '2px',
-    sm: '4px',
-    md: '8px',
-    lg: '16px',
-    xl: '32px',
+    xs: '.125rem',
+    sm: '.25rem',
+    md: '.5rem',
+    lg: '1rem',
+    xl: '2rem',
   },
   spaces: {
     auto: 'auto',
     px: '1px',
     0: '0',
-    xs: '10px',
-    sm: '12px',
-    md: '16px',
-    lg: '20px',
-    xl: '24px',
+    xs: '.625rem',
+    sm: '.75rem',
+    md: '1rem',
+    lg: '1.25rem',
+    xl: '1.5rem',
   },
   shadows: {
     xs: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)',
@@ -69,6 +73,6 @@ export const vars = {
   ...rootVars,
   colors: {
     ...rootVars.colors,
-    ...colorVars,
+    ...themeVars,
   },
 }
