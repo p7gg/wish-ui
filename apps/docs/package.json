@@ -15,9 +15,15 @@
     "eslint-config-wish": "workspace:*",
     "typescript": "^4.9.4",
     "vite": "^4.0.4",
-    "vite-plugin-solid": "^2.5.0"
+    "vite-plugin-solid": "^2.5.0",
+    "@vanilla-extract/css": "^1.9.2",
+    "@vanilla-extract/css-utils": "^0.1.3",
+    "@vanilla-extract/recipes": "^0.3.0",
+    "rainbow-sprinkles": "^0.15.1",
+    "@wish-ui/vite-plugin": "workspace:*"
   },
   "dependencies": {
-    "solid-js": "^1.6.9"
+    "solid-js": "^1.6.9",
+    "@wish-ui/core": "workspace:*"
   }
 }
