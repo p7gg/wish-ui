@@ -1,4 +1,5 @@
 import { createRainbowSprinkles, defineProperties } from 'rainbow-sprinkles'
+import type { Simplify } from '../types'
 
 import { vars } from './vars.css'
 
@@ -92,9 +93,7 @@ const interactiveProperties = defineProperties({
   },
 })
 
-export const rainbowSprinkles = createRainbowSprinkles(responsiveProperties, interactiveProperties)
+export const atomicStyles = createRainbowSprinkles(responsiveProperties, interactiveProperties)
 
-export type _Sprinkles = Parameters<typeof rainbowSprinkles>[0]
-export type Sprinkles = {
-  [K in keyof _Sprinkles]: _Sprinkles[K]
-}
+export type _AtomicStyles = Parameters<typeof atomicStyles>[0]
+export type AtomicStyles = Simplify<_AtomicStyles>
