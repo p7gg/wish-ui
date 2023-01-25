@@ -1,4 +1,5 @@
 export * from './Box'
 export * from './theme'
+export * from './UnstyledButton'
 export * from './utils'
 export * from './WishProvider'

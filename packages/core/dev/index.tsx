@@ -2,9 +2,9 @@
 import { Component, createSignal } from 'solid-js'
 import { render } from 'solid-js/web'
 
-import { Box, ColorMode, WishProvider } from '../src'
+import { Box, ColorMode, UnstyledButton, WishProvider } from '../src'
 
-const [colorMode, setColorMode] = createSignal<ColorMode>('light')
+const [colorMode, setColorMode] = createSignal<ColorMode>('dark')
 const toggleColorMode = () => setColorMode((prev) => (prev === 'dark' ? 'light' : 'dark'))
 
 const App: Component = () => {
@@ -14,10 +14,15 @@ const App: Component = () => {
   return (
     <>
       <button onClick={toggleColorMode}>toggle</button>
-      <Box mt={`${count()}px`} backgroundColor="$red10">
+
+      <Box
+        mt={`${count()}px`}
+        backgroundColor="$red10"
+        display={{ mobile: 'flex', desktop: 'grid' }}
+      >
         <h4>Counter component</h4>
         <p>it's very important...</p>
-        <button onClick={increment}>{count()}</button>
+        <UnstyledButton onClick={increment}>{count()}</UnstyledButton>
       </Box>
     </>
   )
@@ -25,7 +30,7 @@ const App: Component = () => {
 
 render(() => {
   return (
-    <WishProvider theme={{ colorMode: colorMode() }}>
+    <WishProvider withGlobalStyles theme={{ colorMode: colorMode() }}>
       <App />
     </WishProvider>
   )
