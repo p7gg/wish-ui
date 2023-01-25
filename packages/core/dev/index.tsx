@@ -5,6 +5,7 @@ import { render } from 'solid-js/web'
 
 import {
   Box,
+  Button,
   ColorMode,
   Loader,
   UnstyledButton,
@@ -27,7 +28,7 @@ const App: Component = () => {
 
   return (
     <>
-      <button onClick={toggleColorMode}>toggle</button>
+      <Button onClick={toggleColorMode}>toggle</Button>
 
       <select
         value={theme.primaryColor}
@@ -38,11 +39,7 @@ const App: Component = () => {
 
       <Loader />
 
-      <Box
-        mt={`${count()}px`}
-        backgroundColor="$red10"
-        display={{ mobile: 'flex', desktop: 'grid' }}
-      >
+      <Box mt={`${count()}px`} backgroundColor="$red10">
         <h4>Counter component</h4>
         <p>it's very important...</p>
         <UnstyledButton onClick={increment}>{count()}</UnstyledButton>

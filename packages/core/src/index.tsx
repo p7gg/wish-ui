@@ -1,4 +1,5 @@
 export * from './Box'
+export * from './Button'
 export * from './constants'
 export * from './css'
 export * from './Loader'
