@@ -1,6 +1,7 @@
 export * from './Box'
 export * from './constants'
 export * from './css'
+export * from './Loader'
 export * from './theme'
 export * from './types'
 export * from './UnstyledButton'

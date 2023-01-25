@@ -9,6 +9,7 @@ const defaultValue: WishContextValue = {
   theme: {
     colorMode: 'light',
     primaryColor: 'blue',
+    defaultLoader: 'oval',
   },
 }
 
@@ -46,6 +47,9 @@ export const WishProvider: ParentComponent<WishProviderProps> = (props) => {
       },
       get primaryColor() {
         return props.theme?.primaryColor ?? defaultValue.theme.primaryColor
+      },
+      get defaultLoader() {
+        return props.theme?.defaultLoader ?? defaultValue.theme.defaultLoader
       },
     },
   }

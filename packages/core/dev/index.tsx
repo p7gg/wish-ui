@@ -1,11 +1,25 @@
 /* @refresh reload */
-import { Component, createSignal } from 'solid-js'
+import { Component, createSignal, For } from 'solid-js'
+import { createStore } from 'solid-js/store'
 import { render } from 'solid-js/web'
 
-import { Box, ColorMode, UnstyledButton, WishProvider } from '../src'
+import {
+  Box,
+  ColorMode,
+  Loader,
+  UnstyledButton,
+  WishColor,
+  wishColors,
+  WishProvider,
+  WishThemeOverrides,
+} from '../src'
 
-const [colorMode, setColorMode] = createSignal<ColorMode>('dark')
-const toggleColorMode = () => setColorMode((prev) => (prev === 'dark' ? 'light' : 'dark'))
+const [theme, setTheme] = createStore<WishThemeOverrides>({
+  colorMode: 'dark',
+  primaryColor: 'blue',
+  defaultLoader: 'bars',
+})
+const toggleColorMode = () => setTheme('colorMode', (pv) => (pv === 'dark' ? 'light' : 'dark'))
 
 const App: Component = () => {
   const [count, setCount] = createSignal(0)
@@ -14,6 +28,15 @@ const App: Component = () => {
   return (
     <>
       <button onClick={toggleColorMode}>toggle</button>
+
+      <select
+        value={theme.primaryColor}
+        onChange={(e) => setTheme('primaryColor', e.currentTarget.value as any)}
+      >
+        <For each={wishColors}>{(cs) => <option value={cs}>{cs}</option>}</For>
+      </select>
+
+      <Loader />
 
       <Box
         mt={`${count()}px`}
@@ -30,7 +53,7 @@ const App: Component = () => {
 
 render(() => {
   return (
-    <WishProvider withGlobalStyles theme={{ colorMode: colorMode() }}>
+    <WishProvider withGlobalStyles theme={theme}>
       <App />
     </WishProvider>
   )
