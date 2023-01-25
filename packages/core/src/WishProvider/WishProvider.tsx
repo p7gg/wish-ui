@@ -8,6 +8,7 @@ type WishContextValue = {
 const defaultValue: WishContextValue = {
   theme: {
     colorMode: 'light',
+    primaryColor: 'blue',
   },
 }
 
@@ -42,6 +43,9 @@ export const WishProvider: ParentComponent<WishProviderProps> = (props) => {
     theme: {
       get colorMode() {
         return props.theme?.colorMode ?? defaultValue.theme.colorMode
+      },
+      get primaryColor() {
+        return props.theme?.primaryColor ?? defaultValue.theme.primaryColor
       },
     },
   }

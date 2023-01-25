@@ -5,6 +5,7 @@ import { combineProps } from '@solid-primitives/props'
 
 import { AtomicStyles, atomicStyles } from '../theme'
 import { createPolymorphicComponent } from '../utils'
+import { useWishTheme } from '../WishProvider'
 
 import { unstyledButton, UnstyledButtonVariantProps } from './UnstyledButton.css'
 
@@ -13,6 +14,8 @@ export type UnstyledButtonProps = KButtonProps & UnstyledButtonVariantProps & At
 
 export const UnstyledButton = createPolymorphicComponent<'button', UnstyledButtonProps>(
   (_props) => {
+    const theme = useWishTheme()
+
     const [variants, atomicProps, rest] = splitProps(
       _props,
       ['colorScheme'],
@@ -24,7 +27,9 @@ export const UnstyledButton = createPolymorphicComponent<'button', UnstyledButto
       {
         as: 'button',
         get class() {
-          return `${unstyledButton(variants)} ${atoms().className}`
+          return `${unstyledButton({
+            colorScheme: variants.colorScheme ?? theme.primaryColor,
+          })} ${atoms().className}`
         },
         get style() {
           return atoms().style
