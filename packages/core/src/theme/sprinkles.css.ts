@@ -1,7 +1,8 @@
 import { createRainbowSprinkles, defineProperties } from 'rainbow-sprinkles'
-import type { Simplify } from '../types'
 
 import { vars } from './vars.css'
+
+import type { Simplify } from '../types'
 
 const responsiveProperties = defineProperties({
   conditions: {

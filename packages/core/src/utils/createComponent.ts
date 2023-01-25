@@ -1,5 +1,5 @@
-import type { Component, ComponentProps, JSX } from 'solid-js'
 import type { Simplify } from '../types'
+import type { Component, ComponentProps, JSX } from 'solid-js'
 
 /** Any HTML element or SolidJS component. */
 export type ValidComponent = keyof JSX.IntrinsicElements | Component<any> | (string & {})

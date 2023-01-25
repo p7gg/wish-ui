@@ -3,7 +3,7 @@ import { Dynamic } from 'solid-js/web'
 
 import { combineProps } from '@solid-primitives/props'
 
-import { atomicStyles, AtomicStyles } from '../theme'
+import { AtomicStyles, atomicStyles } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 
 export type BoxProps = AtomicStyles

@@ -26,7 +26,7 @@ export const WishProvider: ParentComponent<WishProviderProps> = (props) => {
     on(
       () => props.withGlobalStyles,
       () => {
-        if (props.withGlobalStyles) import('../theme/global.css')
+        if (props.withGlobalStyles) import('../css/global.css')
       },
     ),
   )
