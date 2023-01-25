@@ -22,9 +22,7 @@ const App: Component = () => {
       >
         <h4>Counter component</h4>
         <p>it's very important...</p>
-        <UnstyledButton onClick={increment} bg="$amber6">
-          {count()}
-        </UnstyledButton>
+        <UnstyledButton onClick={increment}>{count()}</UnstyledButton>
       </Box>
     </>
   )
