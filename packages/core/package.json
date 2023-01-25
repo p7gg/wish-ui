@@ -41,6 +41,7 @@
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },
   "dependencies": {
+    "@kobalte/core": "^0.4.0",
     "@radix-ui/colors": "^0.1.8",
     "@solid-primitives/props": "^3.0.2"
   },
