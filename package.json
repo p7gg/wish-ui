@@ -11,6 +11,7 @@
     "dev:docs": "pnpm run build:libs && turbo run dev --filter=@wish-ui/docs",
     "build:libs": "turbo run build --filter=./packages/*",
     "dev:core": "turbo run build --filter=@wish-ui/core^... && turbo run dev --filter=@wish-ui/core",
+    "storybook": "turbo run build --filter=@wish-ui/core^... && turbo run storybook",
     "clean": "turbo run clean && rimraf node_modules",
     "format": "prettier -w **/*.{js,ts,json,css,tsx,jsx,md,html}",
     "preinstall": "npx -y only-allow pnpm",
