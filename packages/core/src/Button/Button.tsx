@@ -41,9 +41,8 @@ export type ButtonProps = KButtonProps &
 export const Button = createPolymorphicComponent<'button', ButtonProps>((_props) => {
   const theme = useWishTheme()
 
-  const [local, variants, atomicProps, rest] = splitProps(
+  const [variants, atomicProps, rest] = splitProps(
     _props,
-    ['leftIcon', 'rightIcon', 'loaderPosition', 'children'],
     ['variant', 'colorScheme', 'size', 'radius', 'fullWidth', 'loading', 'compact', 'uppercase'],
     [...atomicStyles.properties.keys()],
   )
@@ -52,6 +51,9 @@ export const Button = createPolymorphicComponent<'button', ButtonProps>((_props)
   const props = combineProps(
     {
       as: 'button',
+      loaderPosition: 'left',
+      'data-loading': variants.loading ? '' : undefined,
+      'data-disabled': _props.disabled ? '' : undefined,
       get class() {
         return `${button({
           colorScheme: variants.colorScheme ?? theme.primaryColor,
@@ -63,10 +65,10 @@ export const Button = createPolymorphicComponent<'button', ButtonProps>((_props)
           uppercase: variants.uppercase ?? false,
           variant: variants.variant ?? 'filled',
           get withLeftIcon() {
-            return !!local.leftIcon
+            return !!_props.leftIcon
           },
           get withRightIcon() {
-            return !!local.rightIcon
+            return !!_props.rightIcon
           },
         })} ${atoms().className}`
       },
@@ -76,6 +78,8 @@ export const Button = createPolymorphicComponent<'button', ButtonProps>((_props)
     } as const,
     rest,
   )
+
+  const [local, others] = splitProps(props, ['leftIcon', 'rightIcon', 'loaderPosition', 'children'])
 
   const loader = (
     <Loader
@@ -88,7 +92,7 @@ export const Button = createPolymorphicComponent<'button', ButtonProps>((_props)
   )
 
   return (
-    <KButton.Root {...props}>
+    <KButton.Root {...others}>
       <div class={inner}>
         <Show when={local.leftIcon || (variants.loading && local.loaderPosition === 'left')}>
           <span class={leftIcon}>

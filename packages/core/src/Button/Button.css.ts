@@ -180,7 +180,7 @@ const root = recipe({
     },
 
     selectors: {
-      '&:disabled, &[data-wish-disabled]': {
+      '&:disabled, &[data-disabled]': {
         borderColor: 'transparent',
         backgroundColor: vars.colors.gray3,
         color: vars.colors.gray11,
@@ -189,7 +189,7 @@ const root = recipe({
         pointerEvents: 'none',
       },
 
-      '&:disabled:active, &[data-wish-disabled]:active': {
+      '&:disabled:active, &[data-disabled]:active': {
         transform: 'none',
       },
     },
@@ -283,11 +283,11 @@ const root = recipe({
     loading: {
       true: {
         selectors: {
-          '&[data-wish-loading]': {
+          '&[data-loading]': {
             pointerEvents: 'none',
           },
 
-          '&[data-wish-loading]::before': {
+          '&[data-loading]::before': {
             content: '""',
             position: 'absolute',
             inset: -1,
@@ -302,7 +302,7 @@ const root = recipe({
                 backgroundColor: 'hsla(225, 7%, 11%, .5)',
               },
             },
-            '&[data-wish-loading]::before',
+            '&[data-loading]::before',
           ),
         },
       },
