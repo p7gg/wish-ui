@@ -1,0 +1,41 @@
+{
+  "name": "@wish-ui/storybook",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A template example.",
+  "keywords": [
+    "solid"
+  ],
+  "homepage": "https://github.com/p7gg/wish-ui/tree/main/packages/storybook#readme",
+  "bugs": {
+    "url": "https://github.com/p7gg/wish-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p7gg/wish-ui.git"
+  },
+  "license": "MIT",
+  "author": "Gabriel Silva <gbos360@hotmail.com>",
+  "contributors": [],
+  "sideEffects": false,
+  "type": "module",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "clean": "rimraf .turbo dist coverage node_modules",
+    "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
+  },
+  "devDependencies": {
+    "@wish-ui/tsconfig": "workspace:*",
+    "eslint": "^8.32.0",
+    "eslint-config-wish": "workspace:*",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "vite-plugin-solid": "^2.5.0",
+    "@wish-ui/vite-plugin": "workspace:*"
+  },
+  "dependencies": {
+    "solid-js": "^1.6.9"
+  }
+}
