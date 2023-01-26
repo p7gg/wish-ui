@@ -347,6 +347,12 @@ export const label = style({
   overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
+
+  selectors: {
+    [`${root({ uppercase: true }).split(' ')[1]} &`]: {
+      textTransform: 'uppercase',
+    },
+  },
 })
 const icon = style({
   display: 'flex',
