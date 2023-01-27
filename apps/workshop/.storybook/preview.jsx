@@ -5,7 +5,7 @@ import { themes } from '@storybook/theming'
 import { addons } from '@storybook/addons'
 import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode'
 
-import { WishProvider } from '../../core/src'
+import { WishProvider } from '@wish-ui/core'
 
 let disposeStory
 const channel = addons.getChannel()

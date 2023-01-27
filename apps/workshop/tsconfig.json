@@ -1,0 +1,11 @@
+{
+  "extends": "@wish-ui/tsconfig/solid.json",
+  "include": ["./**/*"],
+  "exclude": ["node_modules", "./dist"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~core/*": ["../../packages/core/src/*"]
+    }
+  }
+}

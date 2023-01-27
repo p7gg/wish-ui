@@ -1,4 +1,0 @@
-{
-  "extends": "@wish-ui/tsconfig/solid.json",
-  "exclude": ["node_modules", "./dist"]
-}

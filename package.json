@@ -36,12 +36,5 @@
   "packageManager": "pnpm@7.24.3",
   "engines": {
     "node": ">=16.0.0"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "vite": "4"
-      }
-    }
   }
 }

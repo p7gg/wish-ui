@@ -1,10 +1,9 @@
 import { StorybookConfig } from '@storybook/html-vite'
 import { mergeConfig } from 'vite'
-import solidPlugin from 'vite-plugin-solid'
-import { vanillaExtractPlugin } from '@wish-ui/vite-plugin'
+import viteConfig from '../vite.config'
 
 const config: StorybookConfig = {
-  stories: ['../../core/src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.tsx'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -23,9 +22,7 @@ const config: StorybookConfig = {
     storyStoreV7: true,
   },
   viteFinal(config) {
-    return mergeConfig(config, {
-      plugins: [vanillaExtractPlugin(), solidPlugin()],
-    })
+    return mergeConfig(config, viteConfig)
   },
 }
 

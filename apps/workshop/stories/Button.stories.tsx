@@ -2,11 +2,10 @@ import { For } from 'solid-js'
 
 import { action } from '@storybook/addon-actions'
 
-import { Box } from '../Box'
-import { wishColors, wishSizes } from '../constants'
-import { vars } from '../theme'
-
-import { Button } from './Button'
+import { Box } from '~core/Box'
+import { Button } from '~core/Button'
+import { wishColors, wishSizes } from '~core/constants'
+import { vars } from '~core/theme'
 
 const BUTTON_VARIANTS = ['filled', 'subtle', 'outline', 'light', 'default'] as const
 const BUTTON_LOADER_POSITIONS = ['left', 'right', 'center'] as const

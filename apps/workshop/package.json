@@ -1,5 +1,5 @@
 {
-  "name": "@wish-ui/storybook",
+  "name": "@wish-ui/workshop",
   "version": "0.0.0",
   "private": false,
   "description": "A template example.",
@@ -29,24 +29,29 @@
     "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
-    "solid-js": "^1.6.9"
+    "solid-js": "^1.6.9",
+    "@wish-ui/core": "workspace:*"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@storybook/addon-a11y": "7.0.0-beta.34",
+    "@storybook/addon-actions": "7.0.0-beta.34",
     "@storybook/addon-essentials": "7.0.0-beta.34",
     "@storybook/addon-interactions": "7.0.0-beta.34",
     "@storybook/addon-links": "7.0.0-beta.34",
+    "@storybook/addons": "7.0.0-beta.34",
     "@storybook/blocks": "7.0.0-beta.34",
     "@storybook/html": "7.0.0-beta.34",
     "@storybook/html-vite": "7.0.0-beta.34",
-    "@storybook/addons": "7.0.0-beta.34",
     "@storybook/testing-library": "0.0.13",
-    "@storybook/addon-a11y": "7.0.0-beta.34",
-    "@storybook/addon-actions": "7.0.0-beta.34",
     "@storybook/theming": "7.0.0-beta.34",
-    "storybook-dark-mode": "2.0.5",
+    "@vanilla-extract/css": "^1.9.2",
+    "@vanilla-extract/css-utils": "^0.1.3",
+    "@vanilla-extract/dynamic": "^2.0.3",
+    "@vanilla-extract/recipes": "^0.3.0",
+    "@vanilla-extract/sprinkles": "^1.5.1",
     "@wish-ui/tsconfig": "workspace:*",
     "@wish-ui/vite-plugin": "workspace:*",
     "eslint": "^8.32.0",
@@ -54,13 +59,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "storybook": "7.0.0-beta.34",
+    "storybook-dark-mode": "2.0.5",
     "typescript": "^4.9.4",
     "vite": "^4.0.4",
-    "@vanilla-extract/css": "^1.9.2",
-    "@vanilla-extract/css-utils": "^0.1.3",
-    "@vanilla-extract/dynamic": "^2.0.3",
-    "@vanilla-extract/recipes": "^0.3.0",
-    "@vanilla-extract/sprinkles": "^1.5.1",
     "vite-plugin-solid": "^2.5.0"
   }
 }
