@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-wish",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "Wish-UI eslint config.",
   "keywords": [
     "solid",
