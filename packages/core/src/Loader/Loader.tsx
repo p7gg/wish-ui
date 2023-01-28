@@ -1,9 +1,12 @@
 import { createMemo, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
-import { combineProps } from '@solid-primitives/props'
+import { combineProps, combineStyle } from '@solid-primitives/props'
 
-import { AtomicStyles, atomicStyles } from '../theme'
+import { clsx } from 'clsx'
+
+import { atomicStyles, AtomicStylesProps } from '../theme'
+import { createComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
 import { loader } from './Loader.css'
@@ -209,34 +212,35 @@ const LOADERS = {
   oval: Oval,
 }
 
-export type LoaderProps = SvgHTMLAttributes & LoaderVariants & AtomicStyles
+export type LoaderProps = LoaderVariants & AtomicStylesProps
 
-export const Loader: Component<LoaderProps> = (_props) => {
+export const Loader = createComponent<'svg', LoaderProps>((_props) => {
   const theme = useWishTheme()
-
-  const [variants, atomicProps, rest] = splitProps(
+  const props = combineProps(
+    {
+      get as() {
+        return LOADERS[_props.variant ?? theme.defaultLoader]
+      },
+    },
     _props,
+  )
+
+  const [local, variants, atomics, others] = splitProps(
+    props,
+    ['as', 'class', 'style'],
     ['variant', 'colorScheme', 'size'],
     [...atomicStyles.properties.keys()],
   )
-  const atoms = createMemo(() => atomicStyles(atomicProps))
 
-  const props = combineProps(
-    {
-      component: LOADERS[variants.variant ?? theme.defaultLoader],
-      get class() {
-        return `${loader({
-          colorScheme: variants.colorScheme ?? theme.primaryColor,
-          variant: variants.variant ?? theme.defaultLoader,
-          size: 'md',
-        })} ${atoms().className}`
-      },
-      get style() {
-        return atoms().style
-      },
-    } as const,
-    rest,
+  const atoms = createMemo(() => atomicStyles(atomics))
+
+  return (
+    <Dynamic
+      role="presentation"
+      component={local.as}
+      class={clsx(loader(variants), atoms().className, local.class)}
+      style={combineStyle(atoms().style, local.style ?? {})}
+      {...others}
+    />
   )
-
-  return <Dynamic role="presentation" {...props} />
-}
+})

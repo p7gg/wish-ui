@@ -96,5 +96,5 @@ const interactiveProperties = defineProperties({
 
 export const atomicStyles = createRainbowSprinkles(responsiveProperties, interactiveProperties)
 
-export type _AtomicStyles = Parameters<typeof atomicStyles>[0]
-export type AtomicStyles = Simplify<_AtomicStyles>
+type _AtomicStylesProps = Parameters<typeof atomicStyles>[0]
+export type AtomicStylesProps = Simplify<_AtomicStylesProps>

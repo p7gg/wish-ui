@@ -1,12 +1,14 @@
-import { ComponentProps, createMemo, Show, splitProps } from 'solid-js'
+import { createMemo, Show, splitProps } from 'solid-js'
 
 import { Button as KButton } from '@kobalte/core'
-import { combineProps } from '@solid-primitives/props'
+import { combineProps, combineStyle } from '@solid-primitives/props'
 import { calc } from '@vanilla-extract/css-utils'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 
+import { clsx } from 'clsx'
+
 import { Loader } from '../Loader'
-import { AtomicStyles, atomicStyles } from '../theme'
+import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
@@ -14,7 +16,6 @@ import { loaderSizeVar } from '../Loader/Loader.css'
 import {
   button,
   buttonHeightVar,
-  ButtonVariantProps,
   centerLoader,
   inner,
   label,
@@ -22,64 +23,82 @@ import {
   rightIcon,
 } from './Button.css'
 
+import type { WishColor, WishSize } from '../constants'
 import type { JSX } from 'solid-js'
 
-type KButtonProps = ComponentProps<typeof KButton.Root>
-export type ButtonProps = KButtonProps &
-  ButtonVariantProps &
-  AtomicStyles & {
-    /** Adds icon before button label  */
-    leftIcon?: JSX.Element
+export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProps {
+  /** Predefined button size */
+  size?: WishSize
 
-    /** Adds icon after button label  */
-    rightIcon?: JSX.Element
+  /** Button color from theme */
+  colorScheme?: WishColor
 
-    /** Loader position relative to button label */
-    loaderPosition?: 'left' | 'right' | 'center'
-  }
+  /** Adds icon before button label  */
+  leftIcon?: JSX.Element
+
+  /** Adds icon after button label  */
+  rightIcon?: JSX.Element
+
+  /** Sets button width to 100% of root element */
+  fullWidth?: boolean
+
+  /** Button border-radius from theme */
+  radius?: WishSize
+
+  /** Controls button appearance */
+  variant?: 'filled' | 'light' | 'subtle' | 'outline' | 'default'
+
+  /** Reduces vertical and horizontal spacing */
+  compact?: boolean
+
+  /** Indicate loading state */
+  loading?: boolean
+
+  /** Loader position relative to button label */
+  loaderPosition?: 'left' | 'right' | 'center'
+}
 
 export const Button = createPolymorphicComponent<'button', ButtonProps>((_props) => {
   const theme = useWishTheme()
-
-  const [variants, atomicProps, rest] = splitProps(
-    _props,
-    ['variant', 'colorScheme', 'size', 'radius', 'fullWidth', 'loading', 'compact', 'uppercase'],
-    [...atomicStyles.properties.keys()],
-  )
-  const atoms = createMemo(() => atomicStyles(atomicProps))
-
   const props = combineProps(
     {
       as: 'button',
       loaderPosition: 'left',
-      'data-loading': variants.loading ? '' : undefined,
-      'data-disabled': _props.disabled ? '' : undefined,
-      get class() {
-        return `${button({
-          colorScheme: variants.colorScheme ?? theme.primaryColor,
-          compact: variants.compact ?? false,
-          fullWidth: variants.fullWidth ?? false,
-          loading: variants.loading ?? false,
-          radius: variants.radius ?? 'sm',
-          size: variants.size ?? 'sm',
-          uppercase: variants.uppercase ?? false,
-          variant: variants.variant ?? 'filled',
-          get withLeftIcon() {
-            return !!_props.leftIcon
-          },
-          get withRightIcon() {
-            return !!_props.rightIcon
-          },
-        })} ${atoms().className}`
-      },
-      get style() {
-        return atoms().style
+      variant: 'filled',
+      size: 'sm',
+      radius: 'sm',
+      fullWidth: false,
+      loading: false,
+      compact: false,
+      uppercase: false,
+      withLeftIcon: !!_props.leftIcon,
+      withRightIcon: !!_props.rightIcon,
+      get colorScheme() {
+        return _props.colorScheme ?? theme.primaryColor
       },
     } as const,
-    rest,
+    _props,
   )
 
-  const [local, others] = splitProps(props, ['leftIcon', 'rightIcon', 'loaderPosition', 'children'])
+  const [local, variants, atomics, others] = splitProps(
+    props,
+    ['children', 'class', 'style', 'leftIcon', 'rightIcon', 'loaderPosition'],
+    [
+      'variant',
+      'colorScheme',
+      'size',
+      'radius',
+      'fullWidth',
+      'loading',
+      'compact',
+      'uppercase',
+      'withRightIcon',
+      'withLeftIcon',
+    ],
+    [...atomicStyles.properties.keys()],
+  )
+
+  const atoms = createMemo(() => atomicStyles(atomics))
 
   const loader = (
     <Loader
@@ -92,7 +111,11 @@ export const Button = createPolymorphicComponent<'button', ButtonProps>((_props)
   )
 
   return (
-    <KButton.Root {...others}>
+    <KButton.Root
+      class={clsx(button(variants), atoms().className, local.class)}
+      style={combineStyle(atoms().style, local.style ?? {})}
+      {...(others as any)}
+    >
       <div class={inner}>
         <Show when={local.leftIcon || (variants.loading && local.loaderPosition === 'left')}>
           <span class={leftIcon}>

@@ -1,12 +1,12 @@
 import { createVar, style } from '@vanilla-extract/css'
-import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
+import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors, wishSizes } from '../constants'
 import { focusStyles } from '../css'
 import { vars } from '../theme'
 import { recipes, withColorMode } from '../utils'
 
-import type { CompoundVariant, Simplify } from '../types'
+import type { CompoundVariant } from '../types'
 
 export const buttonHeightVar = createVar()
 const buttonPaddingLVar = createVar()
@@ -179,17 +179,17 @@ const root = recipe({
       backgroundColor: buttonBgColorActiveVar,
     },
 
-    selectors: {
-      '&:disabled, &[data-disabled]': {
-        borderColor: 'transparent',
-        backgroundColor: vars.colors.gray3,
-        color: vars.colors.gray11,
-        cursor: 'not-allowed',
-        backgroundImage: 'none',
-        pointerEvents: 'none',
-      },
+    ':disabled': {
+      borderColor: 'transparent',
+      backgroundColor: vars.colors.gray3,
+      color: vars.colors.gray11,
+      cursor: 'not-allowed',
+      backgroundImage: 'none',
+      pointerEvents: 'none',
+    },
 
-      '&:disabled:active, &[data-disabled]:active': {
+    selectors: {
+      '&:disabled:active': {
         transform: 'none',
       },
     },
@@ -282,27 +282,25 @@ const root = recipe({
     },
     loading: {
       true: {
+        pointerEvents: 'none',
+
+        '::before': {
+          content: '""',
+          position: 'absolute',
+          inset: -1,
+          backgroundColor: 'hsla(0, 0%, 100%, .5)',
+          borderRadius: buttonRadiiVar,
+          cursor: 'not-allowed',
+        },
+
         selectors: {
-          '&[data-loading]': {
-            pointerEvents: 'none',
-          },
-
-          '&[data-loading]::before': {
-            content: '""',
-            position: 'absolute',
-            inset: -1,
-            backgroundColor: 'hsla(0, 0%, 100%, .5)',
-            borderRadius: buttonRadiiVar,
-            cursor: 'not-allowed',
-          },
-
           ...withColorMode(
             {
               dark: {
                 backgroundColor: 'hsla(225, 7%, 11%, .5)',
               },
             },
-            '&[data-loading]::before',
+            '&::before',
           ),
         },
       },
@@ -378,5 +376,4 @@ export const centerLoader = style({
   opacity: 0.5,
 })
 
-export type ButtonVariantProps = Simplify<RecipeVariants<typeof root>>
 export const button = recipes(root, focusStyles)

@@ -1,28 +1,35 @@
 import { createMemo, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
-import { combineProps } from '@solid-primitives/props'
+import { combineProps, combineStyle } from '@solid-primitives/props'
 
-import { AtomicStyles, atomicStyles } from '../theme'
+import { clsx } from 'clsx'
+
+import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 
-export type BoxProps = AtomicStyles
+export type BoxProps = AtomicStylesProps
 
 export const Box = createPolymorphicComponent<'div', BoxProps>((_props) => {
-  const [atomicProps, rest] = splitProps(_props, [...atomicStyles.properties.keys()])
-  const atoms = createMemo(() => atomicStyles(atomicProps))
   const props = combineProps(
     {
-      component: 'div',
-      get class() {
-        return atoms().className
-      },
-      get style() {
-        return atoms().style
-      },
+      as: 'div',
     },
-    rest,
+    _props,
   )
+  const [local, atomics, others] = splitProps(
+    props,
+    ['as', 'class', 'style'],
+    [...atomicStyles.properties.keys()],
+  )
+  const atoms = createMemo(() => atomicStyles(atomics))
 
-  return <Dynamic {...props} />
+  return (
+    <Dynamic
+      component={local.as}
+      class={clsx(atoms().className, local.class)}
+      style={combineStyle(atoms().style, local.style ?? {})}
+      {...others}
+    />
+  )
 })

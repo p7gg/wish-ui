@@ -1,10 +1,8 @@
-import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
+import { recipe } from '@vanilla-extract/recipes'
 
 import { focusStyles } from '../css'
 import { vars } from '../theme'
 import { recipes, withColorMode } from '../utils'
-
-export type UnstyledButtonVariantProps = RecipeVariants<typeof unstyledButton>
 
 const root = recipe({
   base: {

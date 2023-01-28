@@ -1,43 +1,50 @@
-import { ComponentProps, createMemo, splitProps } from 'solid-js'
+import { createMemo, splitProps } from 'solid-js'
 
 import { Button as KButton } from '@kobalte/core'
-import { combineProps } from '@solid-primitives/props'
+import { combineProps, combineStyle } from '@solid-primitives/props'
 
-import { AtomicStyles, atomicStyles } from '../theme'
+import { clsx } from 'clsx'
+
+import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
-import { unstyledButton, UnstyledButtonVariantProps } from './UnstyledButton.css'
+import { unstyledButton } from './UnstyledButton.css'
 
-type KButtonProps = ComponentProps<typeof KButton.Root>
-export type UnstyledButtonProps = KButtonProps & UnstyledButtonVariantProps & AtomicStyles & {}
+import type { WishColor } from '../constants'
+
+export interface UnstyledButtonProps extends KButton.ButtonRootOptions, AtomicStylesProps {
+  /** Color applied to focus-ring */
+  colorScheme?: WishColor
+}
 
 export const UnstyledButton = createPolymorphicComponent<'button', UnstyledButtonProps>(
   (_props) => {
     const theme = useWishTheme()
-
-    const [variants, atomicProps, rest] = splitProps(
-      _props,
-      ['colorScheme'],
-      [...atomicStyles.properties.keys()],
-    )
-    const atoms = createMemo(() => atomicStyles(atomicProps))
-
     const props = combineProps(
       {
         as: 'button',
-        get class() {
-          return `${unstyledButton({
-            colorScheme: variants.colorScheme ?? theme.primaryColor,
-          })} ${atoms().className}`
+        get colorScheme() {
+          return _props.colorScheme ?? theme.primaryColor
         },
-        get style() {
-          return atoms().style
-        },
-      } as const,
-      rest,
+      },
+      _props,
     )
 
-    return <KButton.Root {...props} />
+    const [local, variants, atomics, others] = splitProps(
+      props,
+      ['class', 'style'],
+      ['colorScheme'],
+      [...atomicStyles.properties.keys()],
+    )
+    const atoms = createMemo(() => atomicStyles(atomics))
+
+    return (
+      <KButton.Root
+        class={clsx(unstyledButton(variants), atoms().className, local.class)}
+        style={combineStyle(atoms().style, local.style ?? {})}
+        {...others}
+      />
+    )
   },
 )
