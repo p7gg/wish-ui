@@ -1,7 +1,7 @@
 {
   "name": "@wish-ui/rollup-preset-solid",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "A template example.",
   "keywords": [
     "solid"
