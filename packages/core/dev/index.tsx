@@ -28,7 +28,7 @@ const App: Component = () => {
       </select>
 
       <Box p="$xl">
-        <Button uppercase={uppercase()} onPress={toggle}>
+        <Button uppercase={uppercase()} colorScheme="amber" onPress={toggle}>
           uppercase
         </Button>
       </Box>

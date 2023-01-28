@@ -21,7 +21,9 @@ export type MonomorphicProps<Type extends ValidComponent, Props = {}> = Simplify
 
 /** A component with the `as` prop. */
 export type PolymorphicComponent<DefaultType extends ValidComponent, Props = {}> = {
-  <Type extends ValidComponent>(props: PolymorphicProps<Type, Props> & { as: Type }): JSX.Element
+  <Type extends ValidComponent>(
+    props: PolymorphicProps<Type, Props> & { as?: Type | ValidComponent },
+  ): JSX.Element
   (props: PolymorphicProps<DefaultType, Props>): JSX.Element
 }
 
