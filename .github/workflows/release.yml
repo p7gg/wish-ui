@@ -10,6 +10,8 @@ env:
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 jobs:
   version:
+    permissions:
+      contents: write  # for softprops/action-gh-release to create GitHub release
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
