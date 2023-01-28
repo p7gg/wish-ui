@@ -19,6 +19,8 @@
     "lint:fix": "turbo run lint:fix",
     "new-package": "tsx ./scripts/new-package.ts",
     "update-deps": "taze -w -r -I",
+    "changeset": "changeset",
+    "ci:version": "changeset version",
     "ci:publish": "pnpm run build:libs && pnpm publish -r"
   },
   "devDependencies": {
