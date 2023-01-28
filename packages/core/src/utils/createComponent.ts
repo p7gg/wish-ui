@@ -15,12 +15,18 @@ export type PolymorphicProps<Type extends ValidComponent, Props = {}> = Simplify
   OverrideProps<ComponentProps<Type>, Props & { as?: Type | ValidComponent }>
 >
 
+export type MonomorphicProps<Type extends ValidComponent, Props = {}> = Simplify<
+  OverrideProps<ComponentProps<Type>, Props>
+>
+
 /** A component with the `as` prop. */
 export type PolymorphicComponent<DefaultType extends ValidComponent, Props = {}> = {
-  <Type extends ValidComponent>(
-    props: PolymorphicProps<Type, Props> & { component: Type },
-  ): JSX.Element
+  <Type extends ValidComponent>(props: PolymorphicProps<Type, Props> & { as: Type }): JSX.Element
   (props: PolymorphicProps<DefaultType, Props>): JSX.Element
+}
+
+export type MonomorphicComponent<DefaultType extends ValidComponent, Props = {}> = {
+  (props: MonomorphicProps<DefaultType, Props>): JSX.Element
 }
 
 /**
@@ -30,3 +36,7 @@ export type PolymorphicComponent<DefaultType extends ValidComponent, Props = {}>
 export const createPolymorphicComponent = <DefaultType extends ValidComponent, Props = {}>(
   component: Component<PolymorphicProps<DefaultType, Props>>,
 ): PolymorphicComponent<DefaultType, Props> => component
+
+export const createComponent = <DefaultType extends ValidComponent, Props = {}>(
+  component: Component<MonomorphicProps<DefaultType, Props>>,
+): MonomorphicComponent<DefaultType, Props> => component
