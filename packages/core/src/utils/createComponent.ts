@@ -35,10 +35,14 @@ export type MonomorphicComponent<DefaultType extends ValidComponent, Props = {}>
  * Create a component with the type cast to `PolymorphicComponent`.
  * You have to use `Dynamic` internally and pass the `as` prop to handle polymorphism correctly.
  */
-export const createPolymorphicComponent = <DefaultType extends ValidComponent, Props = {}>(
+export const createPolymorphicComponent = <
+  DefaultType extends ValidComponent,
+  Props = {},
+  Compositions = {},
+>(
   component: Component<PolymorphicProps<DefaultType, Props>>,
-): PolymorphicComponent<DefaultType, Props> => component
+) => component as PolymorphicComponent<DefaultType, Props> & Compositions
 
-export const createComponent = <DefaultType extends ValidComponent, Props = {}>(
+export const createComponent = <DefaultType extends ValidComponent, Props = {}, Composition = {}>(
   component: Component<MonomorphicProps<DefaultType, Props>>,
-): MonomorphicComponent<DefaultType, Props> => component
+) => component as MonomorphicComponent<DefaultType, Props> & Composition
