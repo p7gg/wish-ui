@@ -21,7 +21,7 @@
     "update-deps": "taze -w -r -I",
     "changeset": "changeset",
     "ci:version": "changeset version",
-    "ci:publish": "pnpm run build:libs && pnpm publish -r"
+    "ci:publish": "pnpm run build:libs && pnpm publish -r -no-git-checks"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
