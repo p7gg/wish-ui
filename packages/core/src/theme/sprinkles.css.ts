@@ -71,7 +71,6 @@ const responsiveProperties = defineProperties({
     marginY: ['marginTop', 'marginBottom'],
     mx: ['marginLeft', 'marginRight'],
     my: ['marginTop', 'marginBottom'],
-    size: ['height', 'width'],
   },
 })
 
