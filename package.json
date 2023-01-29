@@ -14,7 +14,6 @@
     "storybook": "turbo run build --filter=@wish-ui/core^... && turbo run storybook",
     "clean": "turbo run clean && rimraf node_modules",
     "format": "prettier -w **/*.{js,ts,json,css,tsx,jsx,md,html}",
-    "preinstall": "npx -y only-allow pnpm",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "new-package": "tsx ./scripts/new-package.ts",
