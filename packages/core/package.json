@@ -1,6 +1,6 @@
 {
   "name": "@wish-ui/core",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": false,
   "description": "A template example.",
   "keywords": [
@@ -70,5 +70,8 @@
     "@vanilla-extract/recipes": "^0.3.0",
     "rainbow-sprinkles": "^0.15.1",
     "solid-js": "^1.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

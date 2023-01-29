@@ -1,6 +1,6 @@
 {
   "name": "@wish-ui/vite-plugin",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": false,
   "description": "Vanilla extract customizations for @wish-ui styles",
   "keywords": [
@@ -19,12 +19,6 @@
   "contributors": [],
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
-  "module": "./dist/index.js",
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -40,10 +34,22 @@
       "types": "./dist/vanillaCssTsFilesLoader.d.ts"
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "clean": "rimraf .turbo dist coverage node_modules",
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
+  },
+  "dependencies": {
+    "@vanilla-extract/integration": "^6.0.2",
+    "outdent": "0.8.0",
+    "postcss": "^8.4.21",
+    "postcss-load-config": "^4.0.1"
   },
   "devDependencies": {
     "@wish-ui/tsconfig": "workspace:*",
@@ -53,13 +59,10 @@
     "typescript": "^4.9.4",
     "vite": "^4.0.4"
   },
-  "dependencies": {
-    "@vanilla-extract/integration": "^6.0.2",
-    "outdent": "0.8.0",
-    "postcss": "^8.4.21",
-    "postcss-load-config": "^4.0.1"
-  },
   "peerDependencies": {
     "vite": "^4.0.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
