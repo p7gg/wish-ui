@@ -1,6 +1,9 @@
+import { createRequire } from 'node:module'
+
 import withSolid from '@wish-ui/rollup-preset-solid'
 
-import pkg from './package.json' assert { type: 'json' }
+const require = createRequire(import.meta.url)
+const pkg = require('./package.json')
 
 const external = [
   ...Object.keys(pkg.peerDependencies),
