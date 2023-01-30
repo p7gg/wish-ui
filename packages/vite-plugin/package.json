@@ -1,8 +1,8 @@
 {
   "name": "@wish-ui/vite-plugin",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": false,
-  "description": "Vanilla extract customizations for @wish-ui styles",
+  "description": "Vanilla extract customizations for Wish-UI styles",
   "keywords": [
     "solid"
   ],
