@@ -1,4 +1,5 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, fallbackVar, style } from '@vanilla-extract/css'
+import { calc } from '@vanilla-extract/css-utils'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors, wishSizes } from '../constants'
@@ -9,44 +10,34 @@ import { recipes, withColorMode } from '../utils'
 import type { CompoundVariant } from '../types'
 
 export const buttonHeightVar = createVar()
-const buttonPaddingLVar = createVar()
-const buttonPaddingRVar = createVar()
+const buttonPaddingX = createVar()
 const buttonRadiiVar = createVar()
-const buttonFontSizeVar = createVar()
-const buttonBorderColorVar = createVar()
 const buttonBgColorVar = createVar()
-const buttonTextColorVar = createVar()
+const buttonColorVar = createVar()
 const buttonBgColorHoverVar = createVar()
 const buttonBgColorActiveVar = createVar()
-
-const sizes = {
-  xs: { height: '30px', paddingLeft: '14px', paddingRight: '14px' },
-  sm: { height: '36px', paddingLeft: '18px', paddingRight: '18px' },
-  md: { height: '42px', paddingLeft: '22px', paddingRight: '22px' },
-  lg: { height: '50px', paddingLeft: '26px', paddingRight: '26px' },
-  xl: { height: '60px', paddingLeft: '32px', paddingRight: '32px' },
-  'compact-xs': { height: '22px', paddingLeft: '7px', paddingRight: '7px' },
-  'compact-sm': { height: '26px', paddingLeft: '8px', paddingRight: '8px' },
-  'compact-md': { height: '30px', paddingLeft: '10px', paddingRight: '10px' },
-  'compact-lg': { height: '34px', paddingLeft: '12px', paddingRight: '12px' },
-  'compact-xl': { height: '40px', paddingLeft: '14px', paddingRight: '14px' },
+const buttonBorderColorVar = createVar()
+const compactSizes = {
+  xs: { height: '1.375rem', paddingX: '.4375rem' },
+  sm: { height: '1.625rem', paddingX: '.5rem' },
+  md: { height: '1.875rem', paddingX: '.625rem' },
+  lg: { height: '2.125rem', paddingX: '.75rem' },
+  xl: { height: '2.5rem', paddingX: '.875rem' },
 } as const
-const getCompactSizeCompoundVariants = (compact: boolean) => {
+
+const getCompactCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
 
   for (const size of wishSizes) {
     compoundVariants.push({
-      variants: { compact, size },
+      variants: {
+        size,
+        compact: true,
+      },
       style: {
         vars: {
-          [buttonHeightVar]: compact ? sizes[`compact-${size}`].height : sizes[size].height,
-          [buttonPaddingLVar]: compact
-            ? sizes[`compact-${size}`].paddingLeft
-            : sizes[size].paddingLeft,
-          [buttonPaddingRVar]: compact
-            ? sizes[`compact-${size}`].paddingRight
-            : sizes[size].paddingRight,
-          [buttonFontSizeVar]: vars.fontSizes[size],
+          [buttonHeightVar]: compactSizes[size].height,
+          [buttonPaddingX]: compactSizes[size].paddingX,
         },
       },
     })
@@ -54,20 +45,20 @@ const getCompactSizeCompoundVariants = (compact: boolean) => {
 
   return compoundVariants
 }
-const getFilledColorCompoundVariants = () => {
+const getFilledCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
 
   for (const colorScheme of wishColors) {
     compoundVariants.push({
       variants: {
-        variant: 'filled',
         colorScheme,
+        variant: 'filled',
       },
       style: {
         vars: {
-          [buttonBorderColorVar]: 'transparent',
           [buttonBgColorVar]: vars.colors[`${colorScheme}9`],
-          [buttonTextColorVar]: isBrightColor(colorScheme) ? vars.colors.black : vars.colors.white,
+          [buttonColorVar]: isBrightColor(colorScheme) ? vars.colors.black : vars.colors.white,
+          [buttonBorderColorVar]: 'transparent',
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}10`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}10`],
         },
@@ -77,7 +68,7 @@ const getFilledColorCompoundVariants = () => {
 
   return compoundVariants
 }
-const getLightColorCompoundVariants = () => {
+const getLightCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
 
   for (const colorScheme of wishColors) {
@@ -90,7 +81,7 @@ const getLightColorCompoundVariants = () => {
         vars: {
           [buttonBorderColorVar]: 'transparent',
           [buttonBgColorVar]: vars.colors[`${colorScheme}3`],
-          [buttonTextColorVar]: vars.colors[`${colorScheme}11`],
+          [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
         },
@@ -100,7 +91,7 @@ const getLightColorCompoundVariants = () => {
 
   return compoundVariants
 }
-const getSubtleColorCompoundVariants = () => {
+const getSubtleCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
 
   for (const colorScheme of wishColors) {
@@ -113,7 +104,7 @@ const getSubtleColorCompoundVariants = () => {
         vars: {
           [buttonBorderColorVar]: 'transparent',
           [buttonBgColorVar]: 'transparent',
-          [buttonTextColorVar]: vars.colors[`${colorScheme}11`],
+          [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
         },
@@ -123,7 +114,7 @@ const getSubtleColorCompoundVariants = () => {
 
   return compoundVariants
 }
-const getOutlineColorCompoundVariants = () => {
+const getOutlineCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
 
   for (const colorScheme of wishColors) {
@@ -136,7 +127,7 @@ const getOutlineColorCompoundVariants = () => {
         vars: {
           [buttonBorderColorVar]: vars.colors[`${colorScheme}7`],
           [buttonBgColorVar]: 'transparent',
-          [buttonTextColorVar]: vars.colors[`${colorScheme}11`],
+          [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
         },
@@ -147,24 +138,23 @@ const getOutlineColorCompoundVariants = () => {
   return compoundVariants
 }
 
-const root = recipe({
+const _root = recipe({
   base: {
     height: buttonHeightVar,
-    paddingLeft: buttonPaddingLVar,
-    paddingRight: buttonPaddingRVar,
+    paddingLeft: buttonPaddingX,
+    paddingRight: buttonPaddingX,
     borderRadius: buttonRadiiVar,
-    fontFamily: vars.fonts.sans,
-    fontWeight: vars.fontWeights.semibold,
-    fontSize: buttonFontSizeVar,
-    border: `1px solid ${buttonBorderColorVar}`,
     backgroundColor: buttonBgColorVar,
-    color: buttonTextColorVar,
-    width: 'auto',
+    color: buttonColorVar,
+    border: `.0625rem solid ${buttonBorderColorVar}`,
+    fontFamily: fallbackVar(vars.fonts.sans, 'sans-serif'),
+    fontWeight: fallbackVar(vars.fontWeights.semibold, '600'),
     display: 'inline-block',
+    width: 'auto',
     position: 'relative',
+    lineHeight: 1,
     userSelect: 'none',
     cursor: 'pointer',
-    lineHeight: 1,
     appearance: 'none',
     textAlign: 'left',
     textDecoration: 'none',
@@ -204,48 +194,48 @@ const root = recipe({
         vars: {
           [buttonBorderColorVar]: vars.colors.gray7,
           [buttonBgColorVar]: vars.colors.gray3,
-          [buttonTextColorVar]: vars.colors.gray12,
+          [buttonColorVar]: vars.colors.gray12,
           [buttonBgColorHoverVar]: vars.colors.gray4,
           [buttonBgColorActiveVar]: vars.colors.gray5,
         },
       },
     },
-    colorScheme: {
-      gray: {},
-      mauve: {},
-      slate: {},
-      sage: {},
-      olive: {},
-      sand: {},
-      tomato: {},
-      red: {},
-      crimson: {},
-      pink: {},
-      plum: {},
-      purple: {},
-      violet: {},
-      indigo: {},
-      blue: {},
-      cyan: {},
-      teal: {},
-      green: {},
-      grass: {},
-      brown: {},
-      orange: {},
-      sky: {},
-      mint: {},
-      lime: {},
-      yellow: {},
-      amber: {},
-      gold: {},
-      bronze: {},
-    },
     size: {
-      xs: {},
-      sm: {},
-      md: {},
-      lg: {},
-      xl: {},
+      xs: {
+        fontSize: vars.fontSizes.xs,
+        vars: {
+          [buttonHeightVar]: '1.875rem',
+          [buttonPaddingX]: '.875rem',
+        },
+      },
+      sm: {
+        fontSize: vars.fontSizes.sm,
+        vars: {
+          [buttonHeightVar]: '2.25rem',
+          [buttonPaddingX]: '1.125rem',
+        },
+      },
+      md: {
+        fontSize: vars.fontSizes.md,
+        vars: {
+          [buttonHeightVar]: '2.625rem',
+          [buttonPaddingX]: '1.375rem',
+        },
+      },
+      lg: {
+        fontSize: vars.fontSizes.lg,
+        vars: {
+          [buttonHeightVar]: '3.125rem',
+          [buttonPaddingX]: '1.625rem',
+        },
+      },
+      xl: {
+        fontSize: vars.fontSizes.xl,
+        vars: {
+          [buttonHeightVar]: '3.75rem',
+          [buttonPaddingX]: '2rem',
+        },
+      },
     },
     radius: {
       xs: {
@@ -274,17 +264,41 @@ const root = recipe({
         },
       },
     },
-    fullWidth: {
-      true: {
-        width: '100%',
-        display: 'block',
-      },
+    colorScheme: {
+      sky: {},
+      mint: {},
+      lime: {},
+      yellow: {},
+      amber: {},
+      gray: {},
+      mauve: {},
+      slate: {},
+      sage: {},
+      olive: {},
+      sand: {},
+      gold: {},
+      bronze: {},
+      tomato: {},
+      red: {},
+      crimson: {},
+      pink: {},
+      plum: {},
+      purple: {},
+      violet: {},
+      indigo: {},
+      blue: {},
+      cyan: {},
+      teal: {},
+      green: {},
+      grass: {},
+      orange: {},
+      brown: {},
     },
     loading: {
       true: {
         pointerEvents: 'none',
 
-        '::before': {
+        ':before': {
           content: '""',
           position: 'absolute',
           inset: -1,
@@ -311,35 +325,41 @@ const root = recipe({
     uppercase: {
       true: {},
     },
+    fullWidth: {
+      true: {
+        display: 'block',
+        width: '100%',
+      },
+    },
     withLeftIcon: {
       true: {
-        paddingLeft: `calc(${buttonPaddingLVar} / 1.5)`,
+        paddingLeft: calc.divide(buttonPaddingX, 1.5),
       },
     },
     withRightIcon: {
       true: {
-        paddingRight: `calc(${buttonPaddingRVar} / 1.5)`,
+        paddingRight: calc.divide(buttonPaddingX, 1.5),
       },
     },
   },
   compoundVariants: [
-    ...getCompactSizeCompoundVariants(false),
-    ...getCompactSizeCompoundVariants(true),
-    ...getFilledColorCompoundVariants(),
-    ...getLightColorCompoundVariants(),
-    ...getSubtleColorCompoundVariants(),
-    ...getOutlineColorCompoundVariants(),
+    ...getCompactCompoundVariants(),
+    ...getFilledCompoundVariants(),
+    ...getLightCompoundVariants(),
+    ...getSubtleCompoundVariants(),
+    ...getOutlineCompoundVariants(),
   ],
 })
 
-export const inner = style({
+const root = recipes(_root, focusStyles)
+const inner = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   height: '100%',
   overflow: 'visible',
 })
-export const label = style({
+const label = style({
   whiteSpace: 'nowrap',
   height: '100%',
   overflow: 'hidden',
@@ -347,33 +367,39 @@ export const label = style({
   alignItems: 'center',
 
   selectors: {
-    [`${root({ uppercase: true }).split(' ')[1]} &`]: {
+    [`${_root({ uppercase: true }).split(' ')[1]} &`]: {
       textTransform: 'uppercase',
     },
   },
 })
-const icon = style({
+const _icon = style({
   display: 'flex',
   alignItems: 'center',
 })
-
-export const leftIcon = style([
-  icon,
+const leftIcon = style([
+  _icon,
   {
-    marginRight: 10,
+    marginRight: '.625rem',
   },
 ])
-export const rightIcon = style([
-  icon,
+const rightIcon = style([
+  _icon,
   {
-    marginLeft: 10,
+    marginLeft: '.625rem',
   },
 ])
-export const centerLoader = style({
+const centerLoader = style({
   position: 'absolute',
   left: '50%',
   transform: 'translateX(-50%)',
   opacity: 0.5,
 })
 
-export const button = recipes(root, focusStyles)
+export default {
+  root,
+  inner,
+  label,
+  leftIcon,
+  rightIcon,
+  centerLoader,
+}
