@@ -14,7 +14,7 @@ import type { WishColor } from '../constants'
 
 export interface BoxProps extends AtomicStylesProps {
   /** Color applied to focus-ring */
-  colorScheme: WishColor
+  colorScheme?: WishColor
 }
 
 export const Box = createPolymorphicComponent<'div', BoxProps>((_props) => {
