@@ -3,12 +3,11 @@ import { Component, createSignal, For } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { render } from 'solid-js/web'
 
-import { Box, Button, wishColors, WishProvider, WishThemeOverrides } from '../src'
+import { Box, Button, Loader, wishColors, WishProvider, WishThemeOverrides } from '../src'
 
 const [theme, setTheme] = createStore<WishThemeOverrides>({
   colorMode: 'dark',
   primaryColor: 'blue',
-  defaultLoader: 'bars',
 })
 const toggleColorMode = () => setTheme('colorMode', (pv) => (pv === 'dark' ? 'light' : 'dark'))
 
@@ -19,6 +18,8 @@ const App: Component = () => {
   return (
     <>
       <Button onClick={toggleColorMode}>toggle</Button>
+
+      <Loader width="150px" />
 
       <select
         value={theme.primaryColor}
