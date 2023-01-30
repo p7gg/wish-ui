@@ -322,13 +322,7 @@ LoaderPositions.parameters = {
 
 export function AsLink() {
   return (
-    <Button
-      component="a"
-      variant="light"
-      colorScheme="sky"
-      href="https://google.com"
-      target="_blank"
-    >
+    <Button as="a" variant="light" colorScheme="sky" href="https://google.com" target="_blank">
       Link
     </Button>
   )
