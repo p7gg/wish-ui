@@ -1,4 +1,4 @@
-import type { Simplify } from '../types'
+import type { AnyObject } from '../types'
 import type { Component, ComponentProps, JSX } from 'solid-js'
 
 /** Any HTML element or SolidJS component. */
@@ -8,28 +8,43 @@ export type ValidComponent = keyof JSX.IntrinsicElements | Component<any> | (str
  * Allows for extending a set of props (`Source`) by an overriding set of props (`Override`),
  * ensuring that any duplicates are overridden by the overriding set of props.
  */
-export type OverrideProps<Source = {}, Override = {}> = Omit<Source, keyof Override> & Override
+export type OverrideProps<Source extends AnyObject = {}, Override extends AnyObject = {}> = Omit<
+  Source,
+  keyof Override
+> &
+  Override
 
-/** Props object that includes the `as` prop. */
-export type PolymorphicProps<Type extends ValidComponent, Props = {}> = Simplify<
-  OverrideProps<ComponentProps<Type>, Props & { as?: Type | ValidComponent }>
->
+/** Props objects with Intrinsic props aswell as `as` prop. */
+export type PolymorphicProps<
+  Type extends ValidComponent,
+  Props extends AnyObject = {},
+> = OverrideProps<ComponentProps<Type>, Props & { as?: Type | ValidComponent }>
 
-export type MonomorphicProps<Type extends ValidComponent, Props = {}> = Simplify<
-  OverrideProps<ComponentProps<Type>, Props>
->
+/** Props object with Intrinsic props */
+export type MonomorphicProps<
+  Type extends ValidComponent,
+  Props extends AnyObject = {},
+> = OverrideProps<ComponentProps<Type>, Props>
 
 /** A component with the `as` prop. */
-export type PolymorphicComponent<DefaultType extends ValidComponent, Props = {}> = {
-  <Type extends ValidComponent>(
+export type PolymorphicComponent<
+  DefaultType extends ValidComponent,
+  Props extends AnyObject = {},
+  Compositions extends AnyObject = {},
+> = {
+  <Type extends ValidComponent = DefaultType>(
     props: PolymorphicProps<Type, Props> & { as?: Type | ValidComponent },
   ): JSX.Element
-  (props: PolymorphicProps<DefaultType, Props>): JSX.Element
-}
+} & Compositions
 
-export type MonomorphicComponent<DefaultType extends ValidComponent, Props = {}> = {
-  (props: MonomorphicProps<DefaultType, Props>): JSX.Element
-}
+/** A component with the Intrinsic props */
+export type MonomorphicComponent<
+  DefaultType extends ValidComponent,
+  Props extends AnyObject = {},
+  Compositions extends AnyObject = {},
+> = {
+  <Type extends ValidComponent = DefaultType>(props: MonomorphicProps<Type, Props>): JSX.Element
+} & Compositions
 
 /**
  * Create a component with the type cast to `PolymorphicComponent`.
@@ -37,12 +52,19 @@ export type MonomorphicComponent<DefaultType extends ValidComponent, Props = {}>
  */
 export const createPolymorphicComponent = <
   DefaultType extends ValidComponent,
-  Props = {},
-  Compositions = {},
+  Props extends AnyObject = {},
+  Compositions extends AnyObject = {},
 >(
   component: Component<PolymorphicProps<DefaultType, Props>>,
-) => component as PolymorphicComponent<DefaultType, Props> & Compositions
+) => component as PolymorphicComponent<DefaultType, Props, Compositions>
 
-export const createComponent = <DefaultType extends ValidComponent, Props = {}, Composition = {}>(
+/**
+ * Create a component with the type cast to `MonomorphicComponent`.
+ */
+export const createComponent = <
+  DefaultType extends ValidComponent,
+  Props extends AnyObject = {},
+  Compositions extends AnyObject = {},
+>(
   component: Component<MonomorphicProps<DefaultType, Props>>,
-) => component as MonomorphicComponent<DefaultType, Props> & Composition
+) => component as MonomorphicComponent<DefaultType, Props, Compositions>
