@@ -9,9 +9,9 @@ import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
-import { loader } from './Loader.css'
+import classes from './Loader.css'
 
-import type { LoaderVariants } from './Loader.css'
+import type { WishColor, WishLoader, WishSize } from '../constants'
 import type { Component, JSX } from 'solid-js'
 
 type SvgHTMLAttributes = JSX.IntrinsicElements['svg']
@@ -212,22 +212,35 @@ const LOADERS = {
   oval: Oval,
 }
 
-export type LoaderProps = LoaderVariants & AtomicStylesProps
+export interface LoaderProps extends AtomicStylesProps {
+  /** Loader size from theme */
+  size?: WishSize
+
+  /** Loader color from theme */
+  colorScheme?: WishColor | 'currentColor'
+
+  /** Loader appearance */
+  variant?: WishLoader
+}
 
 export const Loader = createComponent<'svg', LoaderProps>((_props) => {
   const theme = useWishTheme()
   const props = combineProps(
     {
-      get as() {
-        return LOADERS[_props.variant ?? theme.defaultLoader]
+      size: 'md',
+      get variant() {
+        return _props.variant ?? theme.defaultLoader
       },
-    },
+      get colorScheme() {
+        return _props.colorScheme ?? theme.primaryColor
+      },
+    } as const,
     _props,
   )
 
   const [local, variants, atomics, others] = splitProps(
     props,
-    ['as', 'class', 'style'],
+    ['class', 'style'],
     ['variant', 'colorScheme', 'size'],
     [...atomicStyles.properties.keys()],
   )
@@ -237,8 +250,8 @@ export const Loader = createComponent<'svg', LoaderProps>((_props) => {
   return (
     <Dynamic
       role="presentation"
-      component={local.as}
-      class={clsx(loader(variants), atoms().className, local.class)}
+      component={LOADERS[variants.variant]}
+      class={clsx(classes.root(variants), atoms().className, local.class)}
       style={combineStyle(atoms().style, local.style ?? {})}
       {...others}
     />
