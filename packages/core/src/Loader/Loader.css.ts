@@ -3,14 +3,13 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { vars } from '../theme'
 
-import type { Simplify } from '../types'
-import type { RecipeVariants } from '@vanilla-extract/recipes'
-
 export const loaderSizeVar = createVar()
 const loaderColorSchemeVar = createVar()
 
-export type LoaderVariants = Simplify<RecipeVariants<typeof loader>>
-export const loader = recipe({
+const root = recipe({
+  base: {
+    display: 'block',
+  },
   variants: {
     variant: {
       bars: {
@@ -204,3 +203,5 @@ export const loader = recipe({
     },
   },
 })
+
+export default { root }
