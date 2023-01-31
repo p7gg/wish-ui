@@ -1,3 +1,4 @@
+export { type ActionIconProps, ActionIcon } from './ActionIcon'
 export { type BoxProps, Box } from './Box'
 export { type ButtonProps, Button } from './Button'
 export * from './constants'

@@ -4,6 +4,7 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { vars } from '../theme'
 
+import { _root as aiRoot, aiSizeVar } from '../ActionIcon/ActionIcon.css'
 import { _root as buttonRoot, buttonHeightVar } from '../Button/Button.css'
 
 const loaderSizeVar = createVar()
@@ -17,6 +18,11 @@ const root = recipe({
       [`.${buttonRoot()} &`]: {
         vars: {
           [loaderSizeVar]: calc.divide(buttonHeightVar, 2),
+        },
+      },
+      [`.${aiRoot()} &`]: {
+        vars: {
+          [loaderSizeVar]: calc.subtract(aiSizeVar, '.75rem'),
         },
       },
     },
