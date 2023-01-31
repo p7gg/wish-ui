@@ -13,6 +13,7 @@ const aiBgColorVar = createVar()
 const aiColorVar = createVar()
 const aiBgColorHoverVar = createVar()
 const aiBgColorActiveVar = createVar()
+const aiSizeVar = createVar()
 
 const getFilledCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
@@ -112,6 +113,16 @@ const _root = recipe({
     border: `.0625rem solid ${aiBorderColorVar}`,
     backgroundColor: aiBgColorVar,
     color: aiColorVar,
+    height: aiSizeVar,
+    minHeight: aiSizeVar,
+    width: aiSizeVar,
+    minWidth: aiSizeVar,
+    position: 'relative',
+    padding: 0,
+    lineHeight: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 
     ':hover': {
       backgroundColor: aiBgColorHoverVar,
@@ -169,6 +180,33 @@ const _root = recipe({
       grass: {},
       orange: {},
       brown: {},
+    },
+    size: {
+      xs: {
+        vars: {
+          [aiSizeVar]: '1.125rem',
+        },
+      },
+      sm: {
+        vars: {
+          [aiSizeVar]: '1.375rem',
+        },
+      },
+      md: {
+        vars: {
+          [aiSizeVar]: '1.75rem',
+        },
+      },
+      lg: {
+        vars: {
+          [aiSizeVar]: '2.125rem',
+        },
+      },
+      xl: {
+        vars: {
+          [aiSizeVar]: '2.75rem',
+        },
+      },
     },
   },
   compoundVariants: [
