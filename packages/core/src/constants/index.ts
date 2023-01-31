@@ -1,3 +1,4 @@
+export * from './actionIcon'
 export * from './button'
 export * from './colors'
 export * from './loaders'

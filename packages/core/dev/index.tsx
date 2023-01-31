@@ -4,12 +4,12 @@ import { createStore } from 'solid-js/store'
 import { render } from 'solid-js/web'
 
 import {
+  ActionIcon,
   Box,
   Button,
   Loader,
   wishColors,
   WishProvider,
-  wishSizes,
   WishThemeOverrides,
 } from '../src'
 
@@ -30,7 +30,7 @@ const App: Component = () => {
       </Button>
       <Button loading>toggle</Button>
 
-      <Loader />
+      <ActionIcon>$</ActionIcon>
 
       <select
         value={theme.primaryColor}

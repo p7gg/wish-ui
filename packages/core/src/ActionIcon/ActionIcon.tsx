@@ -10,15 +10,43 @@ import { createPolymorphicComponent } from '../utils'
 
 import { classes } from './ActionIcon.css'
 
-export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStylesProps {}
+import type { WishActionIcon, WishColor } from '../constants'
+
+export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStylesProps {
+  /**
+   * ActionIcon color-scheme
+   *
+   * @remarks
+   * See {@link WishColor| the WishColor union} for more details.
+   *
+   * @default gray
+   */
+  colorScheme?: WishColor
+
+  /**
+   * Controls ActionIcon appearance
+   *
+   * @remarks
+   * See {@link WishActionIcon| the WishActionIcon union} for more details.
+   *
+   * @default subtle
+   */
+  variant?: WishActionIcon
+}
 
 export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>((_props) => {
-  const props = combineProps({}, _props)
+  const props = combineProps(
+    {
+      colorScheme: 'gray',
+      variant: 'subtle',
+    } as const,
+    _props,
+  )
 
   const [local, variants, atomics, others] = splitProps(
     props,
     ['children', 'class', 'style'],
-    [],
+    ['variant', 'colorScheme'],
     [...atomicStyles.properties.keys()],
   )
   const atoms = createMemo(() => atomicStyles(atomics))
