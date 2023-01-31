@@ -25,7 +25,9 @@ const App: Component = () => {
 
   return (
     <>
-      <Button onClick={toggleColorMode}>toggle</Button>
+      <Button uppercase onClick={toggleColorMode}>
+        toggle
+      </Button>
       <Button loading>toggle</Button>
 
       <Loader width="150px" />
@@ -37,65 +39,13 @@ const App: Component = () => {
         <For each={wishColors}>{(cs) => <option value={cs}>{cs}</option>}</For>
       </select>
 
-      <Box p="$xl">
-        Normal
-        <For each={wishSizes}>
-          {(size) => (
-            <Button variant="subtle" size={size}>
-              uppercase
-            </Button>
-          )}
-        </For>
-      </Box>
-      <Box p="$xl">
-        Compact
-        <For each={wishSizes}>
-          {(size) => (
-            <Button variant="subtle" compact size={size}>
-              uppercase
-            </Button>
-          )}
-        </For>
-      </Box>
-      <Box p="$xl">
-        Normal with left icon
-        <For each={wishSizes}>
-          {(size) => (
-            <Button variant="subtle" size={size} leftIcon={<div />}>
-              uppercase
-            </Button>
-          )}
-        </For>
-      </Box>
-      <Box p="$xl">
-        Normal with right icon
-        <For each={wishSizes}>
-          {(size) => (
-            <Button variant="subtle" size={size} rightIcon={<div />}>
-              uppercase
-            </Button>
-          )}
-        </For>
-      </Box>
-      <Box p="$xl">
-        Compact with left icon
-        <For each={wishSizes}>
-          {(size) => (
-            <Button variant="subtle" compact size={size} leftIcon={<div />}>
-              uppercase
-            </Button>
-          )}
-        </For>
-      </Box>
-      <Box p="$xl">
-        Compact with right icon
-        <For each={wishSizes}>
-          {(size) => (
-            <Button variant="subtle" compact size={size} rightIcon={<div />}>
-              uppercase
-            </Button>
-          )}
-        </For>
+      <Box padding="$xl">
+        <Button.Group>
+          <Button variant="default">Button</Button>
+          <Button variant="default">Button</Button>
+          <Button variant="default">Button</Button>
+          <Button variant="default">Button</Button>
+        </Button.Group>
       </Box>
     </>
   )

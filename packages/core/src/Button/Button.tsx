@@ -12,8 +12,10 @@ import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
+import { ButtonGroup, useButtonGroup } from './ButtonGroup'
+
 import { loaderSizeVar } from '../Loader/Loader.css'
-import classes, { buttonHeightVar } from './Button.css'
+import classes, { buttonGroupBorderWidthVar, buttonHeightVar } from './Button.css'
 
 import type { ButtonVariant, WishColor, WishSize } from '../constants'
 
@@ -102,89 +104,106 @@ export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProp
   /** Add icon to the right of the label element */
   rightIcon?: JSX.Element
 }
+interface ButtonCompositions {
+  Group: typeof ButtonGroup
+}
 
-export const Button = createPolymorphicComponent<'button', ButtonProps>((_props) => {
-  const theme = useWishTheme()
-  const props = combineProps(
-    {
-      size: 'sm',
-      radius: 'sm',
-      variant: 'filled',
-      loaderPosition: 'left',
-      compact: false,
-      fullWidth: false,
-      loading: false,
-      uppercase: false,
-      get colorScheme() {
-        return _props.colorScheme ?? theme.primaryColor
-      },
-      get withLeftIcon() {
-        return !!_props.leftIcon
-      },
-      get withRightIcon() {
-        return !!_props.rightIcon
-      },
-    } as const,
-    _props,
-  )
+export const Button = createPolymorphicComponent<'button', ButtonProps, ButtonCompositions>(
+  (_props) => {
+    const theme = useWishTheme()
+    const btnGroupContext = useButtonGroup()
+    const props = combineProps(
+      {
+        size: 'sm',
+        radius: 'sm',
+        variant: 'filled',
+        loaderPosition: 'left',
+        compact: false,
+        fullWidth: false,
+        loading: false,
+        uppercase: false,
+        get colorScheme() {
+          return _props.colorScheme ?? theme.primaryColor
+        },
+        get withLeftIcon() {
+          return !!_props.leftIcon
+        },
+        get withRightIcon() {
+          return !!_props.rightIcon
+        },
+        get groupOrientation() {
+          return btnGroupContext?.orientation
+        },
+        get style() {
+          return assignInlineVars({
+            [buttonGroupBorderWidthVar]: `${btnGroupContext?.buttonBorderWidth}px`,
+          })
+        },
+      } as const,
+      _props,
+    )
 
-  const [local, variants, atomics, others] = splitProps(
-    props,
-    ['children', 'class', 'style', 'leftIcon', 'rightIcon', 'loaderProps', 'loaderPosition'],
-    [
-      'size',
-      'radius',
-      'colorScheme',
-      'variant',
-      'loading',
-      'compact',
-      'uppercase',
-      'fullWidth',
-      'withLeftIcon',
-      'withRightIcon',
-    ],
-    [...atomicStyles.properties.keys()],
-  )
+    const [local, variants, atomics, others] = splitProps(
+      props,
+      ['children', 'class', 'style', 'leftIcon', 'rightIcon', 'loaderProps', 'loaderPosition'],
+      [
+        'size',
+        'radius',
+        'colorScheme',
+        'variant',
+        'loading',
+        'compact',
+        'uppercase',
+        'fullWidth',
+        'withLeftIcon',
+        'withRightIcon',
+        'groupOrientation',
+      ],
+      [...atomicStyles.properties.keys()],
+    )
 
-  const atoms = createMemo(() => atomicStyles(atomics))
+    const atoms = createMemo(() => atomicStyles(atomics))
 
-  const loader = () => (
-    <Loader
-      colorScheme="currentColor"
-      style={assignInlineVars({ [loaderSizeVar]: calc.divide(buttonHeightVar, 2) })}
-      {...local.loaderProps}
-    />
-  )
+    const loader = () => (
+      <Loader
+        colorScheme="currentColor"
+        style={assignInlineVars({ [loaderSizeVar]: calc.divide(buttonHeightVar, 2) })}
+        {...local.loaderProps}
+      />
+    )
 
-  return (
-    <KButton.Root
-      class={clsx(classes.root(variants), atoms().className, local.class)}
-      style={combineStyle(atoms().style, local.style ?? {})}
-      {...others}
-    >
-      <div class={classes.inner}>
-        {(local.leftIcon || (variants.loading && local.loaderPosition === 'left')) && (
-          <span class={classes.leftIcon}>
-            <Show when={variants.loading} fallback={local.leftIcon}>
-              {loader()}
-            </Show>
-          </span>
-        )}
+    return (
+      <KButton.Root
+        class={clsx(classes.root(variants), atoms().className, local.class)}
+        style={combineStyle(atoms().style, local.style ?? {})}
+        {...others}
+      >
+        <div class={classes.inner}>
+          {(local.leftIcon || (variants.loading && local.loaderPosition === 'left')) && (
+            <span class={classes.leftIcon}>
+              <Show when={variants.loading} fallback={local.leftIcon}>
+                {loader()}
+              </Show>
+            </span>
+          )}
 
-        <Show when={variants.loading && local.loaderPosition === 'center'}>
-          <span class={classes.centerLoader}>{loader()}</span>
-        </Show>
+          <Show when={variants.loading && local.loaderPosition === 'center'}>
+            <span class={classes.centerLoader}>{loader()}</span>
+          </Show>
 
-        <span class={classes.label}>{local.children}</span>
+          <span class={classes.label}>{local.children}</span>
 
-        {(local.rightIcon || (variants.loading && local.loaderPosition === 'right')) && (
-          <span class={classes.rightIcon}>
-            <Show when={variants.loading} fallback={local.rightIcon}>
-              {loader()}
-            </Show>
-          </span>
-        )}
-      </div>
-    </KButton.Root>
-  )
-})
+          {(local.rightIcon || (variants.loading && local.loaderPosition === 'right')) && (
+            <span class={classes.rightIcon}>
+              <Show when={variants.loading} fallback={local.rightIcon}>
+                {loader()}
+              </Show>
+            </span>
+          )}
+        </div>
+      </KButton.Root>
+    )
+  },
+)
+
+Button.Group = ButtonGroup

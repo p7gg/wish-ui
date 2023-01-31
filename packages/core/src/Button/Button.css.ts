@@ -1,4 +1,4 @@
-import { createVar, fallbackVar, style } from '@vanilla-extract/css'
+import { createVar, fallbackVar, globalStyle, style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
 import { recipe } from '@vanilla-extract/recipes'
 
@@ -7,9 +7,12 @@ import { focusStyles } from '../css'
 import { vars } from '../theme'
 import { recipes, withColorMode } from '../utils'
 
+import buttonGroupClasses from './ButtonGroup/ButtonGroup.css'
+
 import type { CompoundVariant } from '../types'
 
 export const buttonHeightVar = createVar()
+export const buttonGroupBorderWidthVar = createVar()
 const buttonPaddingX = createVar()
 const buttonRadiiVar = createVar()
 const buttonBgColorVar = createVar()
@@ -341,6 +344,64 @@ const _root = recipe({
         paddingRight: calc.divide(buttonPaddingX, 1.5),
       },
     },
+    groupOrientation: {
+      vertical: {
+        ':first-of-type': {
+          borderBottomRightRadius: 0,
+          borderBottomLeftRadius: 0,
+          borderBottomWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+        },
+
+        ':last-of-type': {
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          borderTopWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+        },
+
+        selectors: {
+          '&:not(:first-of-type):not(:last-of-type)': {
+            borderRadius: 0,
+            borderTopWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+            borderBottomWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+          },
+        },
+
+        // '& + [data-button]': {
+        //   [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: -buttonBorderWidth,
+        //   '@media (min-resolution: 192dpi)': {
+        //     [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: 0,
+        //   },
+        // },
+      },
+      horizontal: {
+        ':first-of-type': {
+          borderBottomRightRadius: 0,
+          borderTopRightRadius: 0,
+          borderRightWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+        },
+
+        ':last-of-type': {
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+          borderLeftWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+        },
+
+        selectors: {
+          '&:not(:first-of-type):not(:last-of-type)': {
+            borderRadius: 0,
+            borderLeftWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+            borderRightWidth: calc.divide(buttonGroupBorderWidthVar, 2),
+          },
+        },
+
+        // '& + [data-button]': {
+        //   [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: -buttonBorderWidth,
+        //   '@media (min-resolution: 192dpi)': {
+        //     [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: 0,
+        //   },
+        // },
+      },
+    },
   },
   compoundVariants: [
     ...getCompactCompoundVariants(),
@@ -367,7 +428,7 @@ const label = style({
   alignItems: 'center',
 
   selectors: {
-    [`${_root({ uppercase: true }).split(' ')[1]} &`]: {
+    [`.${_root({ uppercase: true }).split(' ')[1]} &`]: {
       textTransform: 'uppercase',
     },
   },
@@ -393,6 +454,13 @@ const centerLoader = style({
   left: '50%',
   transform: 'translateX(-50%)',
   opacity: 0.5,
+})
+
+globalStyle(`.${buttonGroupClasses.root.vertical} .${_root()} + .${_root()}`, {
+  marginTop: calc(buttonGroupBorderWidthVar).negate().toString(),
+})
+globalStyle(`.${buttonGroupClasses.root.horizontal} .${_root()} + .${_root()}`, {
+  marginLeft: calc(buttonGroupBorderWidthVar).negate().toString(),
 })
 
 export default {
