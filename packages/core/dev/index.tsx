@@ -7,6 +7,7 @@ import {
   ActionIcon,
   Box,
   Button,
+  Checkbox,
   Loader,
   wishColors,
   WishProvider,
@@ -31,6 +32,8 @@ const App: Component = () => {
       <Button loading>toggle</Button>
 
       <ActionIcon loading>$</ActionIcon>
+
+      <Checkbox />
 
       <select
         value={theme.primaryColor}
