@@ -278,6 +278,30 @@ Radiuses.parameters = {
   options: { showPanel: false },
 }
 
+export function Groups() {
+  return (
+    <>
+      <Button.Group>
+        <Button variant="default">First</Button>
+        <Button variant="default">Second</Button>
+        <Button variant="default">Third</Button>
+        <Button variant="default">Forth</Button>
+        <Button variant="default">Last</Button>
+      </Button.Group>
+      <Button.Group mt="$xl" orientation="vertical">
+        <Button variant="default">First</Button>
+        <Button variant="default">Second</Button>
+        <Button variant="default">Third</Button>
+        <Button variant="default">Forth</Button>
+        <Button variant="default">Last</Button>
+      </Button.Group>
+    </>
+  )
+}
+Groups.parameters = {
+  options: { showPanel: false },
+}
+
 export function LoaderPositions() {
   return (
     <table
