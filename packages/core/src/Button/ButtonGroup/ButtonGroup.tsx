@@ -10,7 +10,18 @@ import { createComponent } from '../../utils'
 import classes from './ButtonGroup.css'
 
 type ButtonGroupContextValue = {
+  /**
+   * Defines `flexDirection` to Button Group
+   *
+   * @default horizontal
+   */
   orientation: 'vertical' | 'horizontal'
+
+  /**
+   * Define `borderWidth` in px to child Button components
+   *
+   * @default 1
+   */
   buttonBorderWidth: number
 }
 const ButtonGroupContext = createContext<ButtonGroupContextValue>()
