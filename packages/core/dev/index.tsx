@@ -3,22 +3,34 @@ import { Component, createSignal, For } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { render } from 'solid-js/web'
 
-import { Box, Button, wishColors, WishProvider, WishThemeOverrides } from '../src'
+import {
+  Box,
+  Button,
+  Loader,
+  wishColors,
+  WishProvider,
+  wishSizes,
+  WishThemeOverrides,
+} from '../src'
 
 const [theme, setTheme] = createStore<WishThemeOverrides>({
   colorMode: 'dark',
   primaryColor: 'blue',
-  defaultLoader: 'bars',
 })
 const toggleColorMode = () => setTheme('colorMode', (pv) => (pv === 'dark' ? 'light' : 'dark'))
 
 const App: Component = () => {
-  const [uppercase, setUppercase] = createSignal(false)
-  const toggle = () => setUppercase(!uppercase())
+  const [state, setState] = createSignal(false)
+  const toggleState = () => setState(!state())
 
   return (
     <>
-      <Button onClick={toggleColorMode}>toggle</Button>
+      <Button uppercase onClick={toggleColorMode}>
+        toggle
+      </Button>
+      <Button loading>toggle</Button>
+
+      <Loader width="150px" />
 
       <select
         value={theme.primaryColor}
@@ -27,10 +39,13 @@ const App: Component = () => {
         <For each={wishColors}>{(cs) => <option value={cs}>{cs}</option>}</For>
       </select>
 
-      <Box p="$xl">
-        <Button uppercase={uppercase()} colorScheme="amber" onPress={toggle}>
-          uppercase
-        </Button>
+      <Box padding="$xl">
+        <Button.Group>
+          <Button variant="default">Button</Button>
+          <Button variant="default">Button</Button>
+          <Button variant="default">Button</Button>
+          <Button variant="default">Button</Button>
+        </Button.Group>
       </Box>
     </>
   )
