@@ -4,16 +4,16 @@ import { recipe } from '@vanilla-extract/recipes'
 import { isBrightColor, wishColors } from '../constants'
 import { focusStyles } from '../css'
 import { vars } from '../theme'
-import { recipes } from '../utils'
+import { recipes, withColorMode } from '../utils'
 
 import type { CompoundVariant } from '../types'
 
+export const aiSizeVar = createVar()
 const aiBorderColorVar = createVar()
 const aiBgColorVar = createVar()
 const aiColorVar = createVar()
 const aiBgColorHoverVar = createVar()
 const aiBgColorActiveVar = createVar()
-const aiSizeVar = createVar()
 const aiRadiiVar = createVar()
 
 const getFilledCompoundVariants = () => {
@@ -109,7 +109,7 @@ const getLightCompoundVariants = () => {
   return compoundVariants
 }
 
-const _root = recipe({
+export const _root = recipe({
   base: {
     border: `.0625rem solid ${aiBorderColorVar}`,
     backgroundColor: aiBgColorVar,
@@ -247,6 +247,31 @@ const _root = recipe({
       xl: {
         vars: {
           [aiRadiiVar]: vars.radii.xl,
+        },
+      },
+    },
+    loading: {
+      true: {
+        pointerEvents: 'none',
+
+        ':before': {
+          content: '""',
+          position: 'absolute',
+          inset: -1,
+          backgroundColor: 'hsla(0, 0%, 100%, .5)',
+          borderRadius: aiRadiiVar,
+          cursor: 'not-allowed',
+        },
+
+        selectors: {
+          ...withColorMode(
+            {
+              dark: {
+                backgroundColor: 'hsla(225, 7%, 11%, .5)',
+              },
+            },
+            '&::before',
+          ),
         },
       },
     },

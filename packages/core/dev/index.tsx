@@ -30,7 +30,7 @@ const App: Component = () => {
       </Button>
       <Button loading>toggle</Button>
 
-      <ActionIcon>$</ActionIcon>
+      <ActionIcon loading>$</ActionIcon>
 
       <select
         value={theme.primaryColor}

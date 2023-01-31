@@ -1,10 +1,11 @@
-import { createMemo, splitProps } from 'solid-js'
+import { createMemo, Show, splitProps } from 'solid-js'
 
 import { Button as KButton } from '@kobalte/core'
 import { combineProps, combineStyle } from '@solid-primitives/props'
 
 import { clsx } from 'clsx'
 
+import { Loader } from '../Loader'
 import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 
@@ -52,6 +53,13 @@ export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStyles
    * @default md
    */
   radius?: WishSize
+
+  /**
+   * Indicate loading state
+   *
+   * @default false
+   */
+  loading?: boolean
 }
 
 export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>((_props) => {
@@ -68,7 +76,7 @@ export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>(
   const [local, variants, atomics, others] = splitProps(
     props,
     ['children', 'class', 'style'],
-    ['variant', 'colorScheme', 'size', 'radius'],
+    ['variant', 'colorScheme', 'size', 'radius', 'loading'],
     [...atomicStyles.properties.keys()],
   )
   const atoms = createMemo(() => atomicStyles(atomics))
@@ -79,7 +87,12 @@ export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>(
       style={combineStyle(atoms().style, local.style ?? {})}
       {...others}
     >
-      {local.children}
+      <Show
+        when={!variants.loading}
+        fallback={<Loader size={variants.size} colorScheme="currentColor" />}
+      >
+        {local.children}
+      </Show>
     </KButton.Root>
   )
 })
