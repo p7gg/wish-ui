@@ -7,7 +7,7 @@ import { focusStyles } from '../css'
 import { vars } from '../theme'
 import { recipes, withColorMode } from '../utils'
 
-import buttonGroupClasses from './ButtonGroup/ButtonGroup.css'
+import { classes as buttonGroupClasses } from './ButtonGroup/ButtonGroup.css'
 
 import type { CompoundVariant } from '../types'
 
@@ -141,7 +141,7 @@ const getOutlineCompoundVariants = () => {
   return compoundVariants
 }
 
-const _root = recipe({
+export const _root = recipe({
   base: {
     height: buttonHeightVar,
     paddingLeft: buttonPaddingX,
@@ -449,7 +449,7 @@ globalStyle(`.${buttonGroupClasses.root.horizontal} .${_root()} + .${_root()}`, 
   marginLeft: calc(buttonGroupBorderWidthVar).negate().toString(),
 })
 
-export default {
+export const classes = {
   root,
   inner,
   label,

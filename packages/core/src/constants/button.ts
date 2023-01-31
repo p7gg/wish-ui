@@ -1,4 +1,4 @@
 import { tuple } from '../utils'
 
-export type ButtonVariant = (typeof buttonVariants)[number]
-export const buttonVariants = tuple('filled', 'light', 'subtle', 'outline', 'default')
+export type WishButton = (typeof wishButtons)[number]
+export const wishButtons = tuple('filled', 'light', 'subtle', 'outline', 'default')

@@ -9,7 +9,7 @@ import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
-import classes from './Loader.css'
+import { classes } from './Loader.css'
 
 import type { WishColor, WishLoader, WishSize } from '../constants'
 import type { Component, JSX } from 'solid-js'

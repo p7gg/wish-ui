@@ -8,6 +8,6 @@ const orientation = {
 const _root = style({ display: 'flex' })
 const root = styleVariants(orientation, (flexDirection) => [_root, { flexDirection }])
 
-export default {
+export const classes = {
   root,
 }

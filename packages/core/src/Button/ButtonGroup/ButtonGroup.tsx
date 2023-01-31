@@ -7,7 +7,7 @@ import { clsx } from 'clsx'
 import { Box, BoxProps } from '../../Box'
 import { createComponent } from '../../utils'
 
-import classes from './ButtonGroup.css'
+import { classes } from './ButtonGroup.css'
 
 type ButtonGroupContextValue = {
   /**

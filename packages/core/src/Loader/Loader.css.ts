@@ -1,14 +1,25 @@
 import { createVar } from '@vanilla-extract/css'
+import { calc } from '@vanilla-extract/css-utils'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { vars } from '../theme'
 
-export const loaderSizeVar = createVar()
+import { _root as buttonRoot, buttonHeightVar } from '../Button/Button.css'
+
+const loaderSizeVar = createVar()
 const loaderColorSchemeVar = createVar()
 
 const root = recipe({
   base: {
     display: 'block',
+
+    selectors: {
+      [`.${buttonRoot()} &`]: {
+        vars: {
+          [loaderSizeVar]: calc.divide(buttonHeightVar, 2),
+        },
+      },
+    },
   },
   variants: {
     variant: {
@@ -204,4 +215,4 @@ const root = recipe({
   },
 })
 
-export default { root }
+export const classes = { root }

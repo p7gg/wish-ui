@@ -2,7 +2,6 @@ import { createMemo, JSX, Show, splitProps } from 'solid-js'
 
 import { Button as KButton } from '@kobalte/core'
 import { combineProps, combineStyle } from '@solid-primitives/props'
-import { calc } from '@vanilla-extract/css-utils'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 
 import { clsx } from 'clsx'
@@ -14,10 +13,9 @@ import { useWishTheme } from '../WishProvider'
 
 import { ButtonGroup, useButtonGroup } from './ButtonGroup'
 
-import { loaderSizeVar } from '../Loader/Loader.css'
-import classes, { buttonGroupBorderWidthVar, buttonHeightVar } from './Button.css'
+import { buttonGroupBorderWidthVar, classes } from './Button.css'
 
-import type { ButtonVariant, WishColor, WishSize } from '../constants'
+import type { WishButton, WishColor, WishSize } from '../constants'
 
 export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProps {
   /**
@@ -54,11 +52,11 @@ export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProp
    * Controls button appearance
    *
    * @remarks
-   * See {@link ButtonVariant| the ButtonVariant union} for more details.
+   * See {@link WishButton| the WishButton union} for more details.
    *
    * @default filled
    */
-  variant?: ButtonVariant
+  variant?: WishButton
 
   /**
    * Reduce vertical and horizontal spacing
@@ -165,11 +163,7 @@ export const Button = createPolymorphicComponent<'button', ButtonProps, ButtonCo
     const atoms = createMemo(() => atomicStyles(atomics))
 
     const loader = () => (
-      <Loader
-        colorScheme="currentColor"
-        style={assignInlineVars({ [loaderSizeVar]: calc.divide(buttonHeightVar, 2) })}
-        {...local.loaderProps}
-      />
+      <Loader colorScheme="currentColor" size={variants.size} {...local.loaderProps} />
     )
 
     return (
