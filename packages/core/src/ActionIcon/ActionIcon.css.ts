@@ -125,6 +125,12 @@ export const _root = recipe({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: 'pointer',
+    appearance: 'none',
+    fontSize: vars.fontSizes.md,
+    textAlign: 'left',
+    textDecoration: 'none',
+    boxSizing: 'border-box',
 
     ':hover': {
       backgroundColor: aiBgColorHoverVar,
