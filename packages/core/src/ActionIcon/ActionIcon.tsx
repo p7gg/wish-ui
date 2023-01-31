@@ -42,6 +42,16 @@ export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStyles
    * @default md
    */
   size?: WishSize
+
+  /**
+   * ActionIcon borderRadius
+   *
+   * @remarks
+   * See {@link WishSize| the WishSize union} for more details.
+   *
+   * @default md
+   */
+  radius?: WishSize
 }
 
 export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>((_props) => {
@@ -50,6 +60,7 @@ export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>(
       colorScheme: 'gray',
       variant: 'subtle',
       size: 'md',
+      radius: 'sm',
     } as const,
     _props,
   )
@@ -57,7 +68,7 @@ export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>(
   const [local, variants, atomics, others] = splitProps(
     props,
     ['children', 'class', 'style'],
-    ['variant', 'colorScheme', 'size'],
+    ['variant', 'colorScheme', 'size', 'radius'],
     [...atomicStyles.properties.keys()],
   )
   const atoms = createMemo(() => atomicStyles(atomics))

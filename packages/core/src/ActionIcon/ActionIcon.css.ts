@@ -14,6 +14,7 @@ const aiColorVar = createVar()
 const aiBgColorHoverVar = createVar()
 const aiBgColorActiveVar = createVar()
 const aiSizeVar = createVar()
+const aiRadiiVar = createVar()
 
 const getFilledCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
@@ -117,6 +118,7 @@ const _root = recipe({
     minHeight: aiSizeVar,
     width: aiSizeVar,
     minWidth: aiSizeVar,
+    borderRadius: aiRadiiVar,
     position: 'relative',
     padding: 0,
     lineHeight: 1,
@@ -205,6 +207,33 @@ const _root = recipe({
       xl: {
         vars: {
           [aiSizeVar]: '2.75rem',
+        },
+      },
+    },
+    radius: {
+      xs: {
+        vars: {
+          [aiRadiiVar]: vars.radii.xs,
+        },
+      },
+      sm: {
+        vars: {
+          [aiRadiiVar]: vars.radii.sm,
+        },
+      },
+      md: {
+        vars: {
+          [aiRadiiVar]: vars.radii.md,
+        },
+      },
+      lg: {
+        vars: {
+          [aiRadiiVar]: vars.radii.lg,
+        },
+      },
+      xl: {
+        vars: {
+          [aiRadiiVar]: vars.radii.xl,
         },
       },
     },
