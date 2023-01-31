@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@wish-ui/core": "workspace:*",
+    "lucide-solid": "^0.108.0",
     "solid-js": "^1.6.9"
   },
   "devDependencies": {
