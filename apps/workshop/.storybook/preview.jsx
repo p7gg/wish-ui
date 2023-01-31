@@ -1,3 +1,4 @@
+/* @refresh reload */
 import { render } from 'solid-js/web'
 import { createSignal, onCleanup, onMount } from 'solid-js'
 import { themes } from '@storybook/theming'
