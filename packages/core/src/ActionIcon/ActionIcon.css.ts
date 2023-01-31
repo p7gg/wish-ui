@@ -131,6 +131,7 @@ const _root = recipe({
     },
 
     ':active': {
+      transform: 'translateY(1px)',
       backgroundColor: aiBgColorActiveVar,
     },
   base: {},
