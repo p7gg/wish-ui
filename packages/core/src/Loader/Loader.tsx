@@ -213,13 +213,34 @@ const LOADERS = {
 }
 
 export interface LoaderProps extends AtomicStylesProps {
-  /** Loader size from theme */
+  /**
+   * Loader size from theme
+   *
+   * @remarks
+   * See {@link WishSize| the WishSize union} for more details.
+   *
+   * @default md
+   */
   size?: WishSize
 
-  /** Loader color from theme */
+  /**
+   * Loader color from theme
+   *
+   * @remarks
+   * See {@link WishColor| the WishColor union} for more details.
+   *
+   * @default theme.primaryColor
+   */
   colorScheme?: WishColor | 'currentColor'
 
-  /** Loader appearance */
+  /**
+   * Loader appearance
+   *
+   * @remarks
+   * See {@link WishLoader| the WishLoader union} for more details.
+   *
+   * @default theme.defaultLoader
+   */
   variant?: WishLoader
 }
 

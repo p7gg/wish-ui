@@ -13,7 +13,14 @@ import { useWishTheme } from '../WishProvider'
 import type { WishColor } from '../constants'
 
 export interface BoxProps extends AtomicStylesProps {
-  /** Color applied to focus-ring */
+  /**
+   * Color applied to focus-ring
+   *
+   * @remarks
+   * See {@link WishColor| the WishColor union} for more details.
+   *
+   * @default theme.primaryColor
+   */
   colorScheme?: WishColor
 }
 

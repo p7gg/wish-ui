@@ -14,7 +14,14 @@ import { unstyledButton } from './UnstyledButton.css'
 import type { WishColor } from '../constants'
 
 export interface UnstyledButtonProps extends KButton.ButtonRootOptions, AtomicStylesProps {
-  /** Color applied to focus-ring */
+  /**
+   * Color applied to focus-ring
+   *
+   * @remarks
+   * See {@link WishColor| the WishColor union} for more details.
+   *
+   * @default theme.primaryColor
+   */
   colorScheme?: WishColor
 }
 
