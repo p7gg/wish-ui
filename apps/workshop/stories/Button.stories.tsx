@@ -42,6 +42,10 @@ export default {
       control: { type: 'inline-radio' },
       options: wishSizes,
     },
+    loaderPosition: {
+      control: { type: 'inline-radio' },
+      options: ['left', 'right', 'center'],
+    },
     loading: {
       control: { type: 'boolean' },
     },
@@ -66,6 +70,7 @@ export default {
     colorScheme: 'blue',
     size: 'sm',
     radius: 'sm',
+    loaderPosition: 'left',
     disabled: false,
     loading: false,
     fullWidth: false,
