@@ -365,13 +365,6 @@ const _root = recipe({
             borderBottomWidth: calc.divide(buttonGroupBorderWidthVar, 2),
           },
         },
-
-        // '& + [data-button]': {
-        //   [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: -buttonBorderWidth,
-        //   '@media (min-resolution: 192dpi)': {
-        //     [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: 0,
-        //   },
-        // },
       },
       horizontal: {
         ':first-of-type': {
@@ -393,13 +386,6 @@ const _root = recipe({
             borderRightWidth: calc.divide(buttonGroupBorderWidthVar, 2),
           },
         },
-
-        // '& + [data-button]': {
-        //   [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: -buttonBorderWidth,
-        //   '@media (min-resolution: 192dpi)': {
-        //     [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: 0,
-        //   },
-        // },
       },
     },
   },
