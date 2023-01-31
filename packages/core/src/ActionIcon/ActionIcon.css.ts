@@ -91,7 +91,7 @@ const getLightCompoundVariants = () => {
   for (const colorScheme of wishColors) {
     compoundVariants.push({
       variants: {
-        variant: 'default',
+        variant: 'light',
         colorScheme,
       },
       style: {
