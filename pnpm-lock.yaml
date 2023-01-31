@@ -85,6 +85,7 @@ importers:
       '@wish-ui/vite-plugin': workspace:*
       eslint: ^8.32.0
       eslint-config-wish: workspace:*
+      lucide-solid: ^0.108.0
       react: 18.2.0
       react-dom: 18.2.0
       solid-js: ^1.6.9
@@ -95,6 +96,7 @@ importers:
       vite-plugin-solid: ^2.5.0
     dependencies:
       '@wish-ui/core': link:../../packages/core
+      lucide-solid: 0.108.0_solid-js@1.6.9
       solid-js: 1.6.9
     devDependencies:
       '@babel/preset-env': 7.20.2_@babel+core@7.20.12
@@ -7390,6 +7392,14 @@ packages:
     resolution: {integrity: sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA==}
     engines: {node: '>=12'}
     dev: true
+
+  /lucide-solid/0.108.0_solid-js@1.6.9:
+    resolution: {integrity: sha512-QsU3J12ALlUsggKKTUGaBXHf7KE5j5FSDiQWlstbLYMT4fdtLABhGpH8g1yWfCz4LRf4xayLP7lTEyMviR+Trg==}
+    peerDependencies:
+      solid-js: ^1.4.7
+    dependencies:
+      solid-js: 1.6.9
+    dev: false
 
   /lz-string/1.4.4:
     resolution: {integrity: sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==}
