@@ -134,9 +134,21 @@ const _root = recipe({
       transform: 'translateY(1px)',
       backgroundColor: aiBgColorActiveVar,
     },
-  base: {},
-  variants: {},
-  compoundVariants: [],
+
+    ':disabled': {
+      borderColor: 'transparent',
+      backgroundColor: vars.colors.gray3,
+      color: vars.colors.gray11,
+      cursor: 'not-allowed',
+      backgroundImage: 'none',
+      pointerEvents: 'none',
+    },
+
+    selectors: {
+      '&:disabled:active': {
+        transform: 'none',
+      },
+    },
   },
   variants: {
     variant: {
