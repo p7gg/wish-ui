@@ -11,7 +11,7 @@ import classes from './ButtonGroup.css'
 
 type ButtonGroupContextValue = {
   orientation: 'vertical' | 'horizontal'
-  buttonBorderWidth?: number
+  buttonBorderWidth: number
 }
 const ButtonGroupContext = createContext<ButtonGroupContextValue>()
 
