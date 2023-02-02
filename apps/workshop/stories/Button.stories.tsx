@@ -20,7 +20,7 @@ export default {
   parameters: { options: { showPanel: false, panelPosition: 'right' } },
   decorators: [
     (Story: any) => (
-      <Box padding="xl">
+      <Box padding="$xl">
         <Story />
       </Box>
     ),
