@@ -6,12 +6,5 @@
   "linked": [],
   "access": "restricted",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch",
-  "ignore": [
-    "@wish-ui/docs",
-    "@wish-ui/workshop",
-    "eslint-config-wish",
-    "@wish-ui/rollup-preset-solid",
-    "@wish-ui/tsconfig"
-  ]
+  "updateInternalDependencies": "patch"
 }
