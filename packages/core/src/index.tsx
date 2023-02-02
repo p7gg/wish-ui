@@ -1,6 +1,7 @@
 export { type ActionIconProps, ActionIcon } from './ActionIcon'
 export { type BoxProps, Box } from './Box'
 export { type ButtonProps, Button } from './Button'
+export { type CheckboxCompositions, type CheckboxProps, Checkbox } from './Checkbox'
 export * from './constants'
 export { focusStyles } from './css'
 export { type LoaderProps, Loader } from './Loader'
