@@ -24,19 +24,28 @@ const IndeterminateIcon = createComponent<'svg'>((props) => {
 
 interface CheckboxIconProps {
   /**
-   * Indeterminate state
+   * Whether the checkbox is in an indeterminate state.
+   * Indeterminism is presentational only.
+   * The indeterminate visual representation remains regardless of user interaction.
    *
    * @default false
    */
-  indeterminate?: boolean
+  isIndeterminate?: boolean
+
+  /**
+   * The controlled checked state of the checkbox.
+   *
+   * @default false
+   */
+  isChecked?: boolean
 }
 
 export const CheckboxIcon = createComponent<'svg', CheckboxIconProps>((props) => {
-  const [local, others] = splitProps(props, ['indeterminate'])
+  const [local, others] = splitProps(props, ['isIndeterminate', 'isChecked'])
 
   return (
-    <Show when={!local.indeterminate} fallback={<IndeterminateIcon />}>
-      <CheckIcon {...others} />
+    <Show when={local.isIndeterminate} fallback={<CheckIcon {...others} />}>
+      <IndeterminateIcon {...others} />
     </Show>
   )
 })
