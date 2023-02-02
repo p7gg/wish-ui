@@ -1,0 +1,28 @@
+import { endOfMonth } from "@internationalized/date";
+import { createPolymorphicComponent, mergeDefaultProps } from "@kobalte/utils";
+import { createMemo, splitProps } from "solid-js";
+import { Dynamic } from "solid-js/web";
+import { useCalendarContext } from "./calendar-context";
+import { CalendarMonthContext } from "./calendar-month-context";
+/**
+ * Root container for a month within a calendar or range calendar.
+ */
+export const CalendarMonth = createPolymorphicComponent(props => {
+    const calendarContext = useCalendarContext();
+    props = mergeDefaultProps({ as: "div" }, props);
+    const [local, others] = splitProps(props, ["as", "offset"]);
+    const startDate = createMemo(() => {
+        const offset = local.offset != null ? { months: local.offset } : {};
+        return calendarContext.state().visibleRange().start.add(offset);
+    });
+    const endDate = createMemo(() => {
+        return endOfMonth(startDate());
+    });
+    const context = {
+        startDate,
+        endDate,
+    };
+    return (<CalendarMonthContext.Provider value={context}>
+      <Dynamic component={local.as} {...others}/>
+    </CalendarMonthContext.Provider>);
+});

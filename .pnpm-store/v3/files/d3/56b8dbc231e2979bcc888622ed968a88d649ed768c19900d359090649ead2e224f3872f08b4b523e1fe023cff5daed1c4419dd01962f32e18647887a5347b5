@@ -1,0 +1,27 @@
+import 'solid-js';
+import '@solid-primitives/event-listener';
+import { noop, entries } from '@solid-primitives/utils';
+import '@solid-primitives/rootless';
+
+// src/index.ts
+var getEmptyMatchesFromBreakpoints = (breakpoints) => {
+  const matches = {};
+  entries(breakpoints).forEach(([key]) => matches[key] = false);
+  return matches;
+};
+function makeMediaQueryListener(query, callback) {
+  {
+    return noop;
+  }
+}
+var createMediaQuery = (query, fallbackState = false, watchChange = true) => {
+  {
+    return () => fallbackState;
+  }
+};
+function createBreakpoints(breakpoints, options = {}) {
+  return options.fallbackState ?? getEmptyMatchesFromBreakpoints(breakpoints);
+}
+var usePrefersDark = (fallback = false) => () => fallback ;
+
+export { createBreakpoints, createMediaQuery, makeMediaQueryListener, usePrefersDark };

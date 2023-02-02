@@ -1,0 +1,7 @@
+import * as Listbox from "../listbox";
+export interface SelectListboxOptions extends Pick<Listbox.ListboxRootOptions, "scrollRef"> {
+}
+/**
+ * Contains all the items of a `Select`.
+ */
+export declare const SelectListbox: import("@kobalte/utils").PolymorphicComponent<"div", SelectListboxOptions>;

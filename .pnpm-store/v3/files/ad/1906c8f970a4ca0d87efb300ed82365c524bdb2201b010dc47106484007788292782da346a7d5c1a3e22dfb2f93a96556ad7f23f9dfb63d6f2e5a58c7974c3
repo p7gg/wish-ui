@@ -1,0 +1,4 @@
+/**
+ * The label that gives the user information on the form control.
+ */
+export declare const FormControlLabel: import("@kobalte/utils").PolymorphicComponent<"label", {}>;

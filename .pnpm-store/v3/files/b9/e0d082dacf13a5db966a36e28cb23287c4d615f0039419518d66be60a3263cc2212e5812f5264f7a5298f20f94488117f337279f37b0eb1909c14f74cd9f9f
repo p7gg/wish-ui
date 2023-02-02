@@ -1,0 +1,6 @@
+import { ComponentProps } from "solid-js";
+import { Portal } from "solid-js/web";
+/**
+ * Portals its children into the `body` when the dialog is open.
+ */
+export declare function DialogPortal(props: ComponentProps<typeof Portal>): import("solid-js").JSX.Element;

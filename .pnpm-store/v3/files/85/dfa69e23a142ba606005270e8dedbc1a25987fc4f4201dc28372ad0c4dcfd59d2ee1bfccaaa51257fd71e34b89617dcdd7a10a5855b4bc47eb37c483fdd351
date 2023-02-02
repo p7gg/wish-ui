@@ -1,0 +1,9 @@
+import { JSX } from "solid-js";
+export interface DialogOverlayOptions {
+    /** The HTML styles attribute (object form only). */
+    style?: JSX.CSSProperties;
+}
+/**
+ * A layer that covers the inert portion of the view when the dialog is open.
+ */
+export declare const DialogOverlay: import("@kobalte/utils").PolymorphicComponent<"div", DialogOverlayOptions>;

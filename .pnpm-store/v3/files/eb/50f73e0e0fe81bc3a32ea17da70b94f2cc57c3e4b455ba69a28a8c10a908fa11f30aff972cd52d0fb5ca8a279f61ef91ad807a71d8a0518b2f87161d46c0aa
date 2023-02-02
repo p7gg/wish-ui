@@ -1,0 +1,2 @@
+import { CSSProperties, CreateStylesOutput } from './types';
+export declare function assignVars(propertyConfig: CreateStylesOutput, propValue: unknown, cache: Map<number | string, string>): CSSProperties;

@@ -1,0 +1,8 @@
+import { ParentComponent } from "solid-js";
+import { MenuRootOptions } from "../menu";
+export interface DropdownMenuRootOptions extends MenuRootOptions {
+}
+/**
+ * Displays a menu to the user —such as a set of actions or functions— triggered by a button.
+ */
+export declare const DropdownMenuRoot: ParentComponent<DropdownMenuRootOptions>;

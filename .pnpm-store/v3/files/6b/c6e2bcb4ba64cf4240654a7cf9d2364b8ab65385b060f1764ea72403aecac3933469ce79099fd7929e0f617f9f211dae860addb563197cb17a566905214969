@@ -1,0 +1,7 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['rect', { x: '6', y: '4', width: '4', height: '16', key: '5yltu4' }],
+    ['rect', { x: '14', y: '4', width: '4', height: '16', key: 'duxydb' }],
+];
+const Pause = (props) => (<Icon {...props} name="Pause" iconNode={iconNode}/>);
+export default Pause;

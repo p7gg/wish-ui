@@ -1,0 +1,68 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/a9dea8a3672179e6c38aafd1429daf44c7ea2ff6/packages/@react-aria/interactions/src/textSelection.ts
+ */
+import { isIOS, runAfterTransition } from "@kobalte/utils";
+// Note that state only matters here for iOS. Non-iOS gets user-select: none applied to the target element
+// rather than at the document level, so we just need to apply/remove user-select: none for each pressed element individually
+let state = "default";
+let savedUserSelect = "";
+const modifiedElementMap = new WeakMap();
+export function disableTextSelection(target) {
+    if (isIOS()) {
+        if (state === "default") {
+            savedUserSelect = document.documentElement.style.webkitUserSelect;
+            document.documentElement.style.webkitUserSelect = "none";
+        }
+        state = "disabled";
+    }
+    else if (target instanceof HTMLElement || target instanceof SVGElement) {
+        // If not iOS, store the target's original user-select and change to user-select: none
+        // Ignore state since it doesn't apply for non iOS
+        modifiedElementMap.set(target, target.style.userSelect);
+        target.style.userSelect = "none";
+    }
+}
+export function restoreTextSelection(target) {
+    if (isIOS()) {
+        // If the state is already default, there's nothing to do.
+        // If it is restoring, then there's no need to queue a second restore.
+        if (state !== "disabled") {
+            return;
+        }
+        state = "restoring";
+        // There appears to be a delay on iOS where selection still might occur
+        // after pointer up, so wait a bit before removing user-select.
+        setTimeout(() => {
+            // Wait for any CSS transitions to complete, so we don't recompute style
+            // for the whole page in the middle of the animation and cause jank.
+            runAfterTransition(() => {
+                // Avoid race conditions
+                if (state === "restoring") {
+                    if (document.documentElement.style.webkitUserSelect === "none") {
+                        document.documentElement.style.webkitUserSelect = savedUserSelect || "";
+                    }
+                    savedUserSelect = "";
+                    state = "default";
+                }
+            });
+        }, 300);
+    }
+    else if (target instanceof HTMLElement || target instanceof SVGElement) {
+        // If not iOS, restore the target's original user-select if any
+        // Ignore state since it doesn't apply for non iOS
+        if (target && modifiedElementMap.has(target)) {
+            const targetOldUserSelect = modifiedElementMap.get(target) ?? "";
+            if (target.style.userSelect === "none") {
+                target.style.userSelect = targetOldUserSelect;
+            }
+            if (target.getAttribute("style") === "") {
+                target.removeAttribute("style");
+            }
+            modifiedElementMap.delete(target);
+        }
+    }
+}

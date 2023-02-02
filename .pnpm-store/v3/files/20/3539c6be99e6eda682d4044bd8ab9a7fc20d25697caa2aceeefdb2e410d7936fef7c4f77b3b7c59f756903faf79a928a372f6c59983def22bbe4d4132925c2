@@ -1,0 +1,18 @@
+import Icon from '../Icon';
+const iconNode = [
+    [
+        'rect',
+        {
+            x: '4',
+            y: '2',
+            width: '16',
+            height: '20',
+            rx: '2',
+            ry: '2',
+            key: '152kg8',
+        },
+    ],
+    ['line', { x1: '12', y1: '18', x2: '12.01', y2: '18', key: '73g4n8' }],
+];
+const Tablet = (props) => (<Icon {...props} name="Tablet" iconNode={iconNode}/>);
+export default Tablet;

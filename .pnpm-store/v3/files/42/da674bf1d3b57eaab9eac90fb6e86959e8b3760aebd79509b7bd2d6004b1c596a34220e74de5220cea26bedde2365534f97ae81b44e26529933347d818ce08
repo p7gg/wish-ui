@@ -1,0 +1,5 @@
+import * as Button from "../button";
+/**
+ * The button that closes the popover.
+ */
+export declare const PopoverCloseButton: import("@kobalte/utils").PolymorphicComponent<"button", Button.ButtonRootOptions>;

@@ -1,0 +1,7 @@
+/**
+ * Create a component with the type cast to `PolymorphicComponent`.
+ * You have to use `Dynamic` internally and pass the `as` prop to handle polymorphism correctly.
+ */
+export function createPolymorphicComponent(component) {
+    return component;
+}

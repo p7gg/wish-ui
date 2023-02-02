@@ -1,0 +1,14 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/6b51339cca0b8344507d3c8e81e7ad05d6e75f9b/packages/@react-aria/interactions/src/useLongPress.ts
+ */
+import { CreateLongPressProps, CreateLongPressResult } from "./types";
+export declare const CREATE_LONG_PRESS_PROP_NAMES: readonly ["onLongPressStart", "onLongPressEnd", "onLongPress", "isDisabled", "threshold"];
+/**
+ * Handles long press interactions across mouse and touch devices. Supports a customizable time threshold,
+ * and normalizes behavior across browsers and devices.
+ */
+export declare function createLongPress<T extends HTMLElement>(props: CreateLongPressProps): CreateLongPressResult<T>;

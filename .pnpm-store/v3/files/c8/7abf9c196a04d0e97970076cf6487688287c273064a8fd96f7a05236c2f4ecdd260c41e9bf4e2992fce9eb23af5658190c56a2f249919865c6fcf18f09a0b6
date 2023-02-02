@@ -1,0 +1,8 @@
+export interface CalendarMonthProps {
+    /** The number of months to offset from the start date. */
+    offset?: number;
+}
+/**
+ * Root container for a month within a calendar or range calendar.
+ */
+export declare const CalendarMonth: import("@kobalte/utils").PolymorphicComponent<"div", CalendarMonthProps>;

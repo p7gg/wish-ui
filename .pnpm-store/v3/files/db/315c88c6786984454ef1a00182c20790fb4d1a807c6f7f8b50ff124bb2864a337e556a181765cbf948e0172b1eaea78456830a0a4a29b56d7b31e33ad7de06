@@ -1,0 +1,4 @@
+/**
+ * A weekday cell of a `Calendar.Grid`.
+ */
+export declare const CalendarWeekDay: import("@kobalte/utils").PolymorphicComponent<"th", {}>;

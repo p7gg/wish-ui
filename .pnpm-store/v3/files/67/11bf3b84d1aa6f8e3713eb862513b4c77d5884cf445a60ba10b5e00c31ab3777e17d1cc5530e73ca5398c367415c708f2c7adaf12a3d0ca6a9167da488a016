@@ -1,0 +1,4 @@
+/**
+ * Contains the title and navigation buttons of a `Calendar.Month`.
+ */
+export declare const CalendarHeader: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

@@ -1,0 +1,15 @@
+import { Accessor } from "solid-js";
+export interface HoverCardContextValue {
+    isOpen: Accessor<boolean>;
+    shouldMount: Accessor<boolean>;
+    openWithDelay: () => void;
+    closeWithDelay: () => void;
+    cancelOpening: () => void;
+    cancelClosing: () => void;
+    close: () => void;
+    isTargetOnHoverCard: (target: Node | null) => boolean;
+    setTriggerRef: (el: HTMLElement) => void;
+    setContentRef: (el: HTMLElement) => void;
+}
+export declare const HoverCardContext: import("solid-js").Context<HoverCardContextValue>;
+export declare function useHoverCardContext(): HoverCardContextValue;

@@ -1,0 +1,12 @@
+import { createPolymorphicComponent, mergeDefaultProps } from "@kobalte/utils";
+import { MenuItemBase } from "./menu-item-base";
+/**
+ * An item of the menu.
+ */
+export const MenuItem = createPolymorphicComponent(props => {
+    props = mergeDefaultProps({
+        as: "div",
+        closeOnSelect: true,
+    }, props);
+    return <MenuItemBase role="menuitem" {...props}/>;
+});

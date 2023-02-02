@@ -1,0 +1,4 @@
+/**
+ * The description that gives the user more information on the form control.
+ */
+export declare const FormControlDescription: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

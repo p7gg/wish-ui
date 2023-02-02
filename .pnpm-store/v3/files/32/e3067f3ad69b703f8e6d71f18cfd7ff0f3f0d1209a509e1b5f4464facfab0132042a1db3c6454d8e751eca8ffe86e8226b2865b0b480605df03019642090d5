@@ -1,0 +1,18 @@
+import { Accessor, JSX } from "solid-js";
+interface SelectValueState {
+    /** The selected value of the select. */
+    selectedValue: Accessor<string>;
+}
+export interface SelectValueOptions {
+    /** The content that will be rendered when no value or defaultValue is set. */
+    placeholder?: JSX.Element;
+    /** The content that will be rendered when a value is set. */
+    children?: ((state: SelectValueState) => JSX.Element) | JSX.Element;
+}
+/**
+ * The part that reflects the selected value. By default, the selected item's text will be rendered.
+ * If you require more control, you can instead control the select and pass your own children.
+ * An optional placeholder prop is also available for when the select has no value.
+ */
+export declare const SelectValue: import("@kobalte/utils").PolymorphicComponent<"span", SelectValueOptions>;
+export {};

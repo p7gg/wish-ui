@@ -1,0 +1,9 @@
+import { JSX } from "solid-js";
+export interface HoverCardContentOptions {
+    /** The HTML styles attribute (object form only). */
+    style?: JSX.CSSProperties;
+}
+/**
+ * Contains the content to be rendered when the hovercard is open.
+ */
+export declare const HoverCardContent: import("@kobalte/utils").PolymorphicComponent<"div", HoverCardContentOptions>;

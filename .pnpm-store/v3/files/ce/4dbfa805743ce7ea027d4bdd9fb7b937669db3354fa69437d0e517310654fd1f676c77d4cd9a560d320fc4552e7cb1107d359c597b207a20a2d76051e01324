@@ -1,0 +1,40 @@
+import { createGenerateId, mergeDefaultProps } from "@kobalte/utils";
+import { createSignal, createUniqueId } from "solid-js";
+import { createDisclosureState, createRegisterId } from "../primitives";
+import { DialogContext } from "./dialog-context";
+/**
+ * A dialog is a window overlaid on either the primary window or another dialog window.
+ */
+export const DialogRoot = props => {
+    const defaultId = `dialog-${createUniqueId()}`;
+    props = mergeDefaultProps({
+        id: defaultId,
+        isModal: true,
+    }, props);
+    const [contentId, setContentId] = createSignal();
+    const [titleId, setTitleId] = createSignal();
+    const [descriptionId, setDescriptionId] = createSignal();
+    const [triggerRef, setTriggerRef] = createSignal();
+    const disclosureState = createDisclosureState({
+        isOpen: () => props.isOpen,
+        defaultIsOpen: () => props.defaultIsOpen,
+        onOpenChange: isOpen => props.onOpenChange?.(isOpen),
+    });
+    const context = {
+        isOpen: disclosureState.isOpen,
+        isModal: () => props.isModal,
+        shouldMount: () => props.forceMount || disclosureState.isOpen(),
+        contentId,
+        titleId,
+        descriptionId,
+        triggerRef,
+        close: disclosureState.close,
+        toggle: disclosureState.toggle,
+        setTriggerRef,
+        generateId: createGenerateId(() => props.id),
+        registerContentId: createRegisterId(setContentId),
+        registerTitleId: createRegisterId(setTitleId),
+        registerDescriptionId: createRegisterId(setDescriptionId),
+    };
+    return <DialogContext.Provider value={context}>{props.children}</DialogContext.Provider>;
+};

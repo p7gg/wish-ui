@@ -1,0 +1,9 @@
+import Icon from '../Icon';
+const iconNode = [
+    [
+        'rect',
+        { x: '2', y: '6', width: '20', height: '12', rx: '2', key: '1wpnh2' },
+    ],
+];
+const RectangleHorizontal = (props) => (<Icon {...props} name="RectangleHorizontal" iconNode={iconNode}/>);
+export default RectangleHorizontal;

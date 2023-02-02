@@ -1,0 +1,4 @@
+/**
+ * A description of the visible `Calendar.Month`.
+ */
+export declare const CalendarTitle: import("@kobalte/utils").PolymorphicComponent<"h2", {}>;

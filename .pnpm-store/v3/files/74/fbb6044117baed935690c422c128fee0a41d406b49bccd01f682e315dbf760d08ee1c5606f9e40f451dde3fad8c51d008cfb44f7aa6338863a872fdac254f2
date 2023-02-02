@@ -1,0 +1,14 @@
+import Icon from '../Icon';
+const iconNode = [
+    [
+        'rect',
+        { x: '5', y: '16', width: '14', height: '6', rx: '2', key: '1xmr5l' },
+    ],
+    [
+        'rect',
+        { x: '7', y: '2', width: '10', height: '6', rx: '2', key: '1dm79a' },
+    ],
+    ['path', { d: 'M2 12h20', key: '9i4pu4' }],
+];
+const AlignVerticalJustifyCenter = (props) => (<Icon {...props} name="AlignVerticalJustifyCenter" iconNode={iconNode}/>);
+export default AlignVerticalJustifyCenter;

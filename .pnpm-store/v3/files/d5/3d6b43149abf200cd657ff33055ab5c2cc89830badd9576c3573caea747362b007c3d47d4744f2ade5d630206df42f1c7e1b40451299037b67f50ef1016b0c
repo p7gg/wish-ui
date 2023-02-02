@@ -1,0 +1,9 @@
+import { Accessor } from "solid-js";
+export interface MenuRootContextValue {
+    isModal: Accessor<boolean>;
+    forceMount: Accessor<boolean>;
+    close: () => void;
+    generateId: (part: string) => string;
+}
+export declare const MenuRootContext: import("solid-js").Context<MenuRootContextValue>;
+export declare function useMenuRootContext(): MenuRootContextValue;

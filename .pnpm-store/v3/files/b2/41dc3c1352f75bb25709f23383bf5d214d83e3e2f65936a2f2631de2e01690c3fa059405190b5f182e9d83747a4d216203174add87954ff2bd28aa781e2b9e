@@ -1,0 +1,6 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['polyline', { points: '20 6 9 17 4 12', key: '10jjfj' }],
+];
+const Check = (props) => (<Icon {...props} name="Check" iconNode={iconNode}/>);
+export default Check;

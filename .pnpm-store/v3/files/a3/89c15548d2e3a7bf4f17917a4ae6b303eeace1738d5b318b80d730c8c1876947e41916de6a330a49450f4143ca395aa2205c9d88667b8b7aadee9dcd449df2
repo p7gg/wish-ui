@@ -1,0 +1,4 @@
+/**
+ * The element that visually represents a switch.
+ */
+export declare const SwitchControl: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

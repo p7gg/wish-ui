@@ -1,0 +1,4 @@
+/**
+ * The element that visually represents a radio button.
+ */
+export declare const RadioGroupItemControl: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

@@ -1,0 +1,17 @@
+import { ParentProps } from "solid-js";
+import { SelectBaseOptions } from "./select-base";
+export interface SelectRootOptions extends Omit<SelectBaseOptions, "value" | "defaultValue" | "onValueChange" | "selectionMode"> {
+    /** The controlled value of the select. */
+    value?: string;
+    /**
+     * The value of the select when initially rendered.
+     * Useful when you do not need to control the value.
+     */
+    defaultValue?: string;
+    /** Event handler called when the value changes. */
+    onValueChange?: (value: string) => void;
+}
+/**
+ * Displays a list of options for the user to pick from — triggered by a button.
+ */
+export declare function SelectRoot(props: ParentProps<SelectRootOptions>): import("solid-js").JSX.Element;

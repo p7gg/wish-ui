@@ -1,0 +1,18 @@
+import Icon from '../Icon';
+const iconNode = [
+    [
+        'rect',
+        {
+            x: '1',
+            y: '5',
+            width: '22',
+            height: '14',
+            rx: '7',
+            ry: '7',
+            key: 'rq2fx9',
+        },
+    ],
+    ['circle', { cx: '16', cy: '12', r: '3', key: 'nkkl0l' }],
+];
+const ToggleRight = (props) => (<Icon {...props} name="ToggleRight" iconNode={iconNode}/>);
+export default ToggleRight;

@@ -1,0 +1,53 @@
+'use strict';
+
+var solidJs = require('solid-js');
+var utils = require('@solid-primitives/utils');
+
+// src/index.ts
+function createSubRoot(fn, ...owners) {
+  if (owners.length === 0)
+    owners = [solidJs.getOwner()];
+  return solidJs.createRoot((dispose) => {
+    utils.asArray(utils.access(owners)).forEach(
+      (owner) => owner && solidJs.runWithOwner(owner, solidJs.onCleanup.bind(void 0, dispose))
+    );
+    return fn(dispose);
+  }, owners[0] || void 0);
+}
+exports.createBranch = createSubRoot;
+exports.createCallback = (callback, owner = solidJs.getOwner()) => owner ? (...args) => solidJs.runWithOwner(owner, () => callback(...args)) : callback;
+function createDisposable(fn, ...owners) {
+  return createSubRoot((dispose) => {
+    fn(dispose);
+    return dispose;
+  }, ...owners);
+}
+function createSharedRoot(factory) {
+  let listeners = 0;
+  let value;
+  let dispose;
+  return () => {
+    if (!dispose) {
+      solidJs.createRoot((_dispose) => {
+        value = factory(_dispose);
+        dispose = _dispose;
+      });
+    }
+    listeners++;
+    solidJs.getOwner() && solidJs.onCleanup(() => {
+      listeners--;
+      queueMicrotask(() => {
+        if (listeners || !dispose)
+          return;
+        dispose();
+        dispose = void 0;
+        value = void 0;
+      });
+    });
+    return value;
+  };
+}
+
+exports.createDisposable = createDisposable;
+exports.createSharedRoot = createSharedRoot;
+exports.createSubRoot = createSubRoot;

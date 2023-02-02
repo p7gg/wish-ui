@@ -1,0 +1,14 @@
+/*!
+ * Portions of this file are based on code from radix-ui-primitives.
+ * MIT Licensed, Copyright (c) 2022 WorkOS.
+ *
+ * Credits to the Radix UI team:
+ * https://github.com/radix-ui/primitives/blob/81b25f4b40c54f72aeb106ca0e64e1e09655153e/packages/react/menu/src/Menu.tsx
+ */
+import { MenuContentBaseOptions } from "./menu-content-base";
+export interface MenuSubContentOptions extends Omit<MenuContentBaseOptions, "onOpenAutoFocus" | "onCloseAutoFocus"> {
+}
+/**
+ * The component that pops out when a submenu is open.
+ */
+export declare const MenuSubContent: import("@kobalte/utils").PolymorphicComponent<"div", MenuSubContentOptions>;

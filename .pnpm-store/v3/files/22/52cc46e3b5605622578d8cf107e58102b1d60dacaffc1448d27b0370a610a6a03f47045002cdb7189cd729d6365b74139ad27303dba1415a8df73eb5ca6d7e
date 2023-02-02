@@ -1,0 +1,13 @@
+import { createPolymorphicComponent } from "@kobalte/utils";
+import { createPreventScroll } from "../primitives";
+import { MenuContentBase } from "./menu-content-base";
+import { useMenuContext } from "./menu-context";
+import { useMenuRootContext } from "./menu-root-context";
+export const MenuContent = createPolymorphicComponent(props => {
+    const rootContext = useMenuRootContext();
+    const context = useMenuContext();
+    createPreventScroll({
+        isDisabled: () => !(context.isOpen() && rootContext.isModal()),
+    });
+    return <MenuContentBase {...props}/>;
+});

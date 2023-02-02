@@ -1,0 +1,6 @@
+import { ComponentProps } from "solid-js";
+import { Portal } from "solid-js/web";
+/**
+ * Portals its children into the `body` when the popover is open.
+ */
+export declare function PopoverPortal(props: ComponentProps<typeof Portal>): import("solid-js").JSX.Element;

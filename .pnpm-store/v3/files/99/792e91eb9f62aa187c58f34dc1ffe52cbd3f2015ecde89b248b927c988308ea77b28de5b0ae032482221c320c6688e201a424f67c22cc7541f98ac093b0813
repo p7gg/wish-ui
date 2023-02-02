@@ -1,0 +1,4 @@
+/**
+ * The thumb that is used to visually indicate whether the switch is on or off.
+ */
+export declare const SwitchThumb: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

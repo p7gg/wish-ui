@@ -1,0 +1,6 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['polyline', { points: '22 12 18 12 15 21 9 3 6 12 2 12', key: 'xez52g' }],
+];
+const Activity = (props) => (<Icon {...props} name="Activity" iconNode={iconNode}/>);
+export default Activity;

@@ -1,0 +1,9 @@
+import { createContext, useContext } from "solid-js";
+export const CalendarCellContext = createContext();
+export function useCalendarCellContext() {
+    const context = useContext(CalendarCellContext);
+    if (context === undefined) {
+        throw new Error("[kobalte]: `useCalendarCellContext` must be used within a `Calendar.Cell` component");
+    }
+    return context;
+}

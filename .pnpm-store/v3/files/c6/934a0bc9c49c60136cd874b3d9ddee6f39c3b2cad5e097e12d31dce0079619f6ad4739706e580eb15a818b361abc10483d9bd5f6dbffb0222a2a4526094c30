@@ -1,0 +1,6 @@
+export interface ListboxGroupContextValue {
+    generateId: (part: string) => string;
+    registerLabel: (id: string) => () => void;
+}
+export declare const ListboxGroupContext: import("solid-js").Context<ListboxGroupContextValue>;
+export declare function useListboxGroupContext(): ListboxGroupContextValue;

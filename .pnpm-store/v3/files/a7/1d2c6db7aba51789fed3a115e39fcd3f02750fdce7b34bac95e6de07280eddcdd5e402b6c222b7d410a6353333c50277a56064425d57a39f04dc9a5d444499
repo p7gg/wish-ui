@@ -1,0 +1,7 @@
+import { SelectBase } from "../select/select-base";
+/**
+ * Displays a list of options for the user to pick multiples from — triggered by a button.
+ */
+export function MultiSelectRoot(props) {
+    return <SelectBase selectionMode="multiple" disallowEmptySelection={false} {...props}/>;
+}

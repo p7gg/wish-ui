@@ -1,0 +1,13 @@
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/84e97943ad637a582c01c9b56d880cd95f595737/packages/ariakit/src/hovercard/__utils/polygon.ts
+ * https://github.com/ariakit/ariakit/blob/f2a96973de523d67e41eec983263936c489ef3e2/packages/ariakit/src/hovercard/__utils/debug-polygon.ts
+ */
+export declare type Point = [number, number];
+export declare type Polygon = Point[];
+export declare function getEventPoint(event: MouseEvent): Point;
+export declare function isPointInPolygon(point: Point, polygon: Polygon): boolean;
+export declare function debugPolygon(polygon: Polygon): HTMLElement;

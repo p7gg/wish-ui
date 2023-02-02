@@ -1,0 +1,20 @@
+import { Accessor, JSX } from "solid-js";
+export interface CalendarWeekDaysOptions {
+    /**
+     * The representation of the weekday according to the [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#syntax) API.
+     * Possible values are:
+     * - "long" (e.g., Thursday)
+     * - "short" (e.g., Thu)
+     * - "narrow" (e.g., T).
+     */
+    format?: Intl.DateTimeFormatOptions["weekday"];
+    /**
+     * Render prop used to render each weekday cell,
+     * it receives a weekday accessor as parameter.
+     */
+    children: (weekDay: Accessor<string>) => JSX.Element;
+}
+/**
+ * A row in the `Calendar.GridHeader`, used to contain the weekday cells.
+ */
+export declare const CalendarWeekDays: import("@kobalte/utils").PolymorphicComponent<"tr", CalendarWeekDaysOptions>;

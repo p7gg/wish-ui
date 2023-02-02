@@ -1,0 +1,1 @@
+import{JsPackageManager,JsPackageManagerFactory,getPackageDetails,useNpmWarning}from"./chunk-2SUOWZYQ.mjs";export{JsPackageManager,JsPackageManagerFactory,getPackageDetails,useNpmWarning};

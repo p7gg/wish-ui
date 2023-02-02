@@ -1,0 +1,12 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/bb9f65fc853474065a9de9ed6f5f471c16689237/packages/@react-aria/calendar/src/useCalendarCell.ts
+ * https://github.com/adobe/react-spectrum/blob/73d8be4dd7ff1713084cfe3f602f11aef1cecb07/packages/@react-spectrum/calendar/src/CalendarCell.tsx
+ */
+/**
+ * A day of the `Calendar.Month` which can be selected by the user.
+ */
+export declare const CalendarDay: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

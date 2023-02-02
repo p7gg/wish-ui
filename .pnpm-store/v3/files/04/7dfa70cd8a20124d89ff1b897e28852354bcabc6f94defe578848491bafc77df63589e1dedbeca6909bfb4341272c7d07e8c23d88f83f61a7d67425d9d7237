@@ -1,0 +1,4 @@
+/**
+ * The label that gives the user information on the radio button.
+ */
+export declare const RadioGroupItemLabel: import("@kobalte/utils").PolymorphicComponent<"span", {}>;

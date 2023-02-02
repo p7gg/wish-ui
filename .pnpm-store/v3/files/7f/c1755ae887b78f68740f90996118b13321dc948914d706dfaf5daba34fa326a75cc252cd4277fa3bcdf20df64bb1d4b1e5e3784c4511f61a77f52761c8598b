@@ -1,0 +1,27 @@
+/*!
+ * Portions of this file are based on code from radix-ui-primitives.
+ * MIT Licensed, Copyright (c) 2022 WorkOS.
+ *
+ * Credits to the Radix UI team:
+ * https://github.com/radix-ui/primitives/blob/21a7c97dc8efa79fecca36428eec49f187294085/packages/react/collapsible/src/Collapsible.tsx
+ */
+export interface CollapsibleRootOptions {
+    /** The controlled open state of the collapsible. */
+    isOpen?: boolean;
+    /**
+     * The default open state when initially rendered.
+     * Useful when you do not need to control the open state.
+     */
+    defaultIsOpen?: boolean;
+    /** Event handler called when the open state of the collapsible changes. */
+    onOpenChange?: (isOpen: boolean) => void;
+    /**
+     * Used to force mounting the collapsible content when more control is needed.
+     * Useful when controlling animation with SolidJS animation libraries.
+     */
+    forceMount?: boolean;
+}
+/**
+ * An interactive component which expands/collapses a content.
+ */
+export declare const CollapsibleRoot: import("@kobalte/utils").PolymorphicComponent<"div", CollapsibleRootOptions>;

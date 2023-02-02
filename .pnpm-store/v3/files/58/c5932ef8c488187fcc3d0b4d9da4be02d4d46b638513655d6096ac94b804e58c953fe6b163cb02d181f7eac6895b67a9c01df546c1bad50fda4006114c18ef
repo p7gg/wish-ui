@@ -1,0 +1,10 @@
+/*!
+ * Original code by Chakra UI
+ * MIT Licensed, Copyright (c) 2019 Segun Adebayo.
+ *
+ * Credits to the Chakra UI team:
+ * https://github.com/chakra-ui/chakra-ui/blob/main/packages/utils/src/assertion.ts
+ */
+export declare function isArray<T>(value: any): value is Array<T>;
+export declare function isString(value: any): value is string;
+export declare function isFunction<T extends Function = Function>(value: any): value is T;

@@ -1,0 +1,4 @@
+/**
+ * An optional accessible description to be announced when the dialog is open.
+ */
+export declare const DialogDescription: import("@kobalte/utils").PolymorphicComponent<"p", {}>;

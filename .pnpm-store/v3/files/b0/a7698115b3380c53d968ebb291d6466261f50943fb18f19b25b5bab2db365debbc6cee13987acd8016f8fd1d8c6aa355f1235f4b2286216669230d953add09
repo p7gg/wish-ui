@@ -1,0 +1,4 @@
+/**
+ * The label that gives the user information on the select.
+ */
+export declare const SelectLabel: import("@kobalte/utils").PolymorphicComponent<"span", {}>;

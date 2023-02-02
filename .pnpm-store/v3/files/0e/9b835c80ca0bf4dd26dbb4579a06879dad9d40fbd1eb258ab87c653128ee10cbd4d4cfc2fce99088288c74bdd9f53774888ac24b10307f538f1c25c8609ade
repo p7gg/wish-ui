@@ -1,0 +1,13 @@
+import Icon from '../Icon';
+const iconNode = [
+    [
+        'rect',
+        { x: '2', y: '4', width: '20', height: '6', rx: '2', key: '12sjy4' },
+    ],
+    [
+        'rect',
+        { x: '2', y: '14', width: '20', height: '6', rx: '2', key: 'lnm6uo' },
+    ],
+];
+const StretchHorizontal = (props) => (<Icon {...props} name="StretchHorizontal" iconNode={iconNode}/>);
+export default StretchHorizontal;

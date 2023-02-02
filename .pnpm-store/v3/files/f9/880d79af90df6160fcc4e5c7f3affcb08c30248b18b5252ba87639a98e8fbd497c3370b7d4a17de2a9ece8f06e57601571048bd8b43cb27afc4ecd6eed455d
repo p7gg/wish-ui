@@ -1,0 +1,7 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['line', { x1: '12', y1: '5', x2: '12', y2: '19', key: 'myz83a' }],
+    ['polyline', { points: '19 12 12 19 5 12', key: '17kmxi' }],
+];
+const ArrowDown = (props) => (<Icon {...props} name="ArrowDown" iconNode={iconNode}/>);
+export default ArrowDown;

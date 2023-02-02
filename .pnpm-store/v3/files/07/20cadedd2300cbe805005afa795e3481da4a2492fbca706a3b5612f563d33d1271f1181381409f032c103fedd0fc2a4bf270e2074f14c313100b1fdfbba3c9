@@ -1,0 +1,21 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/bb9f65fc853474065a9de9ed6f5f471c16689237/packages/@react-aria/calendar/src/useCalendarCell.ts
+ */
+import { CalendarDate } from "@internationalized/date";
+export interface CalendarCellOptions {
+    /** The date that this cell represents. */
+    date?: CalendarDate | null;
+    /**
+     * Whether the cell is disabled. By default, this is determined by the
+     * Calendar's `minValue`, `maxValue`, and `isDisabled` props.
+     */
+    isDisabled?: boolean;
+}
+/**
+ * The wrapper component for a `Calendar.Day`.
+ */
+export declare const CalendarCell: import("@kobalte/utils").PolymorphicComponent<"td", CalendarCellOptions>;

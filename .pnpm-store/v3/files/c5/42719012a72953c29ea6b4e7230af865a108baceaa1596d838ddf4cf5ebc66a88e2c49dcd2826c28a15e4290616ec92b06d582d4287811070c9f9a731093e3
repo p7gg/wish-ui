@@ -1,0 +1,10 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['path', { d: 'M7 21h10', key: '1b0cd5' }],
+    [
+        'rect',
+        { x: '2', y: '3', width: '20', height: '14', rx: '2', key: 'x3v2xh' },
+    ],
+];
+const Tv2 = (props) => (<Icon {...props} name="Tv2" iconNode={iconNode}/>);
+export default Tv2;

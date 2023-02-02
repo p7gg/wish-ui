@@ -1,0 +1,7 @@
+import { MenuItemBaseOptions } from "./menu-item-base";
+export interface MenuItemOptions extends Omit<MenuItemBaseOptions, "isChecked" | "isIndeterminate"> {
+}
+/**
+ * An item of the menu.
+ */
+export declare const MenuItem: import("@kobalte/utils").PolymorphicComponent<"div", MenuItemOptions>;

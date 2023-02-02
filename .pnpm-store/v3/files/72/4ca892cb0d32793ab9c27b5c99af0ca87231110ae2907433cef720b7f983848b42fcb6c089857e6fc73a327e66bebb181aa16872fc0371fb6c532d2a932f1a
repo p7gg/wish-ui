@@ -1,0 +1,42 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/3155e4db7eba07cf06525747ce0adb54c1e2a086/packages/@react-aria/switch/src/useSwitch.ts
+ */
+import { OverrideProps, ValidationState } from "@kobalte/utils";
+import { Component, ComponentProps } from "solid-js";
+export interface SwitchRootOptions {
+    /** The controlled checked state of the switch. */
+    isChecked?: boolean;
+    /**
+     * The default checked state when initially rendered.
+     * Useful when you do not need to control the checked state.
+     */
+    defaultIsChecked?: boolean;
+    /** Event handler called when the checked state of the switch changes. */
+    onCheckedChange?: (isChecked: boolean) => void;
+    /**
+     * The name of the switch, used when submitting an HTML form.
+     * See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#htmlattrdefname).
+     */
+    name?: string;
+    /**
+     * The value of the switch, used when submitting an HTML form.
+     * See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#htmlattrdefvalue).
+     */
+    value?: string;
+    /** Whether the switch should display its "valid" or "invalid" visual styling. */
+    validationState?: ValidationState;
+    /** Whether the user must check the switch before the owning form can be submitted. */
+    isRequired?: boolean;
+    /** Whether the switch is disabled. */
+    isDisabled?: boolean;
+    /** Whether the switch is read only. */
+    isReadOnly?: boolean;
+}
+/**
+ * A control that allows users to choose one of two values: on or off.
+ */
+export declare const SwitchRoot: Component<OverrideProps<ComponentProps<"label">, SwitchRootOptions>>;

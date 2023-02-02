@@ -1,0 +1,27 @@
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/232bc79018ec20967fec1e097a9474aba3bb5be7/packages/ariakit-utils/src/dom.ts
+ */
+/**
+ * Similar to `Element.prototype.contains`, but a little faster when `element` is the same as `child`.
+ */
+export declare function contains(parent: Node | undefined, child: Node | null): boolean;
+/**
+ * Returns `element.ownerDocument.activeElement`.
+ */
+export declare function getActiveElement(node?: Node | null, activeDescendant?: boolean): HTMLElement | null;
+/**
+ * Returns `element.ownerDocument.defaultView || window`.
+ */
+export declare function getWindow(node?: Node | null): Window;
+/**
+ * Returns `element.ownerDocument || document`.
+ */
+export declare function getDocument(node?: Node | null): Document;
+/**
+ * Checks whether `element` is a frame element.
+ */
+export declare function isFrame(element: Element): element is HTMLIFrameElement;

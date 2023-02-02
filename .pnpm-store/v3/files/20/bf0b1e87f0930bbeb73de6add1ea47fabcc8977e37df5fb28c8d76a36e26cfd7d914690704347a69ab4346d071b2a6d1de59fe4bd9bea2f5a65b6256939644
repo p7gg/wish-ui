@@ -1,0 +1,15 @@
+import { CalendarDate } from "@internationalized/date";
+import { Accessor, JSX } from "solid-js";
+export interface CalendarRowOptions {
+    /** The index of the week to render. */
+    weekIndex: number;
+    /**
+     * Render prop used to render each day of the week row,
+     * it receives a date accessor as parameter.
+     */
+    children: (date: Accessor<CalendarDate | null>) => JSX.Element;
+}
+/**
+ * Contains a row of day cells within a `Calendar.Grid`.
+ */
+export declare const CalendarRow: import("@kobalte/utils").PolymorphicComponent<"tr", CalendarRowOptions>;

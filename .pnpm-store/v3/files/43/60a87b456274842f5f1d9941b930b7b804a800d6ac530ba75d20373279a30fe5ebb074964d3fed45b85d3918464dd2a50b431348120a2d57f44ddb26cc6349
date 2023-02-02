@@ -1,0 +1,8 @@
+import { ParentProps } from "solid-js";
+import { MenuOptions } from "./menu";
+export interface MenuSubOptions extends Omit<MenuOptions, "placement" | "flip" | "sameWidth"> {
+}
+/**
+ * Contains all the parts of a submenu.
+ */
+export declare function MenuSub(props: ParentProps<MenuSubOptions>): import("solid-js").JSX.Element;

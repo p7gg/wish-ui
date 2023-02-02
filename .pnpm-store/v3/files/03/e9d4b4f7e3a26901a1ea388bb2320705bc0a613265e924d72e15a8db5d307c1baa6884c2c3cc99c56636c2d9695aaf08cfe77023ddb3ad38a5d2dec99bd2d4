@@ -1,0 +1,12 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/bb9f65fc853474065a9de9ed6f5f471c16689237/packages/@react-aria/calendar/src/useCalendarGrid.ts
+ */
+/**
+ * A single grid of days within a `Calendar.Month` which
+ * can be navigated via keyboard and selected by the user.
+ */
+export declare const CalendarGrid: import("@kobalte/utils").PolymorphicComponent<"table", {}>;

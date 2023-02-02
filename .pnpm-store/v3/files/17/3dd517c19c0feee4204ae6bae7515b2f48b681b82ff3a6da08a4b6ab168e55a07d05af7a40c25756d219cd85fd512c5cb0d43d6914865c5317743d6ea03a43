@@ -1,0 +1,104 @@
+{
+  "name": "@solid-primitives/media",
+  "version": "2.0.5",
+  "description": "Primitives for media query and device features",
+  "author": "David Di Biase <dave.dibiase@gmail.com>",
+  "contributors": [
+    {
+      "name": "Aditya Agarwal",
+      "email": "adityaa803@gmail.com",
+      "url": "https://devadi.netlify.app"
+    },
+    "Damian Tarnawski <gthetarnav@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/solidjs-community/solid-primitives/tree/main/packages/media",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solidjs-community/solid-primitives.git"
+  },
+  "primitive": {
+    "name": "media",
+    "stage": 3,
+    "list": [
+      "makeMediaQueryListener",
+      "createMediaQuery",
+      "createBreakpoints",
+      "usePrefersDark"
+    ],
+    "category": "Display & Media"
+  },
+  "keywords": [
+    "media",
+    "mediaquery",
+    "query",
+    "breakpoints",
+    "responsive",
+    "solid",
+    "primitives"
+  ],
+  "files": [
+    "dist"
+  ],
+  "private": false,
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/server.cjs",
+  "module": "./dist/server.js",
+  "types": "./dist/index.d.ts",
+  "browser": {
+    "./dist/server.js": "./dist/index.js",
+    "./dist/server.cjs": "./dist/index.cjs"
+  },
+  "exports": {
+    "worker": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": "./dist/server.cjs"
+    },
+    "browser": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": "./dist/index.cjs"
+    },
+    "deno": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": "./dist/server.cjs"
+    },
+    "node": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": "./dist/server.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "require": "./dist/index.cjs"
+  },
+  "dependencies": {
+    "@solid-primitives/event-listener": "^2.2.5",
+    "@solid-primitives/rootless": "^1.2.2",
+    "@solid-primitives/utils": "^4.0.1"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.6.0"
+  },
+  "typesVersions": {},
+  "scripts": {
+    "dev": "vite serve dev",
+    "page": "vite build dev",
+    "build": "jiti ../../scripts/build.ts --ssr",
+    "test": "vitest -c ../../configs/vitest.config.ts",
+    "test:ssr": "pnpm run test --mode ssr"
+  }
+}

@@ -1,0 +1,7 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['circle', { cx: '12', cy: '12', r: '10', key: '1mglay' }],
+    ['line', { x1: '8', y1: '12', x2: '16', y2: '12', key: '1myapg' }],
+];
+const MinusCircle = (props) => (<Icon {...props} name="MinusCircle" iconNode={iconNode}/>);
+export default MinusCircle;

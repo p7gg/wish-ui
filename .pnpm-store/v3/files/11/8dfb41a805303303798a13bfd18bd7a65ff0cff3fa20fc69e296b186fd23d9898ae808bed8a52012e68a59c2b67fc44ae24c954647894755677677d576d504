@@ -1,0 +1,4 @@
+/**
+ * The accessible label text representing the current value in a human-readable format.
+ */
+export declare const ProgressValueLabel: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

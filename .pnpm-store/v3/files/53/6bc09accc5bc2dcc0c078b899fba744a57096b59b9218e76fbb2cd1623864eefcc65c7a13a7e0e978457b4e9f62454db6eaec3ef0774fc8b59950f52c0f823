@@ -1,0 +1,169 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/5c1920e50d4b2b80c826ca91aff55c97350bf9f9/packages/@react-aria/select/src/useSelect.ts
+ */
+import { access, createGenerateId, mergeDefaultProps } from "@kobalte/utils";
+import { createMemo, createSignal, createUniqueId, splitProps } from "solid-js";
+import { createFormControl, FORM_CONTROL_PROP_NAMES, FormControlContext } from "../form-control";
+import { createCollator } from "../i18n";
+import { createListState, ListKeyboardDelegate } from "../list";
+import { PopperRoot } from "../popper";
+import { createDisclosureState, createFormResetListener, createRegisterId, focusSafely, } from "../primitives";
+import { Selection, } from "../selection";
+import { HiddenSelect } from "./hidden-select";
+import { SelectContext } from "./select-context";
+/**
+ * Base component for a select, provide context for its children.
+ * Used to build single and multi-select.
+ */
+export function SelectBase(props) {
+    const defaultId = `select-${createUniqueId()}`;
+    props = mergeDefaultProps({
+        id: defaultId,
+        selectionMode: "single",
+        allowDuplicateSelectionEvents: true,
+        disallowEmptySelection: props.selectionMode !== "multiple",
+        gutter: 8,
+    }, props);
+    const [local, formControlProps, others] = splitProps(props, [
+        "children",
+        "isOpen",
+        "defaultIsOpen",
+        "onOpenChange",
+        "value",
+        "defaultValue",
+        "onValueChange",
+        "keyboardDelegate",
+        "autoComplete",
+        "allowDuplicateSelectionEvents",
+        "disallowEmptySelection",
+        "selectionBehavior",
+        "selectionMode",
+    ], FORM_CONTROL_PROP_NAMES);
+    const [triggerId, setTriggerId] = createSignal();
+    const [valueId, setValueId] = createSignal();
+    const [listboxId, setListboxId] = createSignal();
+    const [triggerRef, setTriggerRef] = createSignal();
+    const [contentRef, setContentRef] = createSignal();
+    const [listboxRef, setListboxRef] = createSignal();
+    const [listboxAriaLabelledBy, setListboxAriaLabelledBy] = createSignal();
+    const [focusStrategy, setFocusStrategy] = createSignal(true);
+    const [items, setItems] = createSignal([]);
+    const disclosureState = createDisclosureState({
+        isOpen: () => local.isOpen,
+        defaultIsOpen: () => local.defaultIsOpen,
+        onOpenChange: isOpen => local.onOpenChange?.(isOpen),
+    });
+    const focusTrigger = () => {
+        const triggerEl = triggerRef();
+        if (triggerEl) {
+            focusSafely(triggerEl);
+        }
+    };
+    const focusListbox = () => {
+        const listboxEl = listboxRef();
+        if (listboxEl) {
+            focusSafely(listboxEl);
+        }
+    };
+    const open = (focusStrategy) => {
+        // Don't open if the collection is empty.
+        if (listState.collection().getSize() <= 0) {
+            return;
+        }
+        setFocusStrategy(focusStrategy);
+        disclosureState.open();
+        let focusedKey = listState.selectionManager().firstSelectedKey();
+        if (focusedKey == null) {
+            if (focusStrategy === "first") {
+                focusedKey = listState.collection().getFirstKey();
+            }
+            else if (focusStrategy === "last") {
+                focusedKey = listState.collection().getLastKey();
+            }
+        }
+        focusListbox();
+        listState.selectionManager().setFocused(true);
+        listState.selectionManager().setFocusedKey(focusedKey);
+    };
+    const close = () => {
+        disclosureState.close();
+        listState.selectionManager().setFocused(false);
+        listState.selectionManager().setFocusedKey(undefined);
+        focusTrigger();
+    };
+    const toggle = (focusStrategy) => {
+        if (disclosureState.isOpen()) {
+            close();
+        }
+        else {
+            open(focusStrategy);
+        }
+    };
+    const listState = createListState({
+        selectedKeys: () => local.value,
+        defaultSelectedKeys: () => local.defaultValue,
+        onSelectionChange: keys => {
+            local.onValueChange?.(keys);
+            if (local.selectionMode === "single") {
+                close();
+            }
+        },
+        allowDuplicateSelectionEvents: () => access(local.allowDuplicateSelectionEvents),
+        disallowEmptySelection: () => access(local.disallowEmptySelection),
+        selectionBehavior: () => access(local.selectionBehavior),
+        selectionMode: () => local.selectionMode,
+        dataSource: items,
+    });
+    const { formControlContext } = createFormControl(formControlProps);
+    createFormResetListener(triggerRef, () => {
+        listState.selectionManager().setSelectedKeys(local.defaultValue ?? new Selection());
+    });
+    const collator = createCollator({ usage: "search", sensitivity: "base" });
+    // By default, a KeyboardDelegate is provided which uses the DOM to query layout information (e.g. for page up/page down).
+    // When virtualized, the layout object will be passed in as a prop and override this.
+    const delegate = createMemo(() => {
+        const keyboardDelegate = access(local.keyboardDelegate);
+        if (keyboardDelegate) {
+            return keyboardDelegate;
+        }
+        return new ListKeyboardDelegate(listState.collection, undefined, collator);
+    });
+    const context = {
+        isOpen: disclosureState.isOpen,
+        isDisabled: () => formControlContext.isDisabled() ?? false,
+        isMultiple: () => access(local.selectionMode) === "multiple",
+        autoFocus: focusStrategy,
+        triggerRef,
+        listState: () => listState,
+        keyboardDelegate: delegate,
+        items,
+        setItems,
+        triggerId,
+        valueId,
+        listboxId,
+        listboxAriaLabelledBy,
+        setListboxAriaLabelledBy,
+        setTriggerRef,
+        setContentRef,
+        setListboxRef,
+        open,
+        close,
+        toggle,
+        generateId: createGenerateId(() => access(formControlProps.id)),
+        registerTriggerId: createRegisterId(setTriggerId),
+        registerValueId: createRegisterId(setValueId),
+        registerListboxId: createRegisterId(setListboxId),
+    };
+    return (<FormControlContext.Provider value={formControlContext}>
+      <SelectContext.Provider value={context}>
+        <PopperRoot anchorRef={triggerRef} contentRef={contentRef} sameWidth {...others}>
+          <HiddenSelect autoComplete={local.autoComplete}/>
+          {local.children}
+        </PopperRoot>
+      </SelectContext.Provider>
+    </FormControlContext.Provider>);
+}

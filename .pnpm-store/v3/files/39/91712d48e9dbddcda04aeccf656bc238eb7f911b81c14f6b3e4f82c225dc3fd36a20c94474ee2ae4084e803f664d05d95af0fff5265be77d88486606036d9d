@@ -1,0 +1,5 @@
+import { CollectionItem, CollectionNode } from "./types";
+/**
+ * Generate an array of `CollectionNode` from a custom data source.
+ */
+export declare function buildNodes(dataSource: CollectionItem[]): Array<CollectionNode>;

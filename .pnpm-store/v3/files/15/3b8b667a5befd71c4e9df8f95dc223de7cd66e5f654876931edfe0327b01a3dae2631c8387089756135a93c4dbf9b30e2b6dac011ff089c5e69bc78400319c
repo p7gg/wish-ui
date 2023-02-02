@@ -1,0 +1,584 @@
+'use strict';
+
+var dynamic = require('@vanilla-extract/dynamic');
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _wrapRegExp() {
+  _wrapRegExp = function (re, groups) {
+    return new BabelRegExp(re, void 0, groups);
+  };
+
+  var _super = RegExp.prototype,
+      _groups = new WeakMap();
+
+  function BabelRegExp(re, flags, groups) {
+    var _this = new RegExp(re, flags);
+
+    return _groups.set(_this, groups || _groups.get(re)), _setPrototypeOf(_this, BabelRegExp.prototype);
+  }
+
+  function buildGroups(result, re) {
+    var g = _groups.get(re);
+
+    return Object.keys(g).reduce(function (groups, name) {
+      return groups[name] = result[g[name]], groups;
+    }, Object.create(null));
+  }
+
+  return _inherits(BabelRegExp, RegExp), BabelRegExp.prototype.exec = function (str) {
+    var result = _super.exec.call(this, str);
+
+    return result && (result.groups = buildGroups(result, this)), result;
+  }, BabelRegExp.prototype[Symbol.replace] = function (str, substitution) {
+    if ("string" == typeof substitution) {
+      var groups = _groups.get(this);
+
+      return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) {
+        return "$" + groups[name];
+      }));
+    }
+
+    if ("function" == typeof substitution) {
+      var _this = this;
+
+      return _super[Symbol.replace].call(this, str, function () {
+        var args = arguments;
+        return "object" != typeof args[args.length - 1] && (args = [].slice.call(args)).push(buildGroups(args, _this)), substitution.apply(this, args);
+      });
+    }
+
+    return _super[Symbol.replace].call(this, str, substitution);
+  }, _wrapRegExp.apply(this, arguments);
+}
+
+/**
+ * Parses a string for things with '$'
+ *
+ * (?<negated>-)? -> optionally captures '-', names it "negated"
+ * \B\$           -> capture '$' when preceded by a "non-word" (whitespace, punctuation)
+ * (?<token>\w+)  -> capture the "word" following the '$'
+ * /g             -> capture all instances
+ */
+var VALUE_REGEX = /*#__PURE__*/_wrapRegExp(/(\x2D)?\B\$(\w+)/g, {
+  negated: 1,
+  token: 2
+});
+function mapValues(obj, callback) {
+  var result = {};
+
+  for (var _key in obj) {
+    Object.assign(result, _defineProperty({}, _key, callback(obj[_key], _key, obj)));
+  }
+
+  return result;
+}
+/**
+ * Takes a value and replaces all '$' values with the
+ * values in the scale, if available
+ */
+
+function replaceVarsInValue(propValue, scale) {
+  var parsed = propValue.replace(VALUE_REGEX, function (match) {
+    var _ref;
+
+    var _ref2 = (_ref = (arguments.length <= 1 ? 0 : arguments.length - 1) - 1 + 1, _ref < 1 || arguments.length <= _ref ? undefined : arguments[_ref]),
+        negated = _ref2.negated,
+        token = _ref2.token;
+
+    var v = "".concat(negated ? '-' : '').concat(token);
+
+    if (scale !== null && scale !== void 0 && scale[v]) {
+      return scale[v];
+    }
+
+    return match;
+  });
+  return parsed;
+}
+/**
+ * Takes a value and replaces all '$' values with the
+ * values in the scale, if available
+ */
+
+function getValueConfig(propValue, scale) {
+  var parsed = _toConsumableArray(propValue.matchAll(VALUE_REGEX));
+
+  if (parsed.length === 1) {
+    var _parsed$0$groups = parsed[0].groups,
+        negated = _parsed$0$groups.negated,
+        token = _parsed$0$groups.token;
+    var v = "".concat(negated ? '-' : '').concat(token);
+
+    if (v in scale) {
+      return scale[v];
+    }
+  }
+
+  return null;
+}
+
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+
+  if (!it) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
+      var i = 0;
+
+      var F = function () {};
+
+      return {
+        s: F,
+        n: function () {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function (e) {
+          throw e;
+        },
+        f: F
+      };
+    }
+
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  var normalCompletion = true,
+      didErr = false,
+      err;
+  return {
+    s: function () {
+      it = it.call(o);
+    },
+    n: function () {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function (e) {
+      didErr = true;
+      err = e;
+    },
+    f: function () {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+
+  return target;
+}
+
+function assignClasses(propertyConfig, propValue, cache) {
+  if (!propValue && propValue !== 0) {
+    return '';
+  } // Value is a string or number, ie not responsive
+
+
+  if (typeof propValue === 'string' || typeof propValue === 'number') {
+    return handleEntry(propertyConfig, "".concat(propValue), cache);
+  }
+
+  var keys = Object.keys(propValue); // If no entries, exit gracefully
+
+  if (keys.length < 1) {
+    return '';
+  }
+
+  var className = keys.map(function (condition) {
+    var rawValueAtCondition = "".concat(propValue[condition]);
+    return handleEntry(propertyConfig, rawValueAtCondition, cache, condition);
+  }).filter(Boolean);
+  return className.join(' ').trim();
+}
+
+function handleEntry(propertyConfig, propValue, cache, condition) {
+  var dynamic = propertyConfig.dynamic,
+      values = propertyConfig.values,
+      propName = propertyConfig.name,
+      staticScale = propertyConfig.staticScale;
+  var cacheKey = condition ? "".concat(condition).concat(propValue) : propValue;
+
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheKey);
+  } // Check for static value first
+
+
+  if (values) {
+    if (Array.isArray(staticScale) && staticScale.includes(propValue)) {
+      var result = condition ? values[propValue].conditions[condition] : values[propValue]["default"];
+      cache.set(cacheKey, result);
+      return result;
+    }
+
+    var parsedValue = getValueConfig(propValue, values);
+
+    if (parsedValue) {
+      var _result = condition ? parsedValue.conditions[condition] : parsedValue["default"];
+
+      cache.set(cacheKey, _result);
+      return _result;
+    }
+  }
+
+  if (dynamic) {
+    var _result2 = condition ? dynamic.conditions[condition] : dynamic["default"];
+
+    cache.set(cacheKey, _result2);
+    return _result2;
+  } // If the property is not dynamic, and unrecognized value is provided
+  // Quietly warn
+  // eslint-disable-next-line no-console
+
+
+  console.error("Rainbow Sprinkles: invalid value provided to prop '".concat(propName, "'. Expected one of ").concat(Object.keys(values).map(function (className) {
+    return "\"".concat(className, "\"");
+  }).join(', '), ". Received: ").concat(JSON.stringify(propValue), "."));
+  return '';
+}
+
+function assignVars(propertyConfig, propValue, cache) {
+  var vars = propertyConfig.vars,
+      dynamicScale = propertyConfig.dynamicScale,
+      values = propertyConfig.values,
+      dynamic = propertyConfig.dynamic;
+
+  if (!dynamic) {
+    return {};
+  } // Value is a string, ie not responsive
+
+
+  if (typeof propValue === 'string' || typeof propValue === 'number') {
+    var _values$conditions;
+
+    var parsedValue;
+
+    if (cache.has(propValue)) {
+      parsedValue = cache.get(propValue);
+    } else {
+      parsedValue = replaceVarsInValue("".concat(propValue), dynamicScale);
+      cache.set(propValue, parsedValue);
+    } // If the propValue matches a static value,
+    // don't assign any variables
+
+
+    if (values !== null && values !== void 0 && values[parsedValue] || values !== null && values !== void 0 && (_values$conditions = values.conditions) !== null && _values$conditions !== void 0 && _values$conditions[parsedValue]) {
+      return {};
+    }
+
+    var result = _defineProperty({}, vars["default"], parsedValue);
+
+    return result;
+  } // If no entries, exit gracefully
+
+
+  if (propValue && Object.keys(propValue).length < 1 || propValue == null) {
+    return {};
+  }
+
+  var variableAssignments = Object.entries(propValue).reduce(function (acc, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        bp = _ref2[0],
+        value = _ref2[1];
+
+    if (typeof value === 'string' || typeof value === 'number') {
+      var _parsedValue;
+
+      if (cache.has(value)) {
+        _parsedValue = cache.get(value);
+      } else {
+        _parsedValue = replaceVarsInValue("".concat(value), dynamicScale);
+        cache.set(value, _parsedValue);
+      }
+
+      if (values && _parsedValue in values) {
+        // If value has a static class, don't assign any variables
+        return acc;
+      }
+
+      acc[vars.conditions[bp]] = _parsedValue;
+    }
+
+    return acc;
+  }, {});
+  return variableAssignments;
+}
+
+var createRuntimeFn = function createRuntimeFn() {
+  for (var _len = arguments.length, configs = new Array(_len), _key = 0; _key < _len; _key++) {
+    configs[_key] = arguments[_key];
+  }
+
+  var cssConfig = Object.assign.apply(Object, [{}].concat(_toConsumableArray(configs.map(function (c) {
+    return c.config;
+  }))));
+  var properties = Object.keys(cssConfig);
+  var propertiesSet = new Set(properties);
+  var shorthandNames = properties.filter(function (property) {
+    return 'mappings' in cssConfig[property];
+  });
+  /**
+   * Cache the inline styles and classes for properties and their values
+   *
+   * Structure in object notation would look like:
+   * cache: {
+   *   propName: {
+   *      class: {
+   *        propValue: 'className'
+   *      },
+   *      style: {
+   *        propValue: 'inline style value'
+   *      }
+   *   }
+   * }
+   */
+
+  var cache = new Map();
+
+  var fn = function fn(props) {
+    var style = {};
+    var className = [];
+    var otherProps = {};
+    var shorthands = {};
+
+    var nonShorthands = _objectSpread2({}, props);
+
+    var hasShorthands = false;
+
+    var _iterator = _createForOfIteratorHelper(shorthandNames),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var shorthand = _step.value;
+        var value = props[shorthand];
+
+        if (value != null) {
+          var sprinkle = cssConfig[shorthand];
+          hasShorthands = true;
+
+          var _iterator2 = _createForOfIteratorHelper(sprinkle.mappings),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var propMapping = _step2.value;
+              shorthands[propMapping] = value;
+
+              if (nonShorthands[propMapping] == null) {
+                delete nonShorthands[propMapping];
+              }
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var finalProps = hasShorthands ? _objectSpread2(_objectSpread2({}, shorthands), nonShorthands) : props;
+
+    for (var property in finalProps) {
+      if (!propertiesSet.has(property)) {
+        otherProps[property] = props[property];
+        continue;
+      }
+
+      var propertyConfig = cssConfig[property];
+      var propValue = finalProps[property];
+
+      if ('mappings' in propertyConfig) {
+        continue;
+      }
+
+      var classCache = void 0;
+      var styleCache = void 0;
+
+      if (propertyConfig) {
+        if (cache.has(property)) {
+          var c = cache.get(property);
+          classCache = c.get('class');
+          styleCache = c.get('style');
+        } else {
+          var propCache = new Map();
+          classCache = new Map();
+          styleCache = new Map();
+          propCache.set('class', classCache);
+          propCache.set('style', styleCache);
+          cache.set(property, propCache);
+        }
+
+        className.push(assignClasses(propertyConfig, propValue, classCache));
+        Object.assign(style, assignVars(propertyConfig, propValue, styleCache));
+      }
+    }
+
+    return {
+      className: className.join(' ').trim(),
+      style: dynamic.assignInlineVars(style),
+      otherProps: otherProps
+    };
+  };
+
+  return Object.assign(fn, {
+    properties: propertiesSet
+  });
+};
+
+exports._defineProperty = _defineProperty;
+exports._slicedToArray = _slicedToArray;
+exports._toConsumableArray = _toConsumableArray;
+exports.createRuntimeFn = createRuntimeFn;
+exports.mapValues = mapValues;

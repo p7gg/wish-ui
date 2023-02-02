@@ -1,0 +1,14 @@
+import { JSX } from "solid-js";
+export interface SelectContentOptions {
+    /** The HTML styles attribute (object form only). */
+    style?: JSX.CSSProperties;
+    /**
+     * Used to force keeping the content visible when more control is needed.
+     * Useful when controlling animation with SolidJS animation libraries.
+     */
+    forceMount?: boolean;
+}
+/**
+ * The component that pops out when the select is open.
+ */
+export declare const SelectContent: import("@kobalte/utils").PolymorphicComponent<"div", SelectContentOptions>;

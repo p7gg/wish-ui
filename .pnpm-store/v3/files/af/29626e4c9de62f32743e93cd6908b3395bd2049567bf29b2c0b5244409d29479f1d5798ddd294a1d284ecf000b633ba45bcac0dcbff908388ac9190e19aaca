@@ -1,0 +1,63 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/22cb32d329e66c60f55d4fc4025d1d44bb015d71/packages/@react-aria/listbox/src/useListBox.ts
+ */
+import { Accessor } from "solid-js";
+import { ListState } from "../list";
+import { CollectionItem } from "../primitives";
+import { FocusStrategy, KeyboardDelegate, SelectionBehavior, SelectionMode } from "../selection";
+export interface ListboxRootOptions {
+    /** The controlled value of the listbox. */
+    value?: Iterable<string>;
+    /**
+     * The value of the listbox when initially rendered.
+     * Useful when you do not need to control the state.
+     */
+    defaultValue?: Iterable<string>;
+    /** Event handler called when the value changes. */
+    onValueChange?: (value: Set<string>) => void;
+    /** The controlled items of the listbox. */
+    items?: CollectionItem[];
+    /** Event handler called when the items change. */
+    onItemsChange?: (items: CollectionItem[]) => void;
+    /** The controlled state of the listbox. */
+    state?: ListState;
+    /** An optional keyboard delegate implementation for type to select, to override the default. */
+    keyboardDelegate?: KeyboardDelegate;
+    /** Whether to autofocus the listbox or an option. */
+    autoFocus?: boolean | FocusStrategy;
+    /** Whether focus should wrap around when the end/start is reached. */
+    shouldFocusWrap?: boolean;
+    /** Whether the listbox items should use virtual focus instead of being focused directly. */
+    shouldUseVirtualFocus?: boolean;
+    /** Whether selection should occur on press up instead of press down. */
+    shouldSelectOnPressUp?: boolean;
+    /** Whether options should be focused when the user hovers over them. */
+    shouldFocusOnHover?: boolean;
+    /**
+     * The ref attached to the scrollable element, used to provide automatic scrolling on item focus.
+     * If not provided, defaults to the listbox ref.
+     */
+    scrollRef?: Accessor<HTMLElement | undefined>;
+    /** How multiple selection should behave in the listbox. */
+    selectionBehavior?: SelectionBehavior;
+    /** Whether onValueChange should fire even if the new set of keys is the same as the last. */
+    allowDuplicateSelectionEvents?: boolean;
+    /** The type of selection that is allowed in the listbox. */
+    selectionMode?: SelectionMode;
+    /** Whether the listbox allows empty selection. */
+    disallowEmptySelection?: boolean;
+    /** Whether selection should occur automatically on focus. */
+    selectOnFocus?: boolean;
+    /** Whether typeahead is disabled. */
+    disallowTypeAhead?: boolean;
+    /** Whether navigation through tab key is enabled. */
+    allowsTabNavigation?: boolean;
+}
+/**
+ * Listbox presents a list of options and allows a user to select one or more of them.
+ */
+export declare const ListboxRoot: import("@kobalte/utils").PolymorphicComponent<"div", ListboxRootOptions>;

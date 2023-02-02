@@ -1,0 +1,9 @@
+import { JSX } from "solid-js";
+export interface PopperPositionerOptions {
+    /** The HTML styles attribute (object form only). */
+    style?: JSX.CSSProperties;
+}
+/**
+ * The wrapper component that positions the popper content relative to the popper anchor.
+ */
+export declare const PopperPositioner: import("@kobalte/utils").PolymorphicComponent<"div", PopperPositionerOptions>;

@@ -1,0 +1,4 @@
+/**
+ * The label that gives the user information on the checkbox.
+ */
+export declare const CheckboxLabel: import("@kobalte/utils").PolymorphicComponent<"span", {}>;

@@ -1,0 +1,4 @@
+/**
+ * An accessible title to be announced when the popover is open.
+ */
+export declare const PopoverTitle: import("@kobalte/utils").PolymorphicComponent<"h2", {}>;

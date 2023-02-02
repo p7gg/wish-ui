@@ -1,0 +1,5 @@
+/**
+ * The visual separator between each breadcrumb items.
+ * It will not be visible by screen readers.
+ */
+export declare const BreadcrumbsSeparator: import("@kobalte/utils").PolymorphicComponent<"span", {}>;

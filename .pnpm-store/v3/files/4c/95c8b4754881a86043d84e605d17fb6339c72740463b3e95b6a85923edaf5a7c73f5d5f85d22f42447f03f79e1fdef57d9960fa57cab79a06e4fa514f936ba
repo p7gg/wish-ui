@@ -1,0 +1,12 @@
+import { Accessor, JSX } from "solid-js";
+export interface CalendarGridBodyOptions {
+    /**
+     * Render prop used to render each row of the calendar grid,
+     * it receives a week index accessor as parameter.
+     */
+    children: (weekIndex: Accessor<number>) => JSX.Element;
+}
+/**
+ * Contains the day cells of a `Calendar.Grid`.
+ */
+export declare const CalendarGridBody: import("@kobalte/utils").PolymorphicComponent<"tbody", CalendarGridBodyOptions>;

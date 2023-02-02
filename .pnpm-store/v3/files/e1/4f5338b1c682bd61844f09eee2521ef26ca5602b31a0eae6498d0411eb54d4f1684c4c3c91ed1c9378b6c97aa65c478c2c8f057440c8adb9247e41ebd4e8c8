@@ -1,0 +1,46 @@
+/*!
+ * Portions of this file are based on code from radix-ui-primitives.
+ * MIT Licensed, Copyright (c) 2022 WorkOS.
+ *
+ * Credits to the Radix UI team:
+ * https://github.com/radix-ui/primitives/blob/21a7c97dc8efa79fecca36428eec49f187294085/packages/react/collapsible/src/Collapsible.tsx
+ */
+import { createGenerateId, createPolymorphicComponent, mergeDefaultProps } from "@kobalte/utils";
+import { createSignal, createUniqueId, splitProps } from "solid-js";
+import { Dynamic } from "solid-js/web";
+import { createDisclosureState, createRegisterId } from "../primitives";
+import { CollapsibleContext } from "./collapsible-context";
+/**
+ * An interactive component which expands/collapses a content.
+ */
+export const CollapsibleRoot = createPolymorphicComponent(props => {
+    const defaultId = `collapsible-${createUniqueId()}`;
+    props = mergeDefaultProps({
+        as: "div",
+        id: defaultId,
+    }, props);
+    const [local, others] = splitProps(props, [
+        "as",
+        "isOpen",
+        "defaultIsOpen",
+        "onOpenChange",
+        "forceMount",
+    ]);
+    const [contentId, setContentId] = createSignal();
+    const disclosureState = createDisclosureState({
+        isOpen: () => local.isOpen,
+        defaultIsOpen: () => local.defaultIsOpen,
+        onOpenChange: isOpen => local.onOpenChange?.(isOpen),
+    });
+    const context = {
+        isOpen: disclosureState.isOpen,
+        shouldMount: () => local.forceMount || disclosureState.isOpen(),
+        contentId,
+        toggle: disclosureState.toggle,
+        generateId: createGenerateId(() => others.id),
+        registerContentId: createRegisterId(setContentId),
+    };
+    return (<CollapsibleContext.Provider value={context}>
+      <Dynamic component={local.as} data-expanded={disclosureState.isOpen() ? "" : undefined} {...others}/>
+    </CollapsibleContext.Provider>);
+});

@@ -1,0 +1,8 @@
+import { ParentProps } from "solid-js";
+import { SelectBaseOptions } from "../select/select-base";
+export interface MultiSelectRootOptions extends Omit<SelectBaseOptions, "selectionMode"> {
+}
+/**
+ * Displays a list of options for the user to pick multiples from — triggered by a button.
+ */
+export declare function MultiSelectRoot(props: ParentProps<MultiSelectRootOptions>): import("solid-js").JSX.Element;

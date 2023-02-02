@@ -1,0 +1,9 @@
+import { createContext, useContext } from "solid-js";
+export const ListboxGroupContext = createContext();
+export function useListboxGroupContext() {
+    const context = useContext(ListboxGroupContext);
+    if (context === undefined) {
+        throw new Error("[kobalte]: `useListboxGroupContext` must be used within a `Listbox.Group` component");
+    }
+    return context;
+}

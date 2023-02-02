@@ -1,0 +1,49 @@
+'use strict';
+
+var solidJs = require('solid-js');
+var eventListener = require('@solid-primitives/event-listener');
+var utils = require('@solid-primitives/utils');
+var rootless = require('@solid-primitives/rootless');
+
+// src/index.ts
+var getEmptyMatchesFromBreakpoints = (breakpoints) => {
+  const matches = {};
+  utils.entries(breakpoints).forEach(([key]) => matches[key] = false);
+  return matches;
+};
+function makeMediaQueryListener(query, callback) {
+  const mql = typeof query === "string" ? window.matchMedia(query) : query;
+  return eventListener.makeEventListener(mql, "change", callback);
+}
+exports.createMediaQuery = (query, fallbackState = false, watchChange = true) => {
+  const mql = window.matchMedia(query);
+  if (!watchChange)
+    return () => mql.matches;
+  const [state, setState] = solidJs.createSignal(mql.matches);
+  eventListener.makeEventListener(mql, "change", () => setState(mql.matches));
+  return state;
+};
+function createBreakpoints(breakpoints, options = {}) {
+  if (!window.matchMedia)
+    return options.fallbackState ?? getEmptyMatchesFromBreakpoints(breakpoints);
+  const { mediaFeature = "min-width", watchChange = true } = options;
+  const [matches, setMatches] = utils.createStaticStore(
+    (() => {
+      const matches2 = {};
+      utils.forEachEntry(breakpoints, (token, width) => {
+        const mql = window.matchMedia(`(${mediaFeature}: ${width})`);
+        matches2[token] = mql.matches;
+        if (watchChange)
+          eventListener.makeEventListener(mql, "change", (e) => setMatches(token, e.matches));
+      });
+      return matches2;
+    })()
+  );
+  return matches;
+}
+exports.usePrefersDark = /* @__PURE__ */ rootless.createSharedRoot(
+  exports.createMediaQuery.bind(null, "(prefers-color-scheme: dark)", false, true)
+);
+
+exports.createBreakpoints = createBreakpoints;
+exports.makeMediaQueryListener = makeMediaQueryListener;

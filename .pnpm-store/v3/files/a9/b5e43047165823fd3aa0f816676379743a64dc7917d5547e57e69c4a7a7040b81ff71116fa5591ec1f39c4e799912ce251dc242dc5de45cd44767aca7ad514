@@ -1,0 +1,6 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['polyline', { points: '9 18 15 12 9 6', key: '1rtp27' }],
+];
+const ChevronRight = (props) => (<Icon {...props} name="ChevronRight" iconNode={iconNode}/>);
+export default ChevronRight;

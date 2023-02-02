@@ -1,0 +1,9 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['rect', { x: '3', y: '3', width: '7', height: '9', key: '1eurd7' }],
+    ['rect', { x: '14', y: '3', width: '7', height: '5', key: 'zff5ux' }],
+    ['rect', { x: '14', y: '12', width: '7', height: '9', key: '1oiq0r' }],
+    ['rect', { x: '3', y: '16', width: '7', height: '5', key: '1145ac' }],
+];
+const LayoutDashboard = (props) => (<Icon {...props} name="LayoutDashboard" iconNode={iconNode}/>);
+export default LayoutDashboard;

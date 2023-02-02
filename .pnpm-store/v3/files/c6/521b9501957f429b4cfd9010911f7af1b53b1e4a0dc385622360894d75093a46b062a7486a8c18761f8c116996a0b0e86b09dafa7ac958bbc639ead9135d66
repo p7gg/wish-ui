@@ -1,0 +1,15 @@
+import { splitProps } from "solid-js";
+import { createControllableSetSignal } from "../primitives";
+import { SelectBase } from "./select-base";
+/**
+ * Displays a list of options for the user to pick from — triggered by a button.
+ */
+export function SelectRoot(props) {
+    const [local, others] = splitProps(props, ["value", "defaultValue", "onValueChange"]);
+    const [value, setValue] = createControllableSetSignal({
+        value: () => (local.value != null ? new Set([local.value]) : undefined),
+        defaultValue: () => (local.defaultValue != null ? new Set([local.defaultValue]) : undefined),
+        onChange: value => local.onValueChange?.(value.values().next().value),
+    });
+    return (<SelectBase value={value()} onValueChange={setValue} selectionMode="single" disallowEmptySelection {...others}/>);
+}

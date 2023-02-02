@@ -1,0 +1,6 @@
+/**
+ * Create a function that generate an id from a `baseId` and `suffix`.
+ */
+export function createGenerateId(baseId) {
+    return (suffix) => `${baseId()}-${suffix}`;
+}

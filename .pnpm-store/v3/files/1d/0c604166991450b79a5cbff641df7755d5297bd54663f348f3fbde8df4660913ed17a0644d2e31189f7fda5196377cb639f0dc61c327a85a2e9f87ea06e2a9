@@ -1,0 +1,30 @@
+'use strict';
+
+require('solid-js');
+require('@solid-primitives/event-listener');
+var utils = require('@solid-primitives/utils');
+require('@solid-primitives/rootless');
+
+// src/index.ts
+var getEmptyMatchesFromBreakpoints = (breakpoints) => {
+  const matches = {};
+  utils.entries(breakpoints).forEach(([key]) => matches[key] = false);
+  return matches;
+};
+function makeMediaQueryListener(query, callback) {
+  {
+    return utils.noop;
+  }
+}
+exports.createMediaQuery = (query, fallbackState = false, watchChange = true) => {
+  {
+    return () => fallbackState;
+  }
+};
+function createBreakpoints(breakpoints, options = {}) {
+  return options.fallbackState ?? getEmptyMatchesFromBreakpoints(breakpoints);
+}
+exports.usePrefersDark = (fallback = false) => () => fallback ;
+
+exports.createBreakpoints = createBreakpoints;
+exports.makeMediaQueryListener = makeMediaQueryListener;

@@ -1,0 +1,881 @@
+import { onCleanup, mergeProps } from 'solid-js';
+export { createEventListener } from '@solid-primitives/event-listener';
+export { createMediaQuery } from '@solid-primitives/media';
+export { mergeRefs } from '@solid-primitives/refs';
+export { access, accessWith, chain } from '@solid-primitives/utils';
+
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/da142672eddefa99365773ced72171facc06fdcb/packages/ariakit-utils/src/array.ts
+ */
+
+/**
+ * Immutably adds an item at the given index to an array.
+ */
+function addItemToArray(array, item, index = -1) {
+  if (!(index in array)) {
+    return [...array, item];
+  }
+  return [...array.slice(0, index), item, ...array.slice(index)];
+}
+
+/**
+ * Immutably removes an item from an array.
+ */
+function removeItemFromArray(array, item) {
+  const updatedArray = [...array];
+  const index = updatedArray.indexOf(item);
+  if (index !== -1) {
+    updatedArray.splice(index, 1);
+  }
+  return updatedArray;
+}
+
+/*!
+ * Original code by Chakra UI
+ * MIT Licensed, Copyright (c) 2019 Segun Adebayo.
+ *
+ * Credits to the Chakra UI team:
+ * https://github.com/chakra-ui/chakra-ui/blob/main/packages/utils/src/assertion.ts
+ */
+
+// Array assertions
+function isArray(value) {
+  return Array.isArray(value);
+}
+
+// String assertions
+function isString(value) {
+  return Object.prototype.toString.call(value) === "[object String]";
+}
+
+// Function assertions
+function isFunction(value) {
+  return typeof value === "function";
+}
+
+/**
+ * Create a function that generate an id from a `baseId` and `suffix`.
+ */
+function createGenerateId(baseId) {
+  return suffix => `${baseId()}-${suffix}`;
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/solidjs-community/solid-aria/blob/2c5f54feb5cfea514b1ee0a52d0416878f882351/packages/utils/src/createGlobalListeners.ts
+ */
+function createGlobalListeners() {
+  const globalListeners = new Map();
+  const addGlobalListener = (eventTarget, type, listener, options) => {
+    // Make sure we remove the listener after it is called with the `once` option.
+    const fn = options?.once ? (...args) => {
+      globalListeners.delete(listener);
+      listener(...args);
+    } : listener;
+    globalListeners.set(listener, {
+      type,
+      eventTarget,
+      fn,
+      options
+    });
+    eventTarget.addEventListener(type, listener, options);
+  };
+  const removeGlobalListener = (eventTarget, type, listener, options) => {
+    const fn = globalListeners.get(listener)?.fn || listener;
+    eventTarget.removeEventListener(type, fn, options);
+    globalListeners.delete(listener);
+  };
+  const removeAllGlobalListeners = () => {
+    globalListeners.forEach((value, key) => {
+      removeGlobalListener(value.eventTarget, value.type, key, value.options);
+    });
+  };
+  onCleanup(() => {
+    removeAllGlobalListeners();
+  });
+  return {
+    addGlobalListener,
+    removeGlobalListener,
+    removeAllGlobalListeners
+  };
+}
+
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/232bc79018ec20967fec1e097a9474aba3bb5be7/packages/ariakit-utils/src/dom.ts
+ */
+
+/**
+ * Similar to `Element.prototype.contains`, but a little faster when `element` is the same as `child`.
+ */
+function contains(parent, child) {
+  if (!parent) {
+    return false;
+  }
+  return parent === child || parent.contains(child);
+}
+
+/**
+ * Returns `element.ownerDocument.activeElement`.
+ */
+function getActiveElement(node, activeDescendant = false) {
+  const {
+    activeElement
+  } = getDocument(node);
+  if (!activeElement?.nodeName) {
+    // In IE11, activeElement might be an empty object if we're interacting
+    // with elements inside an iframe.
+    return null;
+  }
+  if (isFrame(activeElement) && activeElement.contentDocument) {
+    return getActiveElement(activeElement.contentDocument.body, activeDescendant);
+  }
+  if (activeDescendant) {
+    const id = activeElement.getAttribute("aria-activedescendant");
+    if (id) {
+      const element = getDocument(activeElement).getElementById(id);
+      if (element) {
+        return element;
+      }
+    }
+  }
+  return activeElement;
+}
+
+/**
+ * Returns `element.ownerDocument.defaultView || window`.
+ */
+function getWindow(node) {
+  return getDocument(node).defaultView || window;
+}
+
+/**
+ * Returns `element.ownerDocument || document`.
+ */
+function getDocument(node) {
+  return node ? node.ownerDocument || node : document;
+}
+
+/**
+ * Checks whether `element` is a frame element.
+ */
+function isFrame(element) {
+  return element.tagName === "IFRAME";
+}
+
+let EventKey;
+(function (EventKey) {
+  EventKey["Escape"] = "Escape";
+  EventKey["Enter"] = "Enter";
+  EventKey["Tab"] = "Tab";
+  EventKey["Space"] = " ";
+  EventKey["ArrowDown"] = "ArrowDown";
+  EventKey["ArrowLeft"] = "ArrowLeft";
+  EventKey["ArrowRight"] = "ArrowRight";
+  EventKey["ArrowUp"] = "ArrowUp";
+  EventKey["End"] = "End";
+  EventKey["Home"] = "Home";
+  EventKey["PageDown"] = "PageDown";
+  EventKey["PageUp"] = "PageUp";
+})(EventKey || (EventKey = {}));
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/cf9ab24f3255be1530d0f584061a01aa1e8180e6/packages/@react-aria/utils/src/platform.ts
+ */
+
+function testUserAgent(re) {
+  if (typeof window === "undefined" || window.navigator == null) {
+    return false;
+  }
+  return (
+    // @ts-ignore
+    window.navigator["userAgentData"]?.brands.some(brand => re.test(brand.brand)) || re.test(window.navigator.userAgent)
+  );
+}
+function testPlatform(re) {
+  return typeof window !== "undefined" && window.navigator != null ?
+  // @ts-ignore
+  re.test(window.navigator["userAgentData"]?.platform || window.navigator.platform) : false;
+}
+function isMac() {
+  return testPlatform(/^Mac/i);
+}
+function isIPhone() {
+  return testPlatform(/^iPhone/i);
+}
+function isIPad() {
+  return testPlatform(/^iPad/i) ||
+  // iPadOS 13 lies and says it's a Mac, but we can distinguish by detecting touch support.
+  isMac() && navigator.maxTouchPoints > 1;
+}
+function isIOS() {
+  return isIPhone() || isIPad();
+}
+function isAppleDevice() {
+  return isMac() || isIOS();
+}
+function isWebKit() {
+  return testUserAgent(/AppleWebKit/i) && !isChrome();
+}
+function isChrome() {
+  return testUserAgent(/Chrome/i);
+}
+function isAndroid() {
+  return testUserAgent(/Android/i);
+}
+
+/** Call a JSX.EventHandlerUnion with the event. */
+function callHandler(event, handler) {
+  if (handler) {
+    if (isFunction(handler)) {
+      handler(event);
+    } else {
+      handler[0](handler[1], event);
+    }
+  }
+  return event?.defaultPrevented;
+}
+
+/** Create a new event handler which calls all given handlers in the order they were chained with the same event. */
+function composeEventHandlers(handlers) {
+  return event => {
+    for (const handler of handlers) {
+      callHandler(event, handler);
+    }
+  };
+}
+function isActionKey() {
+  const event = window.event;
+  return event?.key === "Enter";
+}
+function isSelectionKey() {
+  const event = window.event;
+  return event?.key === " " || event?.code === "Space";
+}
+function isCtrlKey(e) {
+  if (isMac()) {
+    return e.metaKey && !e.ctrlKey;
+  }
+  return e.ctrlKey && !e.metaKey;
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/a9dea8a3672179e6c38aafd1429daf44c7ea2ff6/packages/@react-aria/utils/src/focusWithoutScrolling.ts
+ */
+
+// This is a polyfill for element.focus({preventScroll: true});
+// Currently necessary for Safari and old Edge:
+// https://caniuse.com/#feat=mdn-api_htmlelement_focus_preventscroll_option
+// See https://bugs.webkit.org/show_bug.cgi?id=178583
+
+// Original licensing for the following methods can be found in the
+// NOTICE file in the root directory of this source tree.
+// See https://github.com/calvellido/focus-options-polyfill
+
+function focusWithoutScrolling(element) {
+  if (!element) {
+    return;
+  }
+  if (supportsPreventScroll()) {
+    element.focus({
+      preventScroll: true
+    });
+  } else {
+    const scrollableElements = getScrollableElements(element);
+    element.focus();
+    restoreScrollPosition(scrollableElements);
+  }
+}
+let supportsPreventScrollCached = null;
+function supportsPreventScroll() {
+  if (supportsPreventScrollCached == null) {
+    supportsPreventScrollCached = false;
+    try {
+      const focusElem = document.createElement("div");
+      focusElem.focus({
+        get preventScroll() {
+          supportsPreventScrollCached = true;
+          return true;
+        }
+      });
+    } catch (e) {
+      // Ignore
+    }
+  }
+  return supportsPreventScrollCached;
+}
+function getScrollableElements(element) {
+  let parent = element.parentNode;
+  const scrollableElements = [];
+  const rootScrollingElement = document.scrollingElement || document.documentElement;
+  while (parent instanceof HTMLElement && parent !== rootScrollingElement) {
+    if (parent.offsetHeight < parent.scrollHeight || parent.offsetWidth < parent.scrollWidth) {
+      scrollableElements.push({
+        element: parent,
+        scrollTop: parent.scrollTop,
+        scrollLeft: parent.scrollLeft
+      });
+    }
+    parent = parent.parentNode;
+  }
+  if (rootScrollingElement instanceof HTMLElement) {
+    scrollableElements.push({
+      element: rootScrollingElement,
+      scrollTop: rootScrollingElement.scrollTop,
+      scrollLeft: rootScrollingElement.scrollLeft
+    });
+  }
+  return scrollableElements;
+}
+function restoreScrollPosition(scrollableElements) {
+  for (const {
+    element,
+    scrollTop,
+    scrollLeft
+  } of scrollableElements) {
+    element.scrollTop = scrollTop;
+    element.scrollLeft = scrollLeft;
+  }
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/a9dea8a3672179e6c38aafd1429daf44c7ea2ff6/packages/@react-aria/utils/src/getScrollParent.ts
+ */
+
+function getScrollParent(node) {
+  while (node && !isScrollable(node)) {
+    node = node.parentElement;
+  }
+  return node || document.scrollingElement || document.documentElement;
+}
+function isScrollable(node) {
+  const style = window.getComputedStyle(node);
+  return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/a9dea8a3672179e6c38aafd1429daf44c7ea2ff6/packages/@react-aria/utils/src/isVirtualEvent.ts
+ */
+
+// Keyboards, Assistive Technologies, and element.click() all produce a "virtual"
+// click event. This is a method of inferring such clicks. Every browser except
+// IE 11 only sets a zero value of "detail" for click events that are "virtual".
+// However, IE 11 uses a zero value for all click events. For IE 11 we rely on
+// the quirk that it produces click events that are of type PointerEvent, and
+// where only the "virtual" click lacks a pointerType field.
+
+function isVirtualClick(event) {
+  // JAWS/NVDA with Firefox.
+  if (event.mozInputSource === 0 && event.isTrusted) {
+    return true;
+  }
+
+  // Android TalkBack's detail value varies depending on the event listener providing the event so we have specific logic here instead
+  // If pointerType is defined, event is from a click listener. For events from mousedown listener, detail === 0 is a sufficient check
+  // to detect TalkBack virtual clicks.
+  if (isAndroid() && event.pointerType) {
+    return event.type === "click" && event.buttons === 1;
+  }
+  return event.detail === 0 && !event.pointerType;
+}
+function isVirtualPointerEvent(event) {
+  // If the pointer size is zero, then we assume it's from a screen reader.
+  // Android TalkBack double tap will sometimes return a event with width and height of 1
+  // and pointerType === 'mouse' so we need to check for a specific combination of event attributes.
+  // Cannot use "event.pressure === 0" as the sole check due to Safari pointer events always returning pressure === 0
+  // instead of .5, see https://bugs.webkit.org/show_bug.cgi?id=206216. event.pointerType === 'mouse' is to distingush
+  // Talkback double tap from Windows Firefox touch screen press
+  return event.width === 0 && event.height === 0 || event.width === 1 && event.height === 1 && event.pressure === 0 && event.detail === 0 && event.pointerType === "mouse";
+}
+
+/** A function that does nothing. */
+function noop() {
+  return;
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/ff3e690fffc6c54367b8057e28a0e5b9211f37b5/packages/@react-stately/utils/src/number.ts
+ */
+
+/**
+ * Takes a value and forces it to the closest min/max if it's outside. Also forces it to the closest valid step.
+ */
+function clamp(value, min = -Infinity, max = Infinity) {
+  return Math.min(Math.max(value, min), max);
+}
+
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/84e97943ad637a582c01c9b56d880cd95f595737/packages/ariakit/src/hovercard/__utils/polygon.ts
+ * https://github.com/ariakit/ariakit/blob/f2a96973de523d67e41eec983263936c489ef3e2/packages/ariakit/src/hovercard/__utils/debug-polygon.ts
+ */
+
+function getEventPoint(event) {
+  return [event.clientX, event.clientY];
+}
+
+// Based on https://github.com/metafloor/pointinpoly
+function isPointInPolygon(point, polygon) {
+  const [x, y] = point;
+  let inside = false;
+  const length = polygon.length;
+  for (let l = length, i = 0, j = l - 1; i < l; j = i++) {
+    const [xi, yi] = polygon[i];
+    const [xj, yj] = polygon[j];
+    const [, vy] = polygon[j === 0 ? l - 1 : j - 1] || [0, 0];
+    const where = (yi - yj) * (x - xi) - (xi - xj) * (y - yi);
+    if (yj < yi) {
+      if (y >= yj && y < yi) {
+        // point on the line
+        if (where === 0) return true;
+        if (where > 0) {
+          if (y === yj) {
+            // ray intersects vertex
+            if (y > vy) {
+              inside = !inside;
+            }
+          } else {
+            inside = !inside;
+          }
+        }
+      }
+    } else if (yi < yj) {
+      if (y > yi && y <= yj) {
+        // point on the line
+        if (where === 0) return true;
+        if (where < 0) {
+          if (y === yj) {
+            // ray intersects vertex
+            if (y < vy) {
+              inside = !inside;
+            }
+          } else {
+            inside = !inside;
+          }
+        }
+      }
+    } else if (y == yi && (x >= xj && x <= xi || x >= xi && x <= xj)) {
+      // point on horizontal edge
+      return true;
+    }
+  }
+  return inside;
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Debug polygon
+ * -----------------------------------------------------------------------------------------------*/
+
+function getPolygon() {
+  const id = "debug-polygon";
+  const existingPolygon = document.getElementById(id);
+  if (existingPolygon) {
+    return existingPolygon;
+  }
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.style.top = "0";
+  svg.style.left = "0";
+  svg.style.width = "100%";
+  svg.style.height = "100%";
+  svg.style.fill = "green";
+  svg.style.opacity = "0.2";
+  svg.style.position = "fixed";
+  svg.style.pointerEvents = "none";
+  svg.style.zIndex = "999999";
+  const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+  polygon.setAttribute("id", id);
+  polygon.setAttribute("points", "0,0 0,0");
+  svg.appendChild(polygon);
+  document.body.appendChild(svg);
+  return polygon;
+}
+function debugPolygon(polygon) {
+  const polygonElement = getPolygon();
+  const points = polygon.map(point => point.join(",")).join(" ");
+  polygonElement.setAttribute("points", points);
+  // Return SVG element
+  return polygonElement.parentElement;
+}
+
+/** All HTML and SVG elements. */
+
+/** Any HTML element or SolidJS component. */
+
+/**
+ * Allows for extending a set of props (`Source`) by an overriding set of props (`Override`),
+ * ensuring that any duplicates are overridden by the overriding set of props.
+ */
+
+/** The `as` prop type. */
+
+/** Props object that includes the `as` prop. */
+
+/** A component with the `as` prop. */
+
+/**
+ * Create a component with the type cast to `PolymorphicComponent`.
+ * You have to use `Dynamic` internally and pass the `as` prop to handle polymorphism correctly.
+ */
+function createPolymorphicComponent(component) {
+  return component;
+}
+
+function mergeDefaultProps(defaultProps, props) {
+  return mergeProps(defaultProps, props);
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/a9dea8a3672179e6c38aafd1429daf44c7ea2ff6/packages/@react-aria/utils/src/runAfterTransition.ts
+ */
+
+// We store a global list of elements that are currently transitioning,
+// mapped to a set of CSS properties that are transitioning for that element.
+// This is necessary rather than a simple count of transitions because of browser
+// bugs, e.g. Chrome sometimes fires both transitionend and transitioncancel rather
+// than one or the other. So we need to track what's actually transitioning so that
+// we can ignore these duplicate events.
+const transitionsByElement = new Map();
+
+// A list of callbacks to call once there are no transitioning elements.
+const transitionCallbacks = new Set();
+function setupGlobalEvents() {
+  if (typeof window === "undefined") {
+    return;
+  }
+  const onTransitionStart = e => {
+    if (!e.target) {
+      return;
+    }
+
+    // Add the transitioning property to the list for this element.
+    let transitions = transitionsByElement.get(e.target);
+    if (!transitions) {
+      transitions = new Set();
+      transitionsByElement.set(e.target, transitions);
+
+      // The transitioncancel event must be registered on the element itself, rather than as a global
+      // event. This enables us to handle when the node is deleted from the document while it is transitioning.
+      // In that case, the cancel event would have nowhere to bubble to, so we need to handle it directly.
+      e.target.addEventListener("transitioncancel", onTransitionEnd);
+    }
+    transitions.add(e.propertyName);
+  };
+  const onTransitionEnd = e => {
+    if (!e.target) {
+      return;
+    }
+
+    // Remove property from list of transitioning properties.
+    const properties = transitionsByElement.get(e.target);
+    if (!properties) {
+      return;
+    }
+    properties.delete(e.propertyName);
+
+    // If empty, remove transitioncancel event, and remove the element from the list of transitioning elements.
+    if (properties.size === 0) {
+      e.target.removeEventListener("transitioncancel", onTransitionEnd);
+      transitionsByElement.delete(e.target);
+    }
+
+    // If no transitioning elements, call all the queued callbacks.
+    if (transitionsByElement.size === 0) {
+      for (const cb of transitionCallbacks) {
+        cb();
+      }
+      transitionCallbacks.clear();
+    }
+  };
+  document.body.addEventListener("transitionrun", onTransitionStart);
+  document.body.addEventListener("transitionend", onTransitionEnd);
+}
+if (typeof document !== "undefined") {
+  if (document.readyState !== "loading") {
+    setupGlobalEvents();
+  } else {
+    document.addEventListener("DOMContentLoaded", setupGlobalEvents);
+  }
+}
+function runAfterTransition(fn) {
+  // Wait one frame to see if an animation starts, e.g. a transition on mount.
+  requestAnimationFrame(() => {
+    // If no transitions are running, call the function immediately.
+    // Otherwise, add it to a list of callbacks to run at the end of the animation.
+    if (transitionsByElement.size === 0) {
+      fn();
+    } else {
+      transitionCallbacks.add(fn);
+    }
+  });
+}
+
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/8f2f2acb3d5850382ebe631f055f88c704aa7d17/packages/@react-aria/utils/src/scrollIntoView.ts
+ */
+
+/**
+ * Scrolls `scrollView` so that `element` is visible.
+ * Similar to `element.scrollIntoView({block: 'nearest'})` (not supported in Edge),
+ * but doesn't affect parents above `scrollView`.
+ */
+function scrollIntoView(scrollView, element) {
+  const offsetX = relativeOffset(scrollView, element, "left");
+  const offsetY = relativeOffset(scrollView, element, "top");
+  const width = element.offsetWidth;
+  const height = element.offsetHeight;
+  let x = scrollView.scrollLeft;
+  let y = scrollView.scrollTop;
+  const maxX = x + scrollView.offsetWidth;
+  const maxY = y + scrollView.offsetHeight;
+  if (offsetX <= x) {
+    x = offsetX;
+  } else if (offsetX + width > maxX) {
+    x += offsetX + width - maxX;
+  }
+  if (offsetY <= y) {
+    y = offsetY;
+  } else if (offsetY + height > maxY) {
+    y += offsetY + height - maxY;
+  }
+  scrollView.scrollLeft = x;
+  scrollView.scrollTop = y;
+}
+
+/**
+ * Computes the offset left or top from child to ancestor by accumulating
+ * offsetLeft or offsetTop through intervening offsetParents.
+ */
+function relativeOffset(ancestor, child, axis) {
+  const prop = axis === "left" ? "offsetLeft" : "offsetTop";
+  let sum = 0;
+  while (child.offsetParent) {
+    sum += child[prop];
+    if (child.offsetParent === ancestor) {
+      // Stop once we have found the ancestor we are interested in.
+      break;
+    } else if (child.offsetParent.contains(ancestor)) {
+      // If the ancestor is not `position:relative`, then we stop at
+      // _its_ offset parent, and we subtract off _its_ offset, so that
+      // we end up with the proper offset from child to ancestor.
+      sum -= ancestor[prop];
+      break;
+    }
+    child = child.offsetParent;
+  }
+  return sum;
+}
+
+const visuallyHiddenStyles = {
+  border: "0",
+  clip: "rect(0 0 0 0)",
+  "clip-path": "inset(50%)",
+  height: "1px",
+  margin: "0 -1px -1px 0",
+  overflow: "hidden",
+  padding: "0",
+  position: "absolute",
+  width: "1px",
+  "white-space": "nowrap"
+};
+
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/main/packages/ariakit-utils/src/focus.ts
+ *
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/main/packages/%40react-aria/focus/src/isElementVisible.ts
+ * https://github.com/adobe/react-spectrum/blob/8f2f2acb3d5850382ebe631f055f88c704aa7d17/packages/@react-aria/focus/src/FocusScope.tsx
+ */
+const focusableElements = ["input:not([type='hidden']):not([disabled])", "select:not([disabled])", "textarea:not([disabled])", "button:not([disabled])", "a[href]", "area[href]", "[tabindex]", "iframe", "object", "embed", "audio[controls]", "video[controls]", "[contenteditable]:not([contenteditable='false'])"];
+const tabbableElements = [...focusableElements, '[tabindex]:not([tabindex="-1"]):not([disabled])'];
+const FOCUSABLE_ELEMENT_SELECTOR = focusableElements.join(":not([hidden]),") + ",[tabindex]:not([disabled]):not([hidden])";
+const TABBABLE_ELEMENT_SELECTOR = tabbableElements.join(':not([hidden]):not([tabindex="-1"]),');
+
+/**
+ * Returns all the tabbable elements in `container`.
+ */
+function getAllTabbableIn(container, includeContainer) {
+  const elements = Array.from(container.querySelectorAll(FOCUSABLE_ELEMENT_SELECTOR));
+  const tabbableElements = elements.filter(isTabbable);
+  if (includeContainer && isTabbable(container)) {
+    tabbableElements.unshift(container);
+  }
+  tabbableElements.forEach((element, i) => {
+    if (isFrame(element) && element.contentDocument) {
+      const frameBody = element.contentDocument.body;
+      const allFrameTabbable = getAllTabbableIn(frameBody, false);
+      tabbableElements.splice(i, 1, ...allFrameTabbable);
+    }
+  });
+  return tabbableElements;
+}
+
+/**
+ * Checks whether `element` is tabbable or not.
+ * @example
+ * isTabbable(document.querySelector("input")); // true
+ * isTabbable(document.querySelector("input[tabindex='-1']")); // false
+ * isTabbable(document.querySelector("input[hidden]")); // false
+ * isTabbable(document.querySelector("input:disabled")); // false
+ */
+function isTabbable(element) {
+  return isFocusable(element) && !hasNegativeTabIndex(element);
+}
+
+/**
+ * Checks whether `element` is focusable or not.
+ * @example
+ * isFocusable(document.querySelector("input")); // true
+ * isFocusable(document.querySelector("input[tabindex='-1']")); // true
+ * isFocusable(document.querySelector("input[hidden]")); // false
+ * isFocusable(document.querySelector("input:disabled")); // false
+ */
+function isFocusable(element) {
+  return element.matches(FOCUSABLE_ELEMENT_SELECTOR) && isElementVisible(element);
+}
+function hasNegativeTabIndex(element) {
+  const tabIndex = parseInt(element.getAttribute("tabindex") || "0", 10);
+  return tabIndex < 0;
+}
+
+/**
+ * Adapted from https://github.com/testing-library/jest-dom and
+ * https://github.com/vuejs/vue-test-utils-next/.
+ * Licensed under the MIT License.
+ * @param element - Element to evaluate for display or visibility.
+ */
+function isElementVisible(element, childElement) {
+  return element.nodeName !== "#comment" && isStyleVisible(element) && isAttributeVisible(element, childElement) && (!element.parentElement || isElementVisible(element.parentElement, element));
+}
+function isStyleVisible(element) {
+  if (!(element instanceof HTMLElement) && !(element instanceof SVGElement)) {
+    return false;
+  }
+  const {
+    display,
+    visibility
+  } = element.style;
+  let isVisible = display !== "none" && visibility !== "hidden" && visibility !== "collapse";
+  if (isVisible) {
+    if (!element.ownerDocument.defaultView) {
+      return isVisible;
+    }
+    const {
+      getComputedStyle
+    } = element.ownerDocument.defaultView;
+    const {
+      display: computedDisplay,
+      visibility: computedVisibility
+    } = getComputedStyle(element);
+    isVisible = computedDisplay !== "none" && computedVisibility !== "hidden" && computedVisibility !== "collapse";
+  }
+  return isVisible;
+}
+function isAttributeVisible(element, childElement) {
+  return !element.hasAttribute("hidden") && (element.nodeName === "DETAILS" && childElement && childElement.nodeName !== "SUMMARY" ? element.hasAttribute("open") : true);
+}
+
+/**
+ * Checks if `element` has focus within.
+ * Elements that are referenced by `aria-activedescendant` are also considered.
+ * @example
+ * hasFocusWithin(document.getElementById("id"));
+ */
+function hasFocusWithin(element) {
+  const activeElement = getActiveElement(element);
+  if (!activeElement) {
+    return false;
+  }
+  if (!contains(element, activeElement)) {
+    const activeDescendant = activeElement.getAttribute("aria-activedescendant");
+    if (!activeDescendant) {
+      return false;
+    }
+    if (!("id" in element)) {
+      return false;
+    }
+    if (activeDescendant === element.id) {
+      return true;
+    }
+    return !!element.querySelector(`#${CSS.escape(activeDescendant)}`);
+  } else {
+    return true;
+  }
+}
+function isElementInScope(element, scope) {
+  return scope.some(node => node.contains(element));
+}
+
+/**
+ * Create a [TreeWalker]{@link https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker}
+ * that matches all focusable/tabbable elements.
+ */
+function getFocusableTreeWalker(root, opts, scope) {
+  const selector = opts?.tabbable ? TABBABLE_ELEMENT_SELECTOR : FOCUSABLE_ELEMENT_SELECTOR;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, {
+    acceptNode(node) {
+      // Skip nodes inside the starting node.
+      if (opts?.from?.contains(node)) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      if (node.matches(selector) && isElementVisible(node) && (!scope || isElementInScope(node, scope))) {
+        return NodeFilter.FILTER_ACCEPT;
+      }
+      return NodeFilter.FILTER_SKIP;
+    }
+  });
+  if (opts?.from) {
+    walker.currentNode = opts.from;
+  }
+  return walker;
+}
+
+export { EventKey, addItemToArray, callHandler, clamp, composeEventHandlers, contains, createGenerateId, createGlobalListeners, createPolymorphicComponent, debugPolygon, focusWithoutScrolling, getActiveElement, getAllTabbableIn, getDocument, getEventPoint, getFocusableTreeWalker, getScrollParent, getWindow, hasFocusWithin, isActionKey, isAndroid, isAppleDevice, isArray, isChrome, isCtrlKey, isElementVisible, isFocusable, isFrame, isFunction, isIOS, isIPad, isIPhone, isMac, isPointInPolygon, isSelectionKey, isString, isTabbable, isVirtualClick, isVirtualPointerEvent, isWebKit, mergeDefaultProps, noop, removeItemFromArray, runAfterTransition, scrollIntoView, visuallyHiddenStyles };
+//# sourceMappingURL=index.js.map

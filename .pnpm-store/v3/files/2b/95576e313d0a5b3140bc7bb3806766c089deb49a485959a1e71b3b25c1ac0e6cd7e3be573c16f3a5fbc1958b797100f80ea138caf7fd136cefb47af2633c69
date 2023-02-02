@@ -1,0 +1,4 @@
+import { MenuContentBaseOptions } from "./menu-content-base";
+export interface MenuContentOptions extends MenuContentBaseOptions {
+}
+export declare const MenuContent: import("@kobalte/utils").PolymorphicComponent<"div", MenuContentOptions>;

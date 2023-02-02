@@ -1,0 +1,21 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/15e101b74966bd5eb719c6529ce71ce57eaed430/packages/@react-aria/calendar/src/useCalendarBase.ts
+ */
+import { CalendarState, RangeCalendarState } from "./types";
+export interface CalendarBaseOptions {
+    /** The state of the calendar as returned by `createCalendarState` or `createRangeCalendarState`. */
+    state: CalendarState | RangeCalendarState;
+    /** Whether the calendar is disabled. */
+    isDisabled?: boolean;
+    /** Whether dates outside each calendar month should not be visible. */
+    hideDatesOutsideMonth?: boolean;
+}
+/**
+ * Base component for a calendar, provide context for its children.
+ * Used to build calendar and range calendar.
+ */
+export declare const CalendarBase: import("@kobalte/utils").PolymorphicComponent<"div", CalendarBaseOptions>;

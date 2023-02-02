@@ -1,0 +1,52 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/70e7caf1946c423bc9aa9cb0e50dbdbe953d239b/packages/@react-aria/focus/src/useFocusRing.ts
+ */
+import { access } from "@kobalte/utils";
+import { createSignal } from "solid-js";
+import { createFocusVisibleListener } from "../create-focus-visible";
+export const FOCUS_RING_HANDLERS_PROP_NAMES = ["onFocusIn", "onFocusOut"];
+/**
+ * Determines whether a focus ring should be shown to indicate keyboard focus.
+ * Focus rings are visible only when the user is interacting with a keyboard,
+ * not with a mouse, touch, or other input methods.
+ */
+export function createFocusRing(props = {}) {
+    const [isFocused, setIsFocused] = createSignal(false);
+    const [isFocusVisible, setIsFocusVisible] = createSignal(false);
+    const [isFocusRingVisible, setIsFocusRingVisible] = createSignal(false);
+    createFocusVisibleListener(setIsFocusVisible, [], () => !!access(props.isTextInput));
+    const shouldPreventFocusWithin = (e) => {
+        return !access(props.within) && e.currentTarget !== e.target;
+    };
+    const updateStateAndNotifyHandlers = (newIsFocused) => {
+        const newIsFocusRingVisible = newIsFocused && isFocusVisible();
+        setIsFocused(newIsFocused);
+        setIsFocusRingVisible(newIsFocusRingVisible);
+        props.onFocusChange?.(newIsFocused);
+        props.onFocusVisibleChange?.(newIsFocusRingVisible);
+    };
+    const onFocusIn = e => {
+        if (shouldPreventFocusWithin(e)) {
+            return;
+        }
+        updateStateAndNotifyHandlers(true);
+    };
+    const onFocusOut = e => {
+        if (shouldPreventFocusWithin(e)) {
+            return;
+        }
+        updateStateAndNotifyHandlers(false);
+    };
+    return {
+        isFocused,
+        isFocusVisible: isFocusRingVisible,
+        focusRingHandlers: {
+            onFocusIn,
+            onFocusOut,
+        },
+    };
+}

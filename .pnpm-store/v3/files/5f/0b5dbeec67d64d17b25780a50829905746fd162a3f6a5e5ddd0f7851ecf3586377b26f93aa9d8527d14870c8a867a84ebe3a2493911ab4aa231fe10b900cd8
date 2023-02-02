@@ -1,0 +1,4 @@
+/**
+ * The label that gives the user information on the switch.
+ */
+export declare const SwitchLabel: import("@kobalte/utils").PolymorphicComponent<"span", {}>;

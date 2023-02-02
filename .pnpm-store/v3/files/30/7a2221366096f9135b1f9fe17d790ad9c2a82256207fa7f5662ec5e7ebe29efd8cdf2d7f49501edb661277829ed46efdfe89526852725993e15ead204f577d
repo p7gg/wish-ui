@@ -1,0 +1,37 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/70e7caf1946c423bc9aa9cb0e50dbdbe953d239b/packages/@react-aria/interactions/src/useFocusVisible.ts
+ */
+import { MaybeAccessor } from "@kobalte/utils";
+import { Accessor } from "solid-js";
+declare type Modality = "keyboard" | "pointer" | "virtual";
+declare type FocusVisibleHandler = (isFocusVisible: boolean) => void;
+export declare function isKeyboardFocusVisible(): boolean;
+export declare function getInteractionModality(): Modality;
+export declare function setInteractionModality(modality: Modality): void;
+/**
+ * Keeps state of the current modality.
+ */
+export declare function createInteractionModality(): Accessor<Modality>;
+export interface CreateFocusVisibleProps {
+    /** Whether the element is a text input. */
+    isTextInput?: MaybeAccessor<boolean | undefined>;
+    /** Whether the element will be autofocused. */
+    autoFocus?: MaybeAccessor<boolean | undefined>;
+}
+export interface CreateFocusVisibleResult {
+    /** Whether keyboard focus is visible globally. */
+    isFocusVisible: Accessor<boolean>;
+}
+/**
+ * Manages focus visible state for the page, and subscribes individual components for updates.
+ */
+export declare function createFocusVisible(props?: CreateFocusVisibleProps): CreateFocusVisibleResult;
+/**
+ * Listens for trigger change and reports if focus is visible (i.e., modality is not pointer).
+ */
+export declare function createFocusVisibleListener(fn: FocusVisibleHandler, deps: Array<Accessor<any>>, isTextInput: Accessor<boolean>): void;
+export {};

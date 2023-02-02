@@ -1,0 +1,10 @@
+import Icon from '../Icon';
+const iconNode = [
+    [
+        'rect',
+        { x: '6', y: '3', width: '12', height: '18', rx: '6', key: 'wskjtk' },
+    ],
+    ['path', { d: 'M12 7v4', key: 'xawao1' }],
+];
+const Mouse = (props) => (<Icon {...props} name="Mouse" iconNode={iconNode}/>);
+export default Mouse;

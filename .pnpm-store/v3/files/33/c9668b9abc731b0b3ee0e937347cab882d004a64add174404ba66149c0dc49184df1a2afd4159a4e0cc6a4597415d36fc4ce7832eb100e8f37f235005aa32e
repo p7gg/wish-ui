@@ -1,0 +1,4 @@
+/**
+ * An accessible label that gives the user information on the progress.
+ */
+export declare const ProgressLabel: import("@kobalte/utils").PolymorphicComponent<"span", {}>;

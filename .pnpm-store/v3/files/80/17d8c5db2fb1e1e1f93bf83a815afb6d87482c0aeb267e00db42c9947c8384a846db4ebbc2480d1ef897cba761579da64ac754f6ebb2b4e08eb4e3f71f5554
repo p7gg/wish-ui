@@ -1,0 +1,8 @@
+import { CalendarDate } from "@internationalized/date";
+import { Accessor } from "solid-js";
+export interface CalendarMonthContextValue {
+    startDate: Accessor<CalendarDate>;
+    endDate: Accessor<CalendarDate>;
+}
+export declare const CalendarMonthContext: import("solid-js").Context<CalendarMonthContextValue>;
+export declare function useCalendarMonthContext(): CalendarMonthContextValue;

@@ -1,0 +1,15 @@
+import { Accessor } from "solid-js";
+import { CalendarState, RangeCalendarState } from "./types";
+export interface CalendarContextValue {
+    state: Accessor<CalendarState | RangeCalendarState>;
+    selectedDateDescription: Accessor<string>;
+    isPreviousDisabled: Accessor<boolean>;
+    isNextDisabled: Accessor<boolean>;
+    hideDatesOutsideMonth: Accessor<boolean>;
+    ariaLabel: Accessor<string | undefined>;
+    ariaLabelledBy: Accessor<string | undefined>;
+    setPreviousFocused: (newValue: boolean) => void;
+    setNextFocused: (newValue: boolean) => void;
+}
+export declare const CalendarContext: import("solid-js").Context<CalendarContextValue>;
+export declare function useCalendarContext(): CalendarContextValue;

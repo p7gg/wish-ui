@@ -1,0 +1,28 @@
+import { Component, ComponentProps, JSX } from "solid-js";
+/** All HTML and SVG elements. */
+export declare type DOMElements = keyof JSX.IntrinsicElements;
+/** Any HTML element or SolidJS component. */
+export declare type ElementType<Props = any> = DOMElements | Component<Props> | (string & {});
+/**
+ * Allows for extending a set of props (`Source`) by an overriding set of props (`Override`),
+ * ensuring that any duplicates are overridden by the overriding set of props.
+ */
+export declare type OverrideProps<Source = {}, Override = {}> = Omit<Source, keyof Override> & Override;
+/** The `as` prop type. */
+export declare type As<Props = any> = ElementType<Props>;
+/** Props object that includes the `as` prop. */
+export declare type PolymorphicProps<Type extends As = As, Props = {}> = OverrideProps<ComponentProps<Type>, Props & {
+    as?: Type | As;
+}>;
+/** A component with the `as` prop. */
+export declare type PolymorphicComponent<DefaultType extends As, Props = {}> = {
+    <Type extends As>(props: PolymorphicProps<Type, Props> & {
+        as: Type;
+    }): JSX.Element;
+    (props: PolymorphicProps<DefaultType, Props>): JSX.Element;
+};
+/**
+ * Create a component with the type cast to `PolymorphicComponent`.
+ * You have to use `Dynamic` internally and pass the `as` prop to handle polymorphism correctly.
+ */
+export declare function createPolymorphicComponent<DefaultType extends As, Props = {}>(component: Component<PolymorphicProps<DefaultType, Props>>): PolymorphicComponent<DefaultType, Props>;

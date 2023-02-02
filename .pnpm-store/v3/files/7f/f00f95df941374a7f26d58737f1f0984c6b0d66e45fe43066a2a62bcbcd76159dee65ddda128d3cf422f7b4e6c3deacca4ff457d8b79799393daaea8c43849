@@ -1,0 +1,16 @@
+import { MenuItemBaseOptions } from "./menu-item-base";
+export interface MenuCheckboxItemOptions extends Omit<MenuItemBaseOptions, "isChecked"> {
+    /** The controlled checked state of the menu item checkbox. */
+    isChecked?: boolean;
+    /**
+     * The default checked state when initially rendered.
+     * Useful when you do not need to control the checked state.
+     */
+    defaultIsChecked?: boolean;
+    /** Event handler called when the checked state of the menu item checkbox changes. */
+    onCheckedChange?: (isChecked: boolean) => void;
+}
+/**
+ * An item that can be controlled and rendered like a checkbox.
+ */
+export declare const MenuCheckboxItem: import("@kobalte/utils").PolymorphicComponent<"div", MenuCheckboxItemOptions>;

@@ -1,0 +1,20 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/6b51339cca0b8344507d3c8e81e7ad05d6e75f9b/packages/@react-aria/tabs/src/useTabPanel.ts
+ */
+export interface TabsContentOptions {
+    /** The unique key that associates the tab panel with a tab. */
+    value: string;
+    /**
+     * Used to force mounting when more control is needed.
+     * Useful when controlling animation with SolidJS animation libraries.
+     */
+    forceMount?: boolean;
+}
+/**
+ * Contains the content associated with a tab trigger.
+ */
+export declare const TabsContent: import("@kobalte/utils").PolymorphicComponent<"div", TabsContentOptions>;

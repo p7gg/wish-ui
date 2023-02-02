@@ -1,0 +1,15 @@
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/da142672eddefa99365773ced72171facc06fdcb/packages/ariakit-utils/src/array.ts
+ */
+/**
+ * Immutably adds an item at the given index to an array.
+ */
+export declare function addItemToArray<T extends any[]>(array: T, item: T[number], index?: number): T;
+/**
+ * Immutably removes an item from an array.
+ */
+export declare function removeItemFromArray<T>(array: T[], item: T): T[];

@@ -1,0 +1,3 @@
+import type { LucideProps } from '../types';
+declare const GitCommit: (props: LucideProps) => import("solid-js").JSX.Element;
+export default GitCommit;

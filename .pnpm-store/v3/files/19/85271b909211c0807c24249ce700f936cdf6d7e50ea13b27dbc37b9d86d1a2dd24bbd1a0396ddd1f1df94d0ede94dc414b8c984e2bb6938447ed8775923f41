@@ -1,0 +1,11 @@
+import { Accessor } from "solid-js";
+export interface CollapsibleContextValue {
+    isOpen: Accessor<boolean>;
+    shouldMount: Accessor<boolean>;
+    contentId: Accessor<string | undefined>;
+    toggle: () => void;
+    generateId: (part: string) => string;
+    registerContentId: (id: string) => () => void;
+}
+export declare const CollapsibleContext: import("solid-js").Context<CollapsibleContextValue>;
+export declare function useCollapsibleContext(): CollapsibleContextValue;

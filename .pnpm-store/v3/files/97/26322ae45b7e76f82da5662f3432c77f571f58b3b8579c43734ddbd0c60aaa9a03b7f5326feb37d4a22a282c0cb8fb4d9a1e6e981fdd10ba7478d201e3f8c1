@@ -1,0 +1,67 @@
+/*!
+ * Portions of this file are based on code from ariakit.
+ * MIT Licensed, Copyright (c) Diego Haz.
+ *
+ * Credits to the Ariakit team:
+ * https://github.com/ariakit/ariakit/blob/main/packages/ariakit-utils/src/focus.ts
+ *
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/main/packages/%40react-aria/focus/src/isElementVisible.ts
+ * https://github.com/adobe/react-spectrum/blob/8f2f2acb3d5850382ebe631f055f88c704aa7d17/packages/@react-aria/focus/src/FocusScope.tsx
+ */
+/**
+ * Returns all the tabbable elements in `container`.
+ */
+export declare function getAllTabbableIn(container: HTMLElement, includeContainer?: boolean): HTMLElement[];
+/**
+ * Checks whether `element` is tabbable or not.
+ * @example
+ * isTabbable(document.querySelector("input")); // true
+ * isTabbable(document.querySelector("input[tabindex='-1']")); // false
+ * isTabbable(document.querySelector("input[hidden]")); // false
+ * isTabbable(document.querySelector("input:disabled")); // false
+ */
+export declare function isTabbable(element: Element): element is HTMLElement;
+/**
+ * Checks whether `element` is focusable or not.
+ * @example
+ * isFocusable(document.querySelector("input")); // true
+ * isFocusable(document.querySelector("input[tabindex='-1']")); // true
+ * isFocusable(document.querySelector("input[hidden]")); // false
+ * isFocusable(document.querySelector("input:disabled")); // false
+ */
+export declare function isFocusable(element: Element): element is HTMLElement;
+/**
+ * Adapted from https://github.com/testing-library/jest-dom and
+ * https://github.com/vuejs/vue-test-utils-next/.
+ * Licensed under the MIT License.
+ * @param element - Element to evaluate for display or visibility.
+ */
+export declare function isElementVisible(element: Element, childElement?: Element): boolean;
+/**
+ * Checks if `element` has focus within.
+ * Elements that are referenced by `aria-activedescendant` are also considered.
+ * @example
+ * hasFocusWithin(document.getElementById("id"));
+ */
+export declare function hasFocusWithin(element: Node | Element): boolean;
+interface FocusManagerOptions {
+    /**
+     * The element to start searching from.
+     * The currently focused element by default.
+     */
+    from?: HTMLElement;
+    /** Whether to only include tabbable elements, or all focusable elements. */
+    tabbable?: boolean;
+    /** Whether focus should wrap around when it reaches the end of the scope. */
+    wrap?: boolean;
+}
+/**
+ * Create a [TreeWalker]{@link https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker}
+ * that matches all focusable/tabbable elements.
+ */
+export declare function getFocusableTreeWalker(root: HTMLElement, opts?: FocusManagerOptions, scope?: HTMLElement[]): TreeWalker;
+export {};

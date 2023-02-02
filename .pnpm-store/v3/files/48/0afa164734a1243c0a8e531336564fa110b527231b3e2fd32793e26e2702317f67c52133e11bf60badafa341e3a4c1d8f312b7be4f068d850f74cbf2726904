@@ -1,0 +1,15 @@
+export var EventKey;
+(function (EventKey) {
+    EventKey["Escape"] = "Escape";
+    EventKey["Enter"] = "Enter";
+    EventKey["Tab"] = "Tab";
+    EventKey["Space"] = " ";
+    EventKey["ArrowDown"] = "ArrowDown";
+    EventKey["ArrowLeft"] = "ArrowLeft";
+    EventKey["ArrowRight"] = "ArrowRight";
+    EventKey["ArrowUp"] = "ArrowUp";
+    EventKey["End"] = "End";
+    EventKey["Home"] = "Home";
+    EventKey["PageDown"] = "PageDown";
+    EventKey["PageUp"] = "PageUp";
+})(EventKey || (EventKey = {}));

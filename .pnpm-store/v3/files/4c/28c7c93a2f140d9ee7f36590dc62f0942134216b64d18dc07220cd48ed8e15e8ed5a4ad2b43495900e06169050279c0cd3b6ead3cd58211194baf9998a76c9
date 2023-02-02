@@ -1,0 +1,5 @@
+/**
+ * The component that visually represents the progress track.
+ * Act as a container for `Progress.Fill`.
+ */
+export declare const ProgressTrack: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

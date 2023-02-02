@@ -1,0 +1,10 @@
+import { JSX } from "solid-js";
+export interface ProgressFillOptions {
+    /** The HTML styles attribute (object form only). */
+    style?: JSX.CSSProperties;
+}
+/**
+ * The component that visually represents the progress value.
+ * Used to visually show the fill of `Progress.Track`.
+ */
+export declare const ProgressFill: import("@kobalte/utils").PolymorphicComponent<"div", ProgressFillOptions>;

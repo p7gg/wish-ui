@@ -1,0 +1,22 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/70e7caf1946c423bc9aa9cb0e50dbdbe953d239b/packages/@react-aria/radio/src/useRadio.ts
+ */
+import { OverrideProps } from "@kobalte/utils";
+import { ComponentProps } from "solid-js";
+export interface RadioGroupItemOptions {
+    /**
+     * The value of the radio button, used when submitting an HTML form.
+     * See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#Value).
+     */
+    value: string;
+    /** Whether the radio button is disabled or not. */
+    isDisabled?: boolean;
+}
+/**
+ * The root container for a radio button.
+ */
+export declare function RadioGroupItem(props: OverrideProps<ComponentProps<"label">, RadioGroupItemOptions>): import("solid-js").JSX.Element;

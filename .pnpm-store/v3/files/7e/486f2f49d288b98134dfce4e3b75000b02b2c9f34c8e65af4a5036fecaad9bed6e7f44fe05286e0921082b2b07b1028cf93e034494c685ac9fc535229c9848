@@ -1,0 +1,6 @@
+import Icon from '../Icon';
+const iconNode = [
+    ['path', { d: 'm3 12 7-7v4h11v6H10v4z', key: '1e8ocp' }],
+];
+const ArrowBigLeft = (props) => (<Icon {...props} name="ArrowBigLeft" iconNode={iconNode}/>);
+export default ArrowBigLeft;

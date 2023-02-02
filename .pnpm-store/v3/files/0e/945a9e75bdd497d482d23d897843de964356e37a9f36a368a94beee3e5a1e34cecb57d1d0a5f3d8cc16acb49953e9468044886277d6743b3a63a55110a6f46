@@ -1,0 +1,70 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/5c1920e50d4b2b80c826ca91aff55c97350bf9f9/packages/@react-aria/select/src/useSelect.ts
+ */
+import { ValidationState } from "@kobalte/utils";
+import { ParentProps } from "solid-js";
+import { PopperRootOptions } from "../popper";
+import { KeyboardDelegate, SelectionBehavior, SelectionMode } from "../selection";
+export interface SelectBaseOptions extends Omit<PopperRootOptions, "anchorRef" | "contentRef" | "onCurrentPlacementChange"> {
+    /** The controlled open state of the select. */
+    isOpen?: boolean;
+    /**
+     * The default open state when initially rendered.
+     * Useful when you do not need to control the open state.
+     */
+    defaultIsOpen?: boolean;
+    /** Event handler called when the open state of the select changes. */
+    onOpenChange?: (isOpen: boolean) => void;
+    /** The controlled value of the select. */
+    value?: Iterable<string>;
+    /**
+     * The value of the select when initially rendered.
+     * Useful when you do not need to control the value.
+     */
+    defaultValue?: Iterable<string>;
+    /** Event handler called when the value changes. */
+    onValueChange?: (value: Set<string>) => void;
+    /** An optional keyboard delegate implementation for type to select, to override the default. */
+    keyboardDelegate?: KeyboardDelegate;
+    /** The type of selection that is allowed in the select. */
+    selectionMode?: Exclude<SelectionMode, "none">;
+    /** How multiple selection should behave in the select. */
+    selectionBehavior?: SelectionBehavior;
+    /** Whether onValueChange should fire even if the new set of keys is the same as the last. */
+    allowDuplicateSelectionEvents?: boolean;
+    /** Whether the select allows empty selection. */
+    disallowEmptySelection?: boolean;
+    /**
+     * A unique identifier for the component.
+     * The id is used to generate id attributes for nested components.
+     * If no id prop is provided, a generated id will be used.
+     */
+    id?: string;
+    /**
+     * The name of the select.
+     * Submitted with its owning form as part of a name/value pair.
+     */
+    name?: string;
+    /** Whether the select should display its "valid" or "invalid" visual styling. */
+    validationState?: ValidationState;
+    /** Whether the user must select an item before the owning form can be submitted. */
+    isRequired?: boolean;
+    /** Whether the select is disabled. */
+    isDisabled?: boolean;
+    /** Whether the select is read only. */
+    isReadOnly?: boolean;
+    /**
+     * Describes the type of autocomplete functionality the input should provide if any.
+     * See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#htmlattrdefautocomplete).
+     */
+    autoComplete?: string;
+}
+/**
+ * Base component for a select, provide context for its children.
+ * Used to build single and multi-select.
+ */
+export declare function SelectBase(props: ParentProps<SelectBaseOptions>): import("solid-js").JSX.Element;

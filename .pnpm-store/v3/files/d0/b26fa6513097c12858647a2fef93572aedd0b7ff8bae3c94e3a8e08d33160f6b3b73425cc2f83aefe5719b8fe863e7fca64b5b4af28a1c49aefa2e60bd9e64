@@ -1,0 +1,4 @@
+/**
+ * The element that visually represents a checkbox.
+ */
+export declare const CheckboxControl: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

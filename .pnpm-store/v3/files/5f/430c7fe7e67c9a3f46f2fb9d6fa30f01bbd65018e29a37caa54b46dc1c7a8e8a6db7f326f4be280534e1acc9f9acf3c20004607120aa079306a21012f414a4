@@ -1,0 +1,14 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/2bcc2f0b45ea8b20621458a93f1804a3f9df9ac4/packages/@react-aria/interactions/src/useHover.ts
+ */
+import { CreateHoverProps, CreateHoverResult } from "./types";
+export declare const HOVER_HANDLERS_PROP_NAMES: readonly ["onPointerEnter", "onPointerLeave"];
+/**
+ * Handles pointer hover interactions for an element. Normalizes behavior
+ * across browsers and platforms, and ignores emulated mouse events on touch devices.
+ */
+export declare function createHover<T extends HTMLElement>(props?: CreateHoverProps): CreateHoverResult<T>;

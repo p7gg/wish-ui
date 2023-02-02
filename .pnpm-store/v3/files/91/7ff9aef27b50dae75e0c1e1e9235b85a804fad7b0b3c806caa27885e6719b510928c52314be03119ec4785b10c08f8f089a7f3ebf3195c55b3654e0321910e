@@ -1,0 +1,59 @@
+import { callHandler, createPolymorphicComponent, mergeDefaultProps, mergeRefs, } from "@kobalte/utils";
+import { createMemo, splitProps } from "solid-js";
+import { Dynamic } from "solid-js/web";
+import { isButton } from "../button/is-button";
+import { CREATE_LONG_PRESS_PROP_NAMES, CREATE_PRESS_PROP_NAMES, createLongPress, createPress, createTagName, PRESS_HANDLERS_PROP_NAMES, } from "../primitives";
+const PressableSymbol = Symbol("$$Pressable");
+/**
+ * `Pressable` handles press and long press interactions across mouse, touch, keyboard, and screen readers.
+ * Supports a customizable time threshold, normalizes behavior across browsers and platforms,
+ * and handles many nuances of dealing with pointer and keyboard events.
+ * It renders a `<button>` by default.
+ */
+export const Pressable = createPolymorphicComponent(props => {
+    let ref;
+    props = mergeDefaultProps({ as: "button" }, props);
+    const [local, createPressProps, createLongPressProps, others] = splitProps(props, ["as", "ref", "type", "isDisabled", ...PRESS_HANDLERS_PROP_NAMES], CREATE_PRESS_PROP_NAMES, CREATE_LONG_PRESS_PROP_NAMES);
+    const tagName = createTagName(() => ref, () => local.as || "button");
+    const isNativeButton = createMemo(() => {
+        const elementTagName = tagName();
+        if (elementTagName == null) {
+            return false;
+        }
+        return isButton({ tagName: elementTagName, type: local.type });
+    });
+    const isNativeInput = createMemo(() => {
+        return tagName() === "input";
+    });
+    const { isPressed, pressHandlers } = createPress(createPressProps);
+    const { longPressHandlers } = createLongPress(createLongPressProps);
+    const pressableHandler = (name, warningMessage = undefined) => {
+        const handler = (e) => {
+            if (local[name]) {
+                callHandler(e, local[name]);
+                // Prevent the default behavior when a component that use `Pressable` under the hood
+                // is passed to the `as` prop of another component that use `Pressable` under the hood.
+                // @ts-ignore
+                if (local[name][PressableSymbol]) {
+                    return;
+                }
+                if (warningMessage) {
+                    console.warn(warningMessage);
+                }
+            }
+            callHandler(e, pressHandlers[name]);
+            callHandler(e, longPressHandlers[name]);
+        };
+        // @ts-ignore
+        handler[PressableSymbol] = true;
+        return handler;
+    };
+    const onClick = pressableHandler("onClick", "[kobalte]: use `onPress` instead of `onClick` for handling click interactions.");
+    const onKeyDown = pressableHandler("onKeyDown");
+    const onKeyUp = pressableHandler("onKeyUp");
+    const onPointerDown = pressableHandler("onPointerDown");
+    const onPointerUp = pressableHandler("onPointerUp");
+    const onMouseDown = pressableHandler("onMouseDown");
+    const onDragStart = pressableHandler("onDragStart");
+    return (<Dynamic component={local.as} ref={mergeRefs(el => (ref = el), local.ref)} type={isNativeButton() || isNativeInput() ? local.type : undefined} disabled={isNativeButton() || isNativeInput() ? local.isDisabled : undefined} aria-disabled={!isNativeButton() && !isNativeInput() && local.isDisabled ? true : undefined} data-disabled={local.isDisabled ? "" : undefined} data-active={isPressed() ? "" : undefined} onKeyDown={onKeyDown} onKeyUp={onKeyUp} onClick={onClick} onPointerDown={onPointerDown} onPointerUp={onPointerUp} onMouseDown={onMouseDown} onDragStart={onDragStart} {...others}/>);
+});

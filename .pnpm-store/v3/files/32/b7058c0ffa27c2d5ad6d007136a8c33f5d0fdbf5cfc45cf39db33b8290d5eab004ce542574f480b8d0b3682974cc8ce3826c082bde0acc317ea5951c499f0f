@@ -1,0 +1,12 @@
+/*!
+ * Portions of this file are based on code from react-spectrum.
+ * Apache License Version 2.0, Copyright 2020 Adobe.
+ *
+ * Credits to the React Spectrum team:
+ * https://github.com/adobe/react-spectrum/blob/8f2f2acb3d5850382ebe631f055f88c704aa7d17/packages/@react-aria/focus/src/focusSafely.ts
+ */
+/**
+ * A utility function that focuses an element while avoiding undesired side effects such
+ * as page scrolling and screen reader issues with CSS transitions.
+ */
+export declare function focusSafely(element: HTMLElement): void;

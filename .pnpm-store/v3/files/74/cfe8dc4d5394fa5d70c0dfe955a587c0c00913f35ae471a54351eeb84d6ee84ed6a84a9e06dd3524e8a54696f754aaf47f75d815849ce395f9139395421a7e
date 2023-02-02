@@ -1,0 +1,5 @@
+import { Accessor } from "solid-js";
+/**
+ * Create a function that generate an id from a `baseId` and `suffix`.
+ */
+export declare function createGenerateId(baseId: Accessor<string>): (suffix: string) => string;

@@ -1,0 +1,5 @@
+/**
+ * Alert displays a brief, important message
+ * in a way that attracts the user's attention without interrupting the user's task.
+ */
+export declare const AlertRoot: import("@kobalte/utils").PolymorphicComponent<"div", {}>;

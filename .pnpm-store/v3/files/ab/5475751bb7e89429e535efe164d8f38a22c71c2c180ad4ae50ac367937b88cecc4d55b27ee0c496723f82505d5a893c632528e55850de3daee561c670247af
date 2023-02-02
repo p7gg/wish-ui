@@ -1,0 +1,5 @@
+import { MenuContentOptions } from "../menu";
+/**
+ * Contains the content to be rendered when the dropdown menu is open.
+ */
+export declare const DropdownMenuContent: import("@kobalte/utils").PolymorphicComponent<"div", MenuContentOptions>;

@@ -1,0 +1,15 @@
+/*!
+ * Portions of this file are based on code from radix-ui-primitives.
+ * MIT Licensed, Copyright (c) 2022 WorkOS.
+ *
+ * Credits to the Radix UI team:
+ * https://github.com/radix-ui/primitives/blob/81b25f4b40c54f72aeb106ca0e64e1e09655153e/packages/react/context-menu/src/ContextMenu.tsx
+ */
+import { JSX } from "solid-js";
+export interface ContextMenuTriggerOptions {
+    /** Whether the context menu trigger is disabled. */
+    isDisabled?: boolean;
+    /** The HTML styles attribute (object form only). */
+    style?: JSX.CSSProperties;
+}
+export declare const ContextMenuTrigger: import("@kobalte/utils").PolymorphicComponent<"div", ContextMenuTriggerOptions>;
