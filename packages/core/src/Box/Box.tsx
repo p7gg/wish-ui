@@ -23,8 +23,9 @@ export interface BoxProps extends AtomicStylesProps {
    */
   colorScheme?: WishColor
 }
+export interface BoxCompositions {}
 
-export const Box = createPolymorphicComponent<'div', BoxProps>((_props) => {
+export const Box = createPolymorphicComponent<'div', BoxProps, BoxCompositions>((_props) => {
   const theme = useWishTheme()
   const props = combineProps(
     {

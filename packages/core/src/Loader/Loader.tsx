@@ -243,8 +243,9 @@ export interface LoaderProps extends AtomicStylesProps {
    */
   variant?: WishLoader
 }
+export interface LoaderCompositions {}
 
-export const Loader = createComponent<'svg', LoaderProps>((_props) => {
+export const Loader = createComponent<'svg', LoaderProps, LoaderCompositions>((_props) => {
   const theme = useWishTheme()
   const props = combineProps(
     {

@@ -61,8 +61,13 @@ export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStyles
    */
   loading?: boolean
 }
+export interface ActionIconCompositions {}
 
-export const ActionIcon = createPolymorphicComponent<'button', ActionIconProps>((_props) => {
+export const ActionIcon = createPolymorphicComponent<
+  'button',
+  ActionIconProps,
+  ActionIconCompositions
+>((_props) => {
   const props = combineProps(
     {
       colorScheme: 'gray',

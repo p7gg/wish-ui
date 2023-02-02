@@ -102,7 +102,7 @@ export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProp
   /** Add icon to the right of the label element */
   rightIcon?: JSX.Element
 }
-interface ButtonCompositions {
+export interface ButtonCompositions {
   Group: typeof ButtonGroup
 }
 

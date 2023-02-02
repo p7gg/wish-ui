@@ -24,34 +24,37 @@ export interface UnstyledButtonProps extends KButton.ButtonRootOptions, AtomicSt
    */
   colorScheme?: WishColor
 }
+export interface UnstyledButtonCompositions {}
 
-export const UnstyledButton = createPolymorphicComponent<'button', UnstyledButtonProps>(
-  (_props) => {
-    const theme = useWishTheme()
-    const props = combineProps(
-      {
-        as: 'button',
-        get colorScheme() {
-          return _props.colorScheme ?? theme.primaryColor
-        },
+export const UnstyledButton = createPolymorphicComponent<
+  'button',
+  UnstyledButtonProps,
+  UnstyledButtonCompositions
+>((_props) => {
+  const theme = useWishTheme()
+  const props = combineProps(
+    {
+      as: 'button',
+      get colorScheme() {
+        return _props.colorScheme ?? theme.primaryColor
       },
-      _props,
-    )
+    },
+    _props,
+  )
 
-    const [local, variants, atomics, others] = splitProps(
-      props,
-      ['class', 'style'],
-      ['colorScheme'],
-      [...atomicStyles.properties.keys()],
-    )
-    const atoms = createMemo(() => atomicStyles(atomics))
+  const [local, variants, atomics, others] = splitProps(
+    props,
+    ['class', 'style'],
+    ['colorScheme'],
+    [...atomicStyles.properties.keys()],
+  )
+  const atoms = createMemo(() => atomicStyles(atomics))
 
-    return (
-      <KButton.Root
-        class={clsx(unstyledButton(variants), atoms().className, local.class)}
-        style={combineStyle(atoms().style, local.style ?? {})}
-        {...others}
-      />
-    )
-  },
-)
+  return (
+    <KButton.Root
+      class={clsx(unstyledButton(variants), atoms().className, local.class)}
+      style={combineStyle(atoms().style, local.style ?? {})}
+      {...others}
+    />
+  )
+})
