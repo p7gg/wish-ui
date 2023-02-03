@@ -19,6 +19,7 @@ const buttonColorVar = createVar()
 const buttonBgColorHoverVar = createVar()
 const buttonBgColorActiveVar = createVar()
 const buttonBorderColorVar = createVar()
+const buttonFocusRingColorVar = createVar()
 const compactSizes = {
   xs: { height: '1.375rem', paddingX: '.4375rem' },
   sm: { height: '1.625rem', paddingX: '.5rem' },
@@ -63,6 +64,7 @@ const getFilledCompoundVariants = () => {
           [buttonBorderColorVar]: 'transparent',
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}10`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}10`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -86,6 +88,7 @@ const getLightCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -109,6 +112,7 @@ const getSubtleCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -132,6 +136,7 @@ const getOutlineCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -171,18 +176,25 @@ export const root = recipe({
       backgroundColor: buttonBgColorActiveVar,
     },
 
-    ':disabled': {
-      borderColor: 'transparent',
-      backgroundColor: vars.colors.gray3,
-      color: vars.colors.gray11,
-      cursor: 'not-allowed',
-      backgroundImage: 'none',
-      pointerEvents: 'none',
+    ':focus': {
+      outlineOffset: 2,
+      outline: `.125rem solid ${buttonFocusRingColorVar}`,
     },
 
     selectors: {
-      '&:disabled:active': {
+      '&[data-disabled], &:disabled': {
+        borderColor: 'transparent',
+        backgroundColor: vars.colors.gray6,
+        color: vars.colors.gray11,
+        cursor: 'not-allowed',
+        backgroundImage: 'none',
+        pointerEvents: 'none',
+      },
+      '&[data-disabled]:active, &:disabled:active': {
         transform: 'none',
+      },
+      ['&:focus:not(:focus-visible)']: {
+        outline: 'none',
       },
     },
   },

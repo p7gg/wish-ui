@@ -326,7 +326,7 @@ const error = style({
   display: 'block',
 })
 const icon = style({
-  color: vars.colors.gray11,
+  color: 'inherit',
   transform: 'translateY(5px) scale(0.5)',
   opacity: 0,
   transitionProperty: 'opacity, transform',
@@ -386,11 +386,6 @@ const control = style({
     backgroundColor: vars.colors.gray5,
   },
 
-  ':focus': {
-    outlineOffset: '.125rem',
-    outline: `.125rem solid ${focusRingColorVar}`,
-  },
-
   selectors: {
     [`.${root({ labelPosition: 'left' }).split(' ')[1]} &`]: {
       order: 2,
@@ -402,7 +397,7 @@ const control = style({
       backgroundColor: checkboxBgColorVar,
       borderColor: checkboxBgColorVar,
     },
-    '&[data-checked]:hover': {
+    '&[data-checked]:not([data-disabled]):hover': {
       backgroundColor: checkboxBgColorHoverVar,
     },
     '&[data-disabled]': {
@@ -416,7 +411,11 @@ const control = style({
     '&[data-error]:hover': {
       borderColor: vars.colors.red8,
     },
-    '&:focus:not(:focus-visible)': {
+    'input:focus + &': {
+      outlineOffset: '.125rem',
+      outline: `.125rem solid ${focusRingColorVar}`,
+    },
+    'input:focus:not(:focus-visible) + &': {
       outline: 'none',
     },
   },
