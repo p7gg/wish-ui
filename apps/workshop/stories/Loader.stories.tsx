@@ -5,6 +5,9 @@ import { wishColors, wishLoaders, wishSizes } from '~core/constants'
 import { Loader } from '~core/Loader'
 import { vars } from '~core/theme'
 
+import type { Meta, StoryObj } from '../types'
+type Story = StoryObj<typeof Loader>
+
 const sharedStyles = {
   padding: '10px 20px',
   border: `1px solid ${vars.colors.gray6}`,
@@ -13,9 +16,8 @@ const sharedStyles = {
 export default {
   title: 'Loader',
   component: Loader,
-  parameters: { options: { showPanel: false, panelPosition: 'right' } },
   decorators: [
-    (Story: any) => (
+    (Story) => (
       <Box padding="$xl">
         <Story />
       </Box>
@@ -40,89 +42,86 @@ export default {
     colorScheme: 'blue',
     size: 'md',
   },
+} satisfies Meta<typeof Loader>
+
+export const Playground: Story = {
+  render: (args) => <Loader {...args} />,
 }
 
-export const Playground = (args: any) => <Loader {...args} />
-Playground.parameters = {
-  options: { showPanel: true },
+export const ColorSchemes: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={wishLoaders}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishColors}>
+            {(colorScheme) => (
+              <tr>
+                <td style={sharedStyles}>{colorScheme}</td>
+
+                <For each={wishLoaders}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Loader {...args} variant={variant} colorScheme={colorScheme} />
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    colorScheme: undefined,
+    variant: undefined,
+  },
 }
 
-export function ColorSchemes() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
+export const Sizes: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
 
-          <For each={wishLoaders}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishColors}>
-          {(colorScheme) => (
-            <tr>
-              <td style={sharedStyles}>{colorScheme}</td>
+            <For each={wishLoaders}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishSizes}>
+            {(size) => (
+              <tr>
+                <td style={sharedStyles}>{size}</td>
 
-              <For each={wishLoaders}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Loader variant={variant} colorScheme={colorScheme} />
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-ColorSchemes.parameters = {
-  options: { showPanel: false },
-}
-
-export function Sizes() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={wishLoaders}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishSizes}>
-          {(size) => (
-            <tr>
-              <td style={sharedStyles}>{size}</td>
-
-              <For each={wishLoaders}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Loader variant={variant} size={size} />
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-Sizes.parameters = {
-  options: { showPanel: false },
+                <For each={wishLoaders}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Loader {...args} variant={variant} size={size} />
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    size: undefined,
+  },
 }

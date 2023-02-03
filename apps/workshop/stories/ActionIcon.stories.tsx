@@ -9,6 +9,10 @@ import { Box } from '~core/Box'
 import { actionIconVariants, wishColors, wishSizes } from '~core/constants'
 import { vars } from '~core/theme'
 
+import type { Meta, StoryObj } from '../types'
+
+type Story = StoryObj<typeof ActionIcon>
+
 const sharedStyles = {
   padding: '10px 20px',
   border: `1px solid ${vars.colors.gray6}`,
@@ -17,9 +21,8 @@ const sharedStyles = {
 export default {
   title: 'ActionIcon',
   component: ActionIcon,
-  parameters: { options: { showPanel: false, panelPosition: 'right' } },
   decorators: [
-    (Story: any) => (
+    (Story) => (
       <Box padding="$xl">
         <Story />
       </Box>
@@ -60,230 +63,223 @@ export default {
     disabled: false,
     loading: false,
   },
-}
+} satisfies Meta<typeof ActionIcon>
 
-export const Playground = (args: any) => (
-  <ActionIcon onPress={action('clicked')} {...args}>
-    <Settings2 size={15} />
-  </ActionIcon>
-)
-Playground.parameters = {
-  options: { showPanel: true },
-}
-
-export function States() {
-  const states = [
-    {
-      name: 'enabled',
-      props: undefined,
-    },
-    {
-      name: 'disabled',
-      props: {
-        disabled: true,
-      },
-    },
-    {
-      name: 'loading',
-      props: {
-        loading: true,
-      },
-    },
-  ]
-
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={actionIconVariants}>
-            {(variant) => <th style={sharedStyles}>{variant}</th>}
-          </For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={states}>
-          {(state) => (
-            <tr>
-              <td style={sharedStyles}>{state.name}</td>
-
-              <For each={actionIconVariants}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <ActionIcon variant={variant} {...state.props}>
-                        <Settings2 size={15} />
-                      </ActionIcon>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-States.parameters = {
-  options: { showPanel: false },
-}
-
-export function StatesInsideFieldsetDisabled() {
-  return (
-    <fieldset disabled>
-      <States />
-    </fieldset>
-  )
-}
-StatesInsideFieldsetDisabled.parameters = {
-  options: { showPanel: false },
-}
-
-export function ColorSchemes() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={actionIconVariants}>
-            {(variant) => <th style={sharedStyles}>{variant}</th>}
-          </For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishColors}>
-          {(colorScheme) => (
-            <tr>
-              <td style={sharedStyles}>{colorScheme}</td>
-
-              <For each={actionIconVariants}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <ActionIcon variant={variant} colorScheme={colorScheme}>
-                        <Settings2 size={15} />
-                      </ActionIcon>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-ColorSchemes.parameters = {
-  options: { showPanel: false },
-}
-
-export function Sizes() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={actionIconVariants}>
-            {(variant) => <th style={sharedStyles}>{variant}</th>}
-          </For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishSizes}>
-          {(size) => (
-            <tr>
-              <td style={sharedStyles}>{size}</td>
-
-              <For each={actionIconVariants}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <ActionIcon variant={variant} size={size}>
-                        <Settings2 size={15} />
-                      </ActionIcon>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-Sizes.parameters = {
-  options: { showPanel: false },
-}
-
-export function Radiuses() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={actionIconVariants}>
-            {(variant) => <th style={sharedStyles}>{variant}</th>}
-          </For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishSizes}>
-          {(radius) => (
-            <tr>
-              <td style={sharedStyles}>{radius}</td>
-
-              <For each={actionIconVariants}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <ActionIcon variant={variant} radius={radius}>
-                        <Settings2 size={15} />
-                      </ActionIcon>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-Radiuses.parameters = {
-  options: { showPanel: false },
-}
-
-export function AsLink() {
-  return (
-    <ActionIcon as="a" variant="light" colorScheme="sky" href="https://google.com" target="_blank">
-      <ExternalLink size={15} />
+export const Playground: Story = {
+  render: (args) => (
+    <ActionIcon onPress={action('clicked')} {...args}>
+      <Settings2 size={15} />
     </ActionIcon>
-  )
+  ),
 }
-AsLink.parameters = {
-  options: { showPanel: false },
+
+export const States: Story = {
+  render: (args) => {
+    const states = [
+      {
+        name: 'enabled',
+        props: undefined,
+      },
+      {
+        name: 'disabled',
+        props: {
+          disabled: true,
+        },
+      },
+      {
+        name: 'loading',
+        props: {
+          loading: true,
+        },
+      },
+    ]
+
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={actionIconVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={states}>
+            {(state) => (
+              <tr>
+                <td style={sharedStyles}>{state.name}</td>
+
+                <For each={actionIconVariants}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <ActionIcon {...args} variant={variant} {...state.props}>
+                          <Settings2 size={15} />
+                        </ActionIcon>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    disabled: undefined,
+    loading: undefined,
+  },
+}
+
+export const StatesInsideFieldsetDisabled: Story = {
+  render: (args, ctx) => {
+    return <fieldset disabled>{States.render?.(args, ctx)}</fieldset>
+  },
+  args: {
+    disabled: undefined,
+    loading: undefined,
+  },
+}
+
+export const ColorSchemes: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={actionIconVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishColors}>
+            {(colorScheme) => (
+              <tr>
+                <td style={sharedStyles}>{colorScheme}</td>
+
+                <For each={actionIconVariants}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <ActionIcon {...args} variant={variant} colorScheme={colorScheme}>
+                          <Settings2 size={15} />
+                        </ActionIcon>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    colorScheme: undefined,
+  },
+}
+
+export const Sizes: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={actionIconVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishSizes}>
+            {(size) => (
+              <tr>
+                <td style={sharedStyles}>{size}</td>
+
+                <For each={actionIconVariants}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <ActionIcon {...args} variant={variant} size={size}>
+                          <Settings2 size={15} />
+                        </ActionIcon>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    size: undefined,
+  },
+}
+
+export const Radiuses: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={actionIconVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishSizes}>
+            {(radius) => (
+              <tr>
+                <td style={sharedStyles}>{radius}</td>
+
+                <For each={actionIconVariants}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <ActionIcon {...args} variant={variant} radius={radius}>
+                          <Settings2 size={15} />
+                        </ActionIcon>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    radius: undefined,
+  },
+}
+
+export const AsLink: Story = {
+  render: (args) => {
+    return (
+      <ActionIcon as="a" href="https://google.com" target="_blank" {...args}>
+        <ExternalLink size={15} />
+      </ActionIcon>
+    )
+  },
 }

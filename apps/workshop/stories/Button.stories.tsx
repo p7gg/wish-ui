@@ -4,10 +4,12 @@ import { action } from '@storybook/addon-actions'
 
 import { Box } from '~core/Box'
 import { Button } from '~core/Button'
-import { wishColors, wishSizes } from '~core/constants'
+import { wishButtons, wishColors, wishSizes } from '~core/constants'
 import { vars } from '~core/theme'
 
-const BUTTON_VARIANTS = ['filled', 'subtle', 'outline', 'light', 'default'] as const
+import type { Meta, StoryObj } from '../types'
+type Story = StoryObj<typeof Button>
+
 const BUTTON_LOADER_POSITIONS = ['left', 'right', 'center'] as const
 const sharedStyles = {
   padding: '10px 20px',
@@ -17,9 +19,8 @@ const sharedStyles = {
 export default {
   title: 'Button',
   component: Button,
-  parameters: { options: { showPanel: false, panelPosition: 'right' } },
   decorators: [
-    (Story: any) => (
+    (Story) => (
       <Box padding="$xl">
         <Story />
       </Box>
@@ -28,7 +29,7 @@ export default {
   argTypes: {
     variant: {
       control: { type: 'inline-radio' },
-      options: BUTTON_VARIANTS,
+      options: wishButtons,
     },
     colorScheme: {
       control: { type: 'select' },
@@ -78,284 +79,281 @@ export default {
     uppercase: false,
     children: 'Button',
   },
+} satisfies Meta<typeof Button>
+
+export const Playground: Story = {
+  render: (args) => <Button onPress={action('clicked')} {...args} />,
 }
 
-export const Playground = (args: any) => <Button onPress={action('clicked')} {...args} />
-Playground.parameters = {
-  options: { showPanel: true },
-}
-
-export function States() {
-  const states = [
-    {
-      name: 'enabled',
-      props: undefined,
-    },
-    {
-      name: 'disabled',
-      props: {
-        disabled: true,
+export const States: Story = {
+  render: (args) => {
+    const states = [
+      {
+        name: 'enabled',
+        props: undefined,
       },
-    },
-    {
-      name: 'loading',
-      props: {
-        loading: true,
+      {
+        name: 'disabled',
+        props: {
+          disabled: true,
+        },
       },
-    },
-  ]
+      {
+        name: 'loading',
+        props: {
+          loading: true,
+        },
+      },
+    ]
 
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
 
-          <For each={BUTTON_VARIANTS}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={states}>
-          {(state) => (
-            <tr>
-              <td style={sharedStyles}>{state.name}</td>
+            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={states}>
+            {(state) => (
+              <tr>
+                <td style={sharedStyles}>{state.name}</td>
 
-              <For each={BUTTON_VARIANTS}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Button variant={variant} colorScheme="blue" {...state.props}>
-                        {variant}
-                      </Button>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-States.parameters = {
-  options: { showPanel: false },
-}
-
-export function StatesInsideFieldsetDisabled() {
-  return (
-    <fieldset disabled>
-      <States />
-    </fieldset>
-  )
-}
-StatesInsideFieldsetDisabled.parameters = {
-  options: { showPanel: false },
+                <For each={wishButtons}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Button {...args} variant={variant} {...state.props}>
+                          {variant}
+                        </Button>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    disabled: undefined,
+    loading: undefined,
+  },
 }
 
-export function ColorSchemes() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={BUTTON_VARIANTS}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishColors}>
-          {(colorScheme) => (
-            <tr>
-              <td style={sharedStyles}>{colorScheme}</td>
-
-              <For each={BUTTON_VARIANTS}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Button variant={variant} colorScheme={colorScheme}>
-                        {variant}
-                      </Button>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-ColorSchemes.parameters = {
-  options: { showPanel: false },
+export const StatesInsideFieldsetDisabled: Story = {
+  render: (args, ctx) => {
+    return <fieldset disabled>{States.render?.(args, ctx)}</fieldset>
+  },
+  args: {
+    disabled: undefined,
+    loading: undefined,
+  },
 }
 
-export function Sizes() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
+export const ColorSchemes: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
 
-          <For each={BUTTON_VARIANTS}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishSizes}>
-          {(size) => (
-            <tr>
-              <td style={sharedStyles}>{size}</td>
+            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishColors}>
+            {(colorScheme) => (
+              <tr>
+                <td style={sharedStyles}>{colorScheme}</td>
 
-              <For each={BUTTON_VARIANTS}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Button variant={variant} size={size}>
-                        {variant}
-                      </Button>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-Sizes.parameters = {
-  options: { showPanel: false },
-}
-
-export function Radiuses() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
-
-          <For each={BUTTON_VARIANTS}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={wishSizes}>
-          {(radius) => (
-            <tr>
-              <td style={sharedStyles}>{radius}</td>
-
-              <For each={BUTTON_VARIANTS}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Button variant={variant} radius={radius}>
-                        {variant}
-                      </Button>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-Radiuses.parameters = {
-  options: { showPanel: false },
+                <For each={wishButtons}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Button {...args} variant={variant} colorScheme={colorScheme}>
+                          {variant}
+                        </Button>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    colorScheme: undefined,
+  },
 }
 
-export function Groups() {
-  return (
-    <>
-      <Button.Group>
-        <Button variant="default">First</Button>
-        <Button variant="default">Second</Button>
-        <Button variant="default">Third</Button>
-        <Button variant="default">Forth</Button>
-        <Button variant="default">Last</Button>
-      </Button.Group>
-      <Button.Group mt="$xl" orientation="vertical">
-        <Button variant="default">First</Button>
-        <Button variant="default">Second</Button>
-        <Button variant="default">Third</Button>
-        <Button variant="default">Forth</Button>
-        <Button variant="default">Last</Button>
-      </Button.Group>
-    </>
-  )
-}
-Groups.parameters = {
-  options: { showPanel: false },
+export const Sizes: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishSizes}>
+            {(size) => (
+              <tr>
+                <td style={sharedStyles}>{size}</td>
+
+                <For each={wishButtons}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Button {...args} variant={variant} size={size}>
+                          {variant}
+                        </Button>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    size: undefined,
+  },
 }
 
-export function LoaderPositions() {
-  return (
-    <table
-      style={{
-        'border-collapse': 'collapse',
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={sharedStyles}>&nbsp;</th>
+export const Radiuses: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
 
-          <For each={BUTTON_VARIANTS}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={BUTTON_LOADER_POSITIONS}>
-          {(loaderPosition) => (
-            <tr>
-              <td style={sharedStyles}>{loaderPosition}</td>
+            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={wishSizes}>
+            {(radius) => (
+              <tr>
+                <td style={sharedStyles}>{radius}</td>
 
-              <For each={BUTTON_VARIANTS}>
-                {(variant) => (
-                  <td style={sharedStyles}>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                      <Button loading variant={variant} loaderPosition={loaderPosition}>
-                        {variant}
-                      </Button>
-                    </Box>
-                  </td>
-                )}
-              </For>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
-  )
-}
-LoaderPositions.parameters = {
-  options: { showPanel: false },
+                <For each={wishButtons}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Button {...args} variant={variant} radius={radius}>
+                          {variant}
+                        </Button>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    variant: undefined,
+    radius: undefined,
+  },
 }
 
-export function AsLink() {
-  return (
-    <Button as="a" variant="light" colorScheme="sky" href="https://google.com" target="_blank">
-      Link
-    </Button>
-  )
+export const Groups: Story = {
+  render: (args) => {
+    return (
+      <>
+        <Button.Group>
+          <Button {...args}>First</Button>
+          <Button {...args}>Second</Button>
+          <Button {...args}>Third</Button>
+          <Button {...args}>Forth</Button>
+          <Button {...args}>Last</Button>
+        </Button.Group>
+        <Button.Group mt="$xl" orientation="vertical">
+          <Button {...args}>First</Button>
+          <Button {...args}>Second</Button>
+          <Button {...args}>Third</Button>
+          <Button {...args}>Forth</Button>
+          <Button {...args}>Last</Button>
+        </Button.Group>
+      </>
+    )
+  },
+  args: {
+    variant: 'default',
+  },
 }
-AsLink.parameters = {
-  options: { showPanel: false },
+
+export const LoaderPositions: Story = {
+  render: (args) => {
+    return (
+      <table style={{ 'border-collapse': 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={sharedStyles}>&nbsp;</th>
+
+            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+          </tr>
+        </thead>
+        <tbody>
+          <For each={BUTTON_LOADER_POSITIONS}>
+            {(loaderPosition) => (
+              <tr>
+                <td style={sharedStyles}>{loaderPosition}</td>
+
+                <For each={wishButtons}>
+                  {(variant) => (
+                    <td style={sharedStyles}>
+                      <Box display="flex" alignItems="center" justifyContent="center">
+                        <Button {...args} loading variant={variant} loaderPosition={loaderPosition}>
+                          {variant}
+                        </Button>
+                      </Box>
+                    </td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+    )
+  },
+  args: {
+    loading: true,
+  },
+}
+
+export const AsLink: Story = {
+  render: (args) => {
+    return (
+      <Button {...args} as="a" href="https://google.com" target="_blank">
+        Link
+      </Button>
+    )
+  },
+  args: {
+    variant: 'light',
+    colorScheme: 'sky',
+  },
 }
