@@ -3,9 +3,8 @@ import { calc } from '@vanilla-extract/css-utils'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors, wishSizes } from '../constants'
-import { focusStyles } from '../css'
 import { vars } from '../theme'
-import { recipes, withColorMode } from '../utils'
+import { withColorMode } from '../utils'
 
 import { classes as buttonGroupClasses } from './ButtonGroup/ButtonGroup.css'
 
@@ -141,7 +140,7 @@ const getOutlineCompoundVariants = () => {
   return compoundVariants
 }
 
-export const _root = recipe({
+export const root = recipe({
   base: {
     height: buttonHeightVar,
     paddingLeft: buttonPaddingX,
@@ -398,7 +397,6 @@ export const _root = recipe({
   ],
 })
 
-const root = recipes(_root, focusStyles)
 const inner = style({
   display: 'flex',
   alignItems: 'center',
@@ -414,7 +412,7 @@ const label = style({
   alignItems: 'center',
 
   selectors: {
-    [`.${_root({ uppercase: true }).split(' ')[1]} &`]: {
+    [`.${root({ uppercase: true }).split(' ')[1]} &`]: {
       textTransform: 'uppercase',
     },
   },
@@ -442,10 +440,10 @@ const centerLoader = style({
   opacity: 0.5,
 })
 
-globalStyle(`.${buttonGroupClasses.root.vertical} .${_root()} + .${_root()}`, {
+globalStyle(`.${buttonGroupClasses.root.vertical} .${root()} + .${root()}`, {
   marginTop: calc(buttonGroupBorderWidthVar).negate().toString(),
 })
-globalStyle(`.${buttonGroupClasses.root.horizontal} .${_root()} + .${_root()}`, {
+globalStyle(`.${buttonGroupClasses.root.horizontal} .${root()} + .${root()}`, {
   marginLeft: calc(buttonGroupBorderWidthVar).negate().toString(),
 })
 

@@ -2,9 +2,8 @@ import { createVar } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors } from '../constants'
-import { focusStyles } from '../css'
 import { vars } from '../theme'
-import { recipes, withColorMode } from '../utils'
+import { withColorMode } from '../utils'
 
 import type { CompoundVariant } from '../types'
 
@@ -109,7 +108,7 @@ const getLightCompoundVariants = () => {
   return compoundVariants
 }
 
-export const _root = recipe({
+const root = recipe({
   base: {
     border: `.0625rem solid ${aiBorderColorVar}`,
     backgroundColor: aiBgColorVar,
@@ -289,8 +288,6 @@ export const _root = recipe({
     ...getLightCompoundVariants(),
   ],
 })
-
-const root = recipes(_root, focusStyles)
 
 export const classes = {
   root,

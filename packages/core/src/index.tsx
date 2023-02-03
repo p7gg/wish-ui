@@ -3,7 +3,6 @@ export { Box, type BoxCompositions, type BoxProps } from './Box'
 export { Button, type ButtonCompositions, type ButtonProps } from './Button'
 export { Checkbox, type CheckboxCompositions, type CheckboxProps } from './Checkbox'
 export * from './constants'
-export { focusStyles } from './css'
 export { Loader, type LoaderCompositions, type LoaderProps } from './Loader'
 export {
   atomicStyles,
@@ -19,5 +18,5 @@ export {
   type UnstyledButtonCompositions,
   type UnstyledButtonProps,
 } from './UnstyledButton'
-export { createComponent, createPolymorphicComponent, recipes } from './utils'
+export { createComponent, createPolymorphicComponent } from './utils'
 export { useWish, useWishTheme, WishProvider, type WishProviderProps } from './WishProvider'

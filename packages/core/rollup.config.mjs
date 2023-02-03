@@ -10,7 +10,6 @@ const external = [
   ...Object.keys(pkg.dependencies),
   'solid-js/web',
   'solid-js/store',
-  '@vanilla-extract/css/functionSerializer',
   '@vanilla-extract/recipes/createRuntimeFn',
   'rainbow-sprinkles/createRuntimeFn',
 ]

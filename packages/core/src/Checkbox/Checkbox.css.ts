@@ -12,6 +12,7 @@ const iconSizeVar = createVar()
 const checkboxRadiiVar = createVar()
 const checkboxBgColorVar = createVar()
 const checkboxBgColorHoverVar = createVar()
+const focusRingColorVar = createVar()
 
 const root = recipe({
   base: {
@@ -23,6 +24,7 @@ const root = recipe({
         vars: {
           [checkboxBgColorVar]: vars.colors.sky9,
           [checkboxBgColorHoverVar]: vars.colors.sky10,
+          [focusRingColorVar]: vars.colors.sky7,
           [iconColorVar]: vars.colors.black,
         },
       },
@@ -30,6 +32,7 @@ const root = recipe({
         vars: {
           [checkboxBgColorVar]: vars.colors.mint9,
           [checkboxBgColorHoverVar]: vars.colors.mint10,
+          [focusRingColorVar]: vars.colors.mint7,
           [iconColorVar]: vars.colors.black,
         },
       },
@@ -37,6 +40,7 @@ const root = recipe({
         vars: {
           [checkboxBgColorVar]: vars.colors.lime9,
           [checkboxBgColorHoverVar]: vars.colors.lime10,
+          [focusRingColorVar]: vars.colors.lime7,
           [iconColorVar]: vars.colors.black,
         },
       },
@@ -44,6 +48,7 @@ const root = recipe({
         vars: {
           [checkboxBgColorVar]: vars.colors.yellow9,
           [checkboxBgColorHoverVar]: vars.colors.yellow10,
+          [focusRingColorVar]: vars.colors.yellow7,
           [iconColorVar]: vars.colors.black,
         },
       },
@@ -51,6 +56,7 @@ const root = recipe({
         vars: {
           [checkboxBgColorVar]: vars.colors.amber9,
           [checkboxBgColorHoverVar]: vars.colors.amber10,
+          [focusRingColorVar]: vars.colors.amber7,
           [iconColorVar]: vars.colors.black,
         },
       },
@@ -58,138 +64,161 @@ const root = recipe({
         vars: {
           [checkboxBgColorVar]: vars.colors.gray9,
           [checkboxBgColorHoverVar]: vars.colors.gray10,
+          [focusRingColorVar]: vars.colors.gray7,
         },
       },
       mauve: {
         vars: {
           [checkboxBgColorVar]: vars.colors.mauve9,
           [checkboxBgColorHoverVar]: vars.colors.mauve10,
+          [focusRingColorVar]: vars.colors.mauve7,
         },
       },
       slate: {
         vars: {
           [checkboxBgColorVar]: vars.colors.slate9,
           [checkboxBgColorHoverVar]: vars.colors.slate10,
+          [focusRingColorVar]: vars.colors.slate7,
         },
       },
       sage: {
         vars: {
           [checkboxBgColorVar]: vars.colors.sage9,
           [checkboxBgColorHoverVar]: vars.colors.sage10,
+          [focusRingColorVar]: vars.colors.sage7,
         },
       },
       olive: {
         vars: {
           [checkboxBgColorVar]: vars.colors.olive9,
           [checkboxBgColorHoverVar]: vars.colors.olive10,
+          [focusRingColorVar]: vars.colors.olive7,
         },
       },
       sand: {
         vars: {
           [checkboxBgColorVar]: vars.colors.sand9,
           [checkboxBgColorHoverVar]: vars.colors.sand10,
+          [focusRingColorVar]: vars.colors.sand7,
         },
       },
       gold: {
         vars: {
           [checkboxBgColorVar]: vars.colors.gold9,
           [checkboxBgColorHoverVar]: vars.colors.gold10,
+          [focusRingColorVar]: vars.colors.gold7,
         },
       },
       bronze: {
         vars: {
           [checkboxBgColorVar]: vars.colors.bronze9,
           [checkboxBgColorHoverVar]: vars.colors.bronze10,
+          [focusRingColorVar]: vars.colors.bronze7,
         },
       },
       tomato: {
         vars: {
           [checkboxBgColorVar]: vars.colors.tomato9,
           [checkboxBgColorHoverVar]: vars.colors.tomato10,
+          [focusRingColorVar]: vars.colors.tomato7,
         },
       },
       red: {
         vars: {
           [checkboxBgColorVar]: vars.colors.red9,
           [checkboxBgColorHoverVar]: vars.colors.red10,
+          [focusRingColorVar]: vars.colors.red7,
         },
       },
       crimson: {
         vars: {
           [checkboxBgColorVar]: vars.colors.crimson9,
           [checkboxBgColorHoverVar]: vars.colors.crimson10,
+          [focusRingColorVar]: vars.colors.crimson7,
         },
       },
       pink: {
         vars: {
           [checkboxBgColorVar]: vars.colors.pink9,
           [checkboxBgColorHoverVar]: vars.colors.pink10,
+          [focusRingColorVar]: vars.colors.pink7,
         },
       },
       plum: {
         vars: {
           [checkboxBgColorVar]: vars.colors.plum9,
           [checkboxBgColorHoverVar]: vars.colors.plum10,
+          [focusRingColorVar]: vars.colors.plum7,
         },
       },
       purple: {
         vars: {
           [checkboxBgColorVar]: vars.colors.purple9,
           [checkboxBgColorHoverVar]: vars.colors.purple10,
+          [focusRingColorVar]: vars.colors.purple7,
         },
       },
       violet: {
         vars: {
           [checkboxBgColorVar]: vars.colors.violet9,
           [checkboxBgColorHoverVar]: vars.colors.violet10,
+          [focusRingColorVar]: vars.colors.violet7,
         },
       },
       indigo: {
         vars: {
           [checkboxBgColorVar]: vars.colors.indigo9,
           [checkboxBgColorHoverVar]: vars.colors.indigo10,
+          [focusRingColorVar]: vars.colors.indigo7,
         },
       },
       blue: {
         vars: {
           [checkboxBgColorVar]: vars.colors.blue9,
           [checkboxBgColorHoverVar]: vars.colors.blue10,
+          [focusRingColorVar]: vars.colors.blue7,
         },
       },
       cyan: {
         vars: {
           [checkboxBgColorVar]: vars.colors.cyan9,
           [checkboxBgColorHoverVar]: vars.colors.cyan10,
+          [focusRingColorVar]: vars.colors.cyan7,
         },
       },
       teal: {
         vars: {
           [checkboxBgColorVar]: vars.colors.teal9,
           [checkboxBgColorHoverVar]: vars.colors.teal10,
+          [focusRingColorVar]: vars.colors.teal7,
         },
       },
       green: {
         vars: {
           [checkboxBgColorVar]: vars.colors.green9,
           [checkboxBgColorHoverVar]: vars.colors.green10,
+          [focusRingColorVar]: vars.colors.green7,
         },
       },
       grass: {
         vars: {
           [checkboxBgColorVar]: vars.colors.grass9,
           [checkboxBgColorHoverVar]: vars.colors.grass10,
+          [focusRingColorVar]: vars.colors.grass7,
         },
       },
       orange: {
         vars: {
           [checkboxBgColorVar]: vars.colors.orange9,
           [checkboxBgColorHoverVar]: vars.colors.orange10,
+          [focusRingColorVar]: vars.colors.orange7,
         },
       },
       brown: {
         vars: {
           [checkboxBgColorVar]: vars.colors.brown9,
           [checkboxBgColorHoverVar]: vars.colors.brown10,
+          [focusRingColorVar]: vars.colors.brown7,
         },
       },
     },
@@ -346,6 +375,7 @@ const control = style({
   display: 'inline-flex',
   margin: 0,
   transition: `border-color ${transitionDurationVar} ease, background-color ${transitionDurationVar} ease`,
+  WebkitTapHighlightColor: 'transparent',
 
   ':hover': {
     backgroundColor: vars.colors.gray4,
@@ -354,6 +384,11 @@ const control = style({
 
   ':active': {
     backgroundColor: vars.colors.gray5,
+  },
+
+  ':focus': {
+    outlineOffset: '.125rem',
+    outline: `.125rem solid ${focusRingColorVar}`,
   },
 
   selectors: {
@@ -380,6 +415,9 @@ const control = style({
     },
     '&[data-error]:hover': {
       borderColor: vars.colors.red8,
+    },
+    '&:focus:not(:focus-visible)': {
+      outline: 'none',
     },
   },
 })
