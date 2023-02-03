@@ -46,18 +46,18 @@
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@vanilla-extract/integration": "^6.0.2",
+    "@vanilla-extract/integration": "^6.0.3",
     "outdent": "0.8.0",
     "postcss": "^8.4.21",
     "postcss-load-config": "^4.0.1"
   },
   "devDependencies": {
     "@wish-ui/tsconfig": "workspace:*",
-    "eslint": "^8.32.0",
+    "eslint": "^8.33.0",
     "eslint-config-wish": "workspace:*",
     "tsup": "^6.5.0",
-    "typescript": "^4.9.4",
-    "vite": "^4.0.4"
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1"
   },
   "peerDependencies": {
     "vite": "^4.0.4"
