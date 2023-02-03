@@ -9,16 +9,13 @@ import { atomicStyles, AtomicStylesProps } from '../theme'
 import { createPolymorphicComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
-import { unstyledButton } from './UnstyledButton.css'
+import { classes } from './UnstyledButton.css'
 
 import type { WishColor } from '../constants'
 
 export interface UnstyledButtonProps extends KButton.ButtonRootOptions, AtomicStylesProps {
   /**
-   * Color applied to focus-ring
-   *
-   * @remarks
-   * See {@link WishColor| the WishColor union} for more details.
+   * Defines button focus-ring color
    *
    * @default theme.primaryColor
    */
@@ -34,14 +31,15 @@ export const UnstyledButton = createPolymorphicComponent<
   const theme = useWishTheme()
   const props = combineProps(
     {
-      as: 'button',
       get colorScheme() {
-        return _props.colorScheme ?? theme.primaryColor
+        return theme.primaryColor
+      },
+      get isDisabled() {
+        return _props.disabled
       },
     },
     _props,
   )
-
   const [local, variants, atomics, others] = splitProps(
     props,
     ['class', 'style'],
@@ -52,7 +50,7 @@ export const UnstyledButton = createPolymorphicComponent<
 
   return (
     <KButton.Root
-      class={clsx(unstyledButton(variants), atoms().className, local.class)}
+      class={clsx(classes.root(variants), atoms().className, local.class)}
       style={combineStyle(atoms().style, local.style ?? {})}
       {...others}
     />

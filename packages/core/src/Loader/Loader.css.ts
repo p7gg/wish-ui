@@ -4,8 +4,8 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { vars } from '../theme'
 
-import { _root as aiRoot, aiSizeVar } from '../ActionIcon/ActionIcon.css'
-import { _root as buttonRoot, buttonHeightVar } from '../Button/Button.css'
+import { aiSizeVar, classes as aiClasses } from '../ActionIcon/ActionIcon.css'
+import { buttonHeightVar, classes as buttonClasses } from '../Button/Button.css'
 
 const loaderSizeVar = createVar()
 const loaderColorSchemeVar = createVar()
@@ -15,12 +15,12 @@ const root = recipe({
     display: 'block',
 
     selectors: {
-      [`.${buttonRoot()} &`]: {
+      [`.${buttonClasses.root()} &`]: {
         vars: {
           [loaderSizeVar]: calc.divide(buttonHeightVar, 2),
         },
       },
-      [`.${aiRoot()} &`]: {
+      [`.${aiClasses.root()} &`]: {
         vars: {
           [loaderSizeVar]: calc.subtract(aiSizeVar, '.75rem'),
         },

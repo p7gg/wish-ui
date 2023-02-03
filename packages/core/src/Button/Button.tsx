@@ -132,6 +132,9 @@ export const Button = createPolymorphicComponent<'button', ButtonProps, ButtonCo
         get groupOrientation() {
           return btnGroupContext?.orientation
         },
+        get isDisabled() {
+          return _props.disabled
+        },
         get style() {
           return assignInlineVars({
             [buttonGroupBorderWidthVar]: `${btnGroupContext?.buttonBorderWidth}px`,
@@ -159,7 +162,6 @@ export const Button = createPolymorphicComponent<'button', ButtonProps, ButtonCo
       ],
       [...atomicStyles.properties.keys()],
     )
-
     const atoms = createMemo(() => atomicStyles(atomics))
 
     const loader = () => (

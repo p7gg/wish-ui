@@ -1,38 +1,16 @@
 /* @refresh reload */
-import { render } from 'solid-js/web'
-import { createSignal, onCleanup, onMount } from 'solid-js'
-import { themes } from '@storybook/theming'
 
-import { addons } from '@storybook/addons'
-import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode'
+import { render } from 'solid-js/web'
+import { themes } from '@storybook/theming'
 
 import { WishProvider } from '@wish-ui/core'
 
 let disposeStory
-const channel = addons.getChannel()
-
-const [colorMode, setColorMode] = createSignal('dark')
-
-function WishWrapper(props) {
-  const listener = (isDark) => setColorMode(() => (isDark ? 'dark' : 'light'))
-
-  onMount(() => {
-    channel.on(DARK_MODE_EVENT_NAME, listener)
-  })
-
-  onCleanup(() => {
-    channel.off(DARK_MODE_EVENT_NAME, listener)
-  })
-
-  return (
-    <WishProvider withGlobalStyles theme={{ colorMode: colorMode() }}>
-      {props.children}
-    </WishProvider>
-  )
-}
 
 export const decorators = [
-  (Story) => {
+  (Story, context) => {
+    const { colorMode } = context.globals
+
     if (disposeStory) {
       disposeStory()
     }
@@ -43,7 +21,17 @@ export const decorators = [
     root.setAttribute('id', 'solid-root')
     body.appendChild(root)
 
-    disposeStory = render(() => WishWrapper({ children: Story() }), root)
+    disposeStory = render(
+      () =>
+        WishProvider({
+          withGlobalStyles: true,
+          theme: {
+            colorMode,
+          },
+          children: Story(),
+        }),
+      root,
+    )
     return root
   },
 ]
@@ -65,6 +53,24 @@ export const parameters = {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
+    },
+  },
+}
+
+export const globalTypes = {
+  colorMode: {
+    name: 'ColorMode',
+    description: 'Global colorMode for components',
+    defaultValue: 'dark',
+    toolbar: {
+      icon: 'paintbrush',
+      // Array of plain string values or MenuItem shape
+      items: [
+        { value: 'light', title: 'Light', left: '🌞' },
+        { value: 'dark', title: 'Dark', left: '🌛' },
+      ],
+      // Change title based on selected value
+      dynamicTitle: true,
     },
   },
 }

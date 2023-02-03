@@ -3,9 +3,8 @@ import { calc } from '@vanilla-extract/css-utils'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors, wishSizes } from '../constants'
-import { focusStyles } from '../css'
 import { vars } from '../theme'
-import { recipes, withColorMode } from '../utils'
+import { withColorMode } from '../utils'
 
 import { classes as buttonGroupClasses } from './ButtonGroup/ButtonGroup.css'
 
@@ -20,6 +19,7 @@ const buttonColorVar = createVar()
 const buttonBgColorHoverVar = createVar()
 const buttonBgColorActiveVar = createVar()
 const buttonBorderColorVar = createVar()
+const buttonFocusRingColorVar = createVar()
 const compactSizes = {
   xs: { height: '1.375rem', paddingX: '.4375rem' },
   sm: { height: '1.625rem', paddingX: '.5rem' },
@@ -64,6 +64,7 @@ const getFilledCompoundVariants = () => {
           [buttonBorderColorVar]: 'transparent',
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}10`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}10`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -87,6 +88,7 @@ const getLightCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -110,6 +112,7 @@ const getSubtleCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -133,6 +136,7 @@ const getOutlineCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -141,7 +145,7 @@ const getOutlineCompoundVariants = () => {
   return compoundVariants
 }
 
-export const _root = recipe({
+export const root = recipe({
   base: {
     height: buttonHeightVar,
     paddingLeft: buttonPaddingX,
@@ -172,18 +176,25 @@ export const _root = recipe({
       backgroundColor: buttonBgColorActiveVar,
     },
 
-    ':disabled': {
-      borderColor: 'transparent',
-      backgroundColor: vars.colors.gray3,
-      color: vars.colors.gray11,
-      cursor: 'not-allowed',
-      backgroundImage: 'none',
-      pointerEvents: 'none',
+    ':focus': {
+      outlineOffset: 2,
+      outline: `.125rem solid ${buttonFocusRingColorVar}`,
     },
 
     selectors: {
-      '&:disabled:active': {
+      '&[data-disabled], &:disabled': {
+        borderColor: 'transparent',
+        backgroundColor: vars.colors.gray6,
+        color: vars.colors.gray11,
+        cursor: 'not-allowed',
+        backgroundImage: 'none',
+        pointerEvents: 'none',
+      },
+      '&[data-disabled]:active, &:disabled:active': {
         transform: 'none',
+      },
+      ['&:focus:not(:focus-visible)']: {
+        outline: 'none',
       },
     },
   },
@@ -398,7 +409,6 @@ export const _root = recipe({
   ],
 })
 
-const root = recipes(_root, focusStyles)
 const inner = style({
   display: 'flex',
   alignItems: 'center',
@@ -414,7 +424,7 @@ const label = style({
   alignItems: 'center',
 
   selectors: {
-    [`.${_root({ uppercase: true }).split(' ')[1]} &`]: {
+    [`.${root({ uppercase: true }).split(' ')[1]} &`]: {
       textTransform: 'uppercase',
     },
   },
@@ -442,10 +452,10 @@ const centerLoader = style({
   opacity: 0.5,
 })
 
-globalStyle(`.${buttonGroupClasses.root.vertical} .${_root()} + .${_root()}`, {
+globalStyle(`.${buttonGroupClasses.root.vertical} .${root()} + .${root()}`, {
   marginTop: calc(buttonGroupBorderWidthVar).negate().toString(),
 })
-globalStyle(`.${buttonGroupClasses.root.horizontal} .${_root()} + .${_root()}`, {
+globalStyle(`.${buttonGroupClasses.root.horizontal} .${root()} + .${root()}`, {
   marginLeft: calc(buttonGroupBorderWidthVar).negate().toString(),
 })
 

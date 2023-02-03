@@ -74,6 +74,9 @@ export const ActionIcon = createPolymorphicComponent<
       variant: 'subtle',
       size: 'md',
       radius: 'sm',
+      get isDisabled() {
+        return _props.disabled
+      },
     } as const,
     _props,
   )

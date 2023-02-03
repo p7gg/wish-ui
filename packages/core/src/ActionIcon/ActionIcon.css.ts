@@ -2,9 +2,8 @@ import { createVar } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors } from '../constants'
-import { focusStyles } from '../css'
 import { vars } from '../theme'
-import { recipes, withColorMode } from '../utils'
+import { withColorMode } from '../utils'
 
 import type { CompoundVariant } from '../types'
 
@@ -15,6 +14,7 @@ const aiColorVar = createVar()
 const aiBgColorHoverVar = createVar()
 const aiBgColorActiveVar = createVar()
 const aiRadiiVar = createVar()
+const aiFocusRingColorVar = createVar()
 
 const getFilledCompoundVariants = () => {
   const compoundVariants: CompoundVariant[] = []
@@ -32,6 +32,7 @@ const getFilledCompoundVariants = () => {
           [aiColorVar]: isBrightColor(colorScheme) ? vars.colors.black : vars.colors.white,
           [aiBgColorHoverVar]: vars.colors[`${colorScheme}10`],
           [aiBgColorActiveVar]: vars.colors[`${colorScheme}10`],
+          [aiFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -55,6 +56,7 @@ const getSubtleCompoundVariants = () => {
           [aiColorVar]: vars.colors[`${colorScheme}11`],
           [aiBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [aiBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [aiFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -78,6 +80,7 @@ const getOutlineCompoundVariants = () => {
           [aiColorVar]: vars.colors[`${colorScheme}11`],
           [aiBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [aiBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [aiFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -101,6 +104,7 @@ const getLightCompoundVariants = () => {
           [aiColorVar]: vars.colors[`${colorScheme}11`],
           [aiBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [aiBgColorActiveVar]: vars.colors[`${colorScheme}5`],
+          [aiFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -109,7 +113,7 @@ const getLightCompoundVariants = () => {
   return compoundVariants
 }
 
-export const _root = recipe({
+const root = recipe({
   base: {
     border: `.0625rem solid ${aiBorderColorVar}`,
     backgroundColor: aiBgColorVar,
@@ -131,6 +135,7 @@ export const _root = recipe({
     textAlign: 'left',
     textDecoration: 'none',
     boxSizing: 'border-box',
+    WebkitTapHighlightColor: 'transparent',
 
     ':hover': {
       backgroundColor: aiBgColorHoverVar,
@@ -141,18 +146,25 @@ export const _root = recipe({
       backgroundColor: aiBgColorActiveVar,
     },
 
-    ':disabled': {
-      borderColor: 'transparent',
-      backgroundColor: vars.colors.gray3,
-      color: vars.colors.gray11,
-      cursor: 'not-allowed',
-      backgroundImage: 'none',
-      pointerEvents: 'none',
+    ':focus': {
+      outlineOffset: 2,
+      outline: `.125rem solid ${aiFocusRingColorVar}`,
     },
 
     selectors: {
-      '&:disabled:active': {
+      '&[data-disabled], &:disabled': {
+        borderColor: 'transparent',
+        backgroundColor: vars.colors.gray6,
+        color: vars.colors.gray11,
+        cursor: 'not-allowed',
+        backgroundImage: 'none',
+        pointerEvents: 'none',
+      },
+      '&[data-disabled]:active, &:disabled:active': {
         transform: 'none',
+      },
+      ['&:focus:not(:focus-visible)']: {
+        outline: 'none',
       },
     },
   },
@@ -289,8 +301,6 @@ export const _root = recipe({
     ...getLightCompoundVariants(),
   ],
 })
-
-const root = recipes(_root, focusStyles)
 
 export const classes = {
   root,
