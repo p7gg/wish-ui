@@ -9,7 +9,6 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
-    'storybook-dark-mode',
   ],
   framework: {
     name: '@storybook/html-vite',
