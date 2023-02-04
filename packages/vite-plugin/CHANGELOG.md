@@ -1,5 +1,11 @@
 # @wish-ui/vite-plugin
 
+## 0.1.2
+
+### Patch Changes
+
+- c76b440: Fix @wish-ui/vite-plugin's vite peer dependency range
+
 ## 0.1.1
 
 ### Patch Changes
