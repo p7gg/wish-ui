@@ -57,11 +57,20 @@ const responsiveProperties = defineProperties({
     /** The **`font-size`** CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative `<length>` units, such as `em`, `ex`, and so forth. */
     fontSize: vars.fontSizes,
 
+    /** The **`font-weight`** CSS property sets the weight (or boldness) of the font. The weights available depend on the `font-family` that is currently set. */
+    fontWeight: vars.fontWeights,
+
+    /** The **`font-style`** CSS property sets whether a font should be styled with a normal, italic, or oblique face from its `font-family`. */
+    fontStyle: true,
+
     /** The **`line-height`** CSS property sets the height of a line box. It's commonly used to set the distance between lines of text. On block-level elements, it specifies the minimum height of line boxes within the element. On non-replaced inline elements, it specifies the height that is used to calculate line box height. */
     lineHeight: vars.lineHeights,
 
     /** The **`text-align`** CSS property sets the horizontal alignment of the content inside a block element or table-cell box. This means it works like `vertical-align` but in the horizontal direction. */
     textAlign: true,
+
+    /** The **`text-transform`** CSS property specifies how to capitalize an element's text. It can be used to make text appear in all-uppercase or all-lowercase, or with each word capitalized. It also can help improve legibility for ruby. */
+    textTransform: true,
 
     /** The **`z-index`** CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one. */
     zIndex: true,
