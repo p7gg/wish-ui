@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -19,7 +20,7 @@ jobs:
       - name: setup node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.x
 
       - name: install pnpm
         run: npm i pnpm@latest -g
@@ -28,7 +29,7 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
       - name: install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: create and publish versions
         uses: changesets/action@v1
