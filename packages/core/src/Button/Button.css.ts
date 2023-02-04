@@ -64,7 +64,7 @@ const getFilledCompoundVariants = () => {
           [buttonBorderColorVar]: 'transparent',
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}10`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}10`],
-          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
+          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -88,7 +88,7 @@ const getLightCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
-          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
+          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -112,7 +112,7 @@ const getSubtleCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
-          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
+          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -136,7 +136,7 @@ const getOutlineCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
-          [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
+          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -279,34 +279,146 @@ export const root = recipe({
       },
     },
     colorScheme: {
-      sky: {},
-      mint: {},
-      lime: {},
-      yellow: {},
-      amber: {},
-      gray: {},
-      mauve: {},
-      slate: {},
-      sage: {},
-      olive: {},
-      sand: {},
-      gold: {},
-      bronze: {},
-      tomato: {},
-      red: {},
-      crimson: {},
-      pink: {},
-      plum: {},
-      purple: {},
-      violet: {},
-      indigo: {},
-      blue: {},
-      cyan: {},
-      teal: {},
-      green: {},
-      grass: {},
-      orange: {},
-      brown: {},
+      sky: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.sky7,
+        },
+      },
+      mint: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.mint7,
+        },
+      },
+      lime: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.lime7,
+        },
+      },
+      yellow: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.yellow7,
+        },
+      },
+      amber: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.amber7,
+        },
+      },
+      gray: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.gray7,
+        },
+      },
+      mauve: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.mauve7,
+        },
+      },
+      slate: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.slate7,
+        },
+      },
+      sage: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.sage7,
+        },
+      },
+      olive: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.olive7,
+        },
+      },
+      sand: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.sand7,
+        },
+      },
+      gold: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.gold7,
+        },
+      },
+      bronze: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.bronze7,
+        },
+      },
+      tomato: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.tomato7,
+        },
+      },
+      red: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.red7,
+        },
+      },
+      crimson: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.crimson7,
+        },
+      },
+      pink: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.pink7,
+        },
+      },
+      plum: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.plum7,
+        },
+      },
+      purple: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.purple7,
+        },
+      },
+      violet: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.violet7,
+        },
+      },
+      indigo: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.indigo7,
+        },
+      },
+      blue: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.blue7,
+        },
+      },
+      cyan: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.cyan7,
+        },
+      },
+      teal: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.teal7,
+        },
+      },
+      green: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.green7,
+        },
+      },
+      grass: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.grass7,
+        },
+      },
+      orange: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.orange7,
+        },
+      },
+      brown: {
+        vars: {
+          [buttonFocusRingColorVar]: vars.colors.brown7,
+        },
+      },
     },
     loading: {
       true: {
