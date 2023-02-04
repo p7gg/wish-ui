@@ -1,5 +1,11 @@
 # @wish-ui/core
 
+## 0.3.1
+
+### Patch Changes
+
+- afcac1f: fix(core): button default variant focus ring color not beign set
+
 ## 0.3.0
 
 ### Minor Changes
