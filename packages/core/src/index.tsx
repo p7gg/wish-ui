@@ -4,6 +4,7 @@ export { Button, type ButtonCompositions, type ButtonProps } from './Button'
 export { Checkbox, type CheckboxCompositions, type CheckboxProps } from './Checkbox'
 export * from './constants'
 export { Loader, type LoaderCompositions, type LoaderProps } from './Loader'
+export { Text, type TextCompositions, type TextProps } from './Text'
 export {
   atomicStyles,
   type AtomicStylesProps,
