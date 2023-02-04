@@ -52,7 +52,7 @@ const App: Component = () => {
       </Text>
 
       <Box display="flex" flexDirection="column" gap="$xl" p="$md">
-        <Checkbox defaultIsChecked label="label" description="description" />
+        <Checkbox indeterminate defaultIsChecked label="label" description="description" />
         <Checkbox label="label" labelPosition="left" description="description" error="error" />
       </Box>
 

@@ -354,7 +354,7 @@ const icon = style({
       opacity: 1,
     },
     '[data-checked] &': {
-      color: iconColorVar,
+      color: vars.colors.white,
       opacity: 1,
       transform: 'translateY(0) scale(1)',
     },
