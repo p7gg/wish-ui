@@ -57,6 +57,9 @@ const responsiveProperties = defineProperties({
     /** The **`font-size`** CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative `<length>` units, such as `em`, `ex`, and so forth. */
     fontSize: vars.fontSizes,
 
+    /** The **`font-weight`** CSS property sets the weight (or boldness) of the font. The weights available depend on the `font-family` that is currently set. */
+    fontWeight: vars.fontWeights,
+
     /** The **`line-height`** CSS property sets the height of a line box. It's commonly used to set the distance between lines of text. On block-level elements, it specifies the minimum height of line boxes within the element. On non-replaced inline elements, it specifies the height that is used to calculate line box height. */
     lineHeight: vars.lineHeights,
 
