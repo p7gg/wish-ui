@@ -60,7 +60,7 @@
     "vite": "^4.1.1"
   },
   "peerDependencies": {
-    "vite": "^4.0.4"
+    "vite": "^2.2.3 || ^3.0.0 || ^4.0.3"
   },
   "publishConfig": {
     "access": "public"
