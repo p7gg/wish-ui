@@ -1,5 +1,11 @@
 # @wish-ui/core
 
+## 0.3.2
+
+### Patch Changes
+
+- bb3b401: Fix Checbox icon color when the Checkbox is checked
+
 ## 0.3.1
 
 ### Patch Changes
