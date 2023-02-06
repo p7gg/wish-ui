@@ -42,10 +42,11 @@ export interface CheckboxProps extends CheckboxRootOptions, AtomicStylesProps {
    */
   size?: WishSize
 
-  /** Checkbox label */
-  label?: string
-
-  /** Transition duration in ms */
+  /**
+   * Transition duration in ms
+   *
+   * @default 100ms
+   */
   transitionDuration?: number
 
   /**
@@ -54,6 +55,9 @@ export interface CheckboxProps extends CheckboxRootOptions, AtomicStylesProps {
    * @default right
    */
   labelPosition?: 'left' | 'right'
+
+  /** Checkbox label */
+  label?: string
 
   /** description, displayed after label */
   description?: string

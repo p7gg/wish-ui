@@ -28,7 +28,11 @@ export interface TextFieldProps extends TextFieldRootOptions, AtomicStylesProps 
   /** Right section of input, similar to icon but on the right */
   rightSection?: JSX.Element
 
-  /** Width of right section, is used to calculate input padding-right */
+  /**
+   * Width of right section, is used to calculate input padding-right
+   *
+   * @default 36px
+   */
   rightSectionWidth?: number
 
   /** Input label, displayed before input */
