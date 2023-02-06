@@ -1,5 +1,11 @@
 # @wish-ui/core
 
+## 0.6.0
+
+### Minor Changes
+
+- e6aa2e9: Add Switch component and small fixes
+
 ## 0.5.0
 
 ### Minor Changes
