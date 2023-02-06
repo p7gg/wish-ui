@@ -40,7 +40,7 @@ const root = recipe({
       },
       dots: {
         width: loaderSizeVar,
-        height: `calc(${loaderSizeVar} / 4)`,
+        height: calc.divide(loaderSizeVar, 4),
         fill: loaderColorSchemeVar,
       },
     },
