@@ -9,6 +9,7 @@ import {
   Button,
   Checkbox,
   Loader,
+  Switch,
   Text,
   TextField,
   wishColors,
@@ -39,6 +40,11 @@ const App: Component = () => {
         toggle
       </Button>
       <Button loading>toggle</Button>
+
+      <Box p="$xl">
+        <Switch disabled label="disabled label" />
+        <Switch defaultIsChecked label="this is a label" description="descr..." />
+      </Box>
 
       <Box p="$xl">
         <TextField
