@@ -1,5 +1,11 @@
 # @wish-ui/core
 
+## 0.4.0
+
+### Minor Changes
+
+- faa7e45: Add TextField component
+
 ## 0.3.2
 
 ### Patch Changes
