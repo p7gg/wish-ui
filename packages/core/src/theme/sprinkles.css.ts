@@ -6,11 +6,14 @@ import type { Simplify } from '../types'
 
 const responsiveProperties = defineProperties({
   conditions: {
-    mobile: {},
-    tablet: { '@media': 'screen and (min-width: 48rem)' },
-    desktop: { '@media': 'screen and (min-width: 64rem)' },
+    base: {},
+    xs: { '@media': 'screen and (min-width: 640px)' },
+    sm: { '@media': 'screen and (min-width: 768px)' },
+    md: { '@media': 'screen and (min-width: 1024px)' },
+    lg: { '@media': 'screen and (min-width: 1280px)' },
+    xl: { '@media': 'screen and (min-width: 1536px)' },
   },
-  defaultCondition: 'mobile',
+  defaultCondition: 'base',
   dynamicProperties: {
     /** The **`display`** CSS property sets whether an element is treated as a block or inline element and the layout used for its children, such as flow layout, grid or flex. */
     display: true,
