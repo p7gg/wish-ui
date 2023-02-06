@@ -7,7 +7,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { clsx } from 'clsx'
 
 import { atomicStyles, AtomicStylesProps } from '../theme'
-import { createComponent, MonomorphicProps } from '../utils'
+import { createComponent } from '../utils'
 import { useWishTheme } from '../WishProvider'
 
 import { CheckboxIcon } from './CheckboxIcon'
@@ -132,14 +132,13 @@ export const Checkbox = createComponent<'input', CheckboxProps, CheckboxComposit
 
   return (
     <KCheckbox.Root
-      data-error={local.error ? '' : undefined}
       class={clsx(classes.root(variants), atoms().className, local.class)}
       style={combineStyle(atoms().style, local.style ?? {})}
       {...rootProps}
     >
       <KCheckbox.Input {...others} />
 
-      <KCheckbox.Control data-error={local.error ? '' : undefined} class={classes.control}>
+      <KCheckbox.Control class={classes.control}>
         <KCheckbox.Indicator>
           <CheckboxIcon
             class={classes.icon}
@@ -158,7 +157,7 @@ export const Checkbox = createComponent<'input', CheckboxProps, CheckboxComposit
           <span class={classes.description}>{local.description}</span>
         </Show>
 
-        <Show when={!!local.error}>
+        <Show when={rootProps.validationState === 'invalid'}>
           <span class={classes.error}>{local.error}</span>
         </Show>
       </div>
