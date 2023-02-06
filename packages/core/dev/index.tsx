@@ -10,6 +10,7 @@ import {
   Checkbox,
   Loader,
   Text,
+  TextField,
   wishColors,
   WishProvider,
   WishThemeOverrides,
@@ -38,6 +39,18 @@ const App: Component = () => {
         toggle
       </Button>
       <Button loading>toggle</Button>
+
+      <Box p="$xl">
+        <TextField
+          placeholder="default"
+          label="label"
+          description="description"
+          error="error"
+          icon={<span>a</span>}
+          rightSection={<Loader size="xs" />}
+        />
+        <TextField variant="filled" placeholder="filled" label="label" description="description" />
+      </Box>
 
       <Text>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque aut facere similique? Rerum
