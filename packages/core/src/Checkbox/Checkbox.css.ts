@@ -406,10 +406,10 @@ const control = style({
       borderColor: vars.colors.gray7,
       cursor: 'not-allowed',
     },
-    '&[data-error]': {
+    '&[data-invalid]': {
       borderColor: vars.colors.red7,
     },
-    '&[data-error]:hover': {
+    '&[data-invalid]:hover': {
       borderColor: vars.colors.red8,
     },
     'input:focus + &': {

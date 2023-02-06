@@ -57,12 +57,17 @@ export default {
     error: {
       control: { type: 'text' },
     },
+    validationState: {
+      control: { type: 'inline-radio' },
+      options: ['valid', 'invalid'],
+    },
   },
   args: {
     colorScheme: 'blue',
     size: 'sm',
     radius: 'sm',
     labelPosition: 'left',
+    validationState: 'valid',
     disabled: false,
     indeterminate: false,
     label: '',
