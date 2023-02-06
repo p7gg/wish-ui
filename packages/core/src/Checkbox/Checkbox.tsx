@@ -45,9 +45,6 @@ export interface CheckboxProps extends CheckboxRootOptions, AtomicStylesProps {
   /** Checkbox label */
   label?: string
 
-  /** Props spread to root element */
-  rootProps?: MonomorphicProps<'label', any>
-
   /** Transition duration in ms */
   transitionDuration?: number
 
@@ -111,7 +108,7 @@ export const Checkbox = createComponent<'input', CheckboxProps, CheckboxComposit
   )
   const [local, rootProps, variants, atomics, others] = splitProps(
     props,
-    ['class', 'style', 'label', 'error', 'description', 'rootProps'],
+    ['class', 'style', 'label', 'error', 'description'],
     [
       'isChecked',
       'defaultIsChecked',
@@ -135,7 +132,6 @@ export const Checkbox = createComponent<'input', CheckboxProps, CheckboxComposit
       class={clsx(classes.root(variants), atoms().className, local.class)}
       style={combineStyle(atoms().style, local.style ?? {})}
       {...rootProps}
-      {...local.rootProps}
     >
       <KCheckbox.Input {...others} />
 
