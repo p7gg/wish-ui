@@ -42,7 +42,6 @@
   },
   "dependencies": {
     "@kobalte/core": "^0.6.0",
-    "@radix-ui/colors": "^0.1.8",
     "@solid-primitives/props": "^3.0.3",
     "clsx": "^1.2.1"
   },
