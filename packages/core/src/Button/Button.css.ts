@@ -64,7 +64,6 @@ const getFilledCompoundVariants = () => {
           [buttonBorderColorVar]: 'transparent',
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}10`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}10`],
-          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -88,7 +87,6 @@ const getLightCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
-          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -112,7 +110,6 @@ const getSubtleCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
-          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
@@ -136,7 +133,6 @@ const getOutlineCompoundVariants = () => {
           [buttonColorVar]: vars.colors[`${colorScheme}11`],
           [buttonBgColorHoverVar]: vars.colors[`${colorScheme}4`],
           [buttonBgColorActiveVar]: vars.colors[`${colorScheme}5`],
-          // [buttonFocusRingColorVar]: vars.colors[`${colorScheme}7`],
         },
       },
     })
