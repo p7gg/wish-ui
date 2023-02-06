@@ -5,6 +5,7 @@ export { Checkbox, type CheckboxCompositions, type CheckboxProps } from './Check
 export * from './constants'
 export { Loader, type LoaderCompositions, type LoaderProps } from './Loader'
 export { Text, type TextCompositions, type TextProps } from './Text'
+export { TextField, type TextFieldCompositions, type TextFieldProps } from './TextField'
 export {
   atomicStyles,
   type AtomicStylesProps,
