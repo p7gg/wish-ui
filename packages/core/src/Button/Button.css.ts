@@ -4,7 +4,7 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { isBrightColor, wishColors, wishSizes } from '../constants'
 import { vars } from '../theme'
-import { withColorMode } from '../utils'
+import { getVariantClass, withColorMode } from '../utils'
 
 import { classes as buttonGroupClasses } from './ButtonGroup/ButtonGroup.css'
 
@@ -532,7 +532,7 @@ const label = style({
   alignItems: 'center',
 
   selectors: {
-    [`.${root({ uppercase: true }).split(' ')[1]} &`]: {
+    [`${getVariantClass(root, { uppercase: true })} &`]: {
       textTransform: 'uppercase',
     },
   },

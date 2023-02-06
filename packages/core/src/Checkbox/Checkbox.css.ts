@@ -3,6 +3,7 @@ import { calc } from '@vanilla-extract/css-utils'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { vars } from '../theme'
+import { getVariantClass } from '../utils'
 
 export const transitionDurationVar = createVar()
 const labelFontSizeVar = createVar()
@@ -300,11 +301,11 @@ const labelWrapper = style({
   fontSize: labelFontSizeVar,
 
   selectors: {
-    [`.${root({ labelPosition: 'left' }).split(' ')[1]} &`]: {
+    [`${getVariantClass(root, { labelPosition: 'left' })} &`]: {
       order: 1,
       paddingRight: vars.spaces.sm,
     },
-    [`.${root({ labelPosition: 'right' }).split(' ')[1]} &`]: {
+    [`${getVariantClass(root, { labelPosition: 'right' })} &`]: {
       order: 2,
       paddingLeft: vars.spaces.sm,
     },
