@@ -185,6 +185,9 @@ const interactiveProperties = defineProperties({
     /** The **`background-color`** CSS property sets the background color of an element. */
     backgroundColor: vars.colors,
 
+    /** The **`border-color`** shorthand CSS property sets the color of an element's border. */
+    borderColor: vars.colors,
+
     /** The **`transform`** CSS property lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model. */
     transform: true,
 
