@@ -1,12 +1,13 @@
-import { blackA, whiteA } from '@radix-ui/colors'
 import { createGlobalTheme } from '@vanilla-extract/css'
+
+import { black, blackA, white, whiteA } from './colors'
 
 import { themeVars } from './theme-vars.css'
 
 const rootVars = createGlobalTheme(':root', {
   colors: {
-    white: 'rgb(255, 255, 255)',
-    black: 'rgb(0, 0, 0)',
+    white,
+    black,
 
     ...blackA,
     ...whiteA,
