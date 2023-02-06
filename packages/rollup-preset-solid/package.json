@@ -52,7 +52,7 @@
     "@wish-ui/tsconfig": "workspace:*",
     "eslint": "^8.33.0",
     "eslint-config-wish": "workspace:*",
-    "rollup": "^3.12.1",
+    "rollup": "^3.14.0",
     "tsup": "^6.5.0"
   },
   "peerDependencies": {

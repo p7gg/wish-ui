@@ -46,7 +46,7 @@
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@vanilla-extract/integration": "^6.0.3",
+    "@vanilla-extract/integration": "^6.1.0",
     "outdent": "0.8.0",
     "postcss": "^8.4.21",
     "postcss-load-config": "^4.0.1"
