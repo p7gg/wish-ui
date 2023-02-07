@@ -1,7 +1,5 @@
 import { For } from 'solid-js'
 
-import { action } from '@storybook/addon-actions'
-
 import { AtSign } from 'lucide-solid'
 
 import { Box } from '~core/Box'
