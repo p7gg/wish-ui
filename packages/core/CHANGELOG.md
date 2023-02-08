@@ -1,5 +1,11 @@
 # @wish-ui/core
 
+## 0.6.1
+
+### Patch Changes
+
+- f9a680f: Fix checkbox's icon color when a bright color is selected for primary.
+
 ## 0.6.0
 
 ### Minor Changes
