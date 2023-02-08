@@ -355,7 +355,7 @@ const icon = style({
       opacity: 1,
     },
     '[data-checked] &': {
-      color: vars.colors.white,
+      color: fallbackVar(iconColorVar, vars.colors.white),
       opacity: 1,
       transform: 'translateY(0) scale(1)',
     },
