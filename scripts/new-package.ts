@@ -1,13 +1,12 @@
+/* eslint-disable no-console */
+import { copy, pathExists, readFile, writeFile } from 'fs-extra'
 import { join } from 'path'
-import { copy, readFile, writeFile, pathExists } from 'fs-extra'
 
-import path from 'path'
-
-const resolve = (...paths: string[]) => path.resolve(__dirname, ...paths)
+import { resolve } from './utils'
 
 const name = process.argv.pop()
 
-if (!name || !/[a-z0-9\-]+/.test(name) || name.match(/[a-z0-9\-]+/)![0].length !== name.length)
+if (!name || !/[a-z0-9-]+/.test(name) || name.match(/[a-z0-9-]+/)![0].length !== name.length)
   throw `Incorrect package name argument: ${name}`
 
 const templateSrc = resolve('../template')
@@ -17,6 +16,7 @@ const readmePath = join(destSrc, 'README.md')
 
 ;(async () => {
   const alreadyExists = await pathExists(destSrc)
+
   if (alreadyExists) throw `Package ${name} already exists.`
 
   try {
