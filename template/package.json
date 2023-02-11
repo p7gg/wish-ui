@@ -51,7 +51,7 @@
   ],
   "scripts": {
     "build": "tsx ../../scripts/build.ts --ssr",
-    "clean": "rimraf .turbo dist coverage node_modules",
+    "clean": "tsx ../../scripts/clean.ts .turbo dist coverage node_modules",
     "dev": "vite serve ./dev",
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },

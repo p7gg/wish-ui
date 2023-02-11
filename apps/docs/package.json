@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "clean": "rimraf .turbo dist coverage node_modules"
+    "clean": "tsx ../../scripts/clean.ts .turbo dist coverage node_modules"
   },
   "license": "MIT",
   "devDependencies": {
