@@ -21,7 +21,7 @@
   "contributors": [],
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf .turbo dist node_modules",
+    "clean": "tsx ../../scripts/clean.ts .turbo dist node_modules",
     "lint": "eslint --max-warnings 0 index.js"
   },
   "dependencies": {

@@ -33,7 +33,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "clean": "rimraf .turbo dist coverage node_modules",
+    "clean": "tsx ../../scripts/clean.ts .turbo dist coverage node_modules",
     "lint": "eslint --max-warnings 0 \"src/**/*.ts*\""
   },
   "dependencies": {
