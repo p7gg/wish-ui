@@ -3,33 +3,52 @@ on:
   push:
     branches:
       - main
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
 jobs:
   version:
     timeout-minutes: 15
+    concurrency: ${{ github.workflow }}-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code repository
+      - name: Checkout code repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: setup node.js
+      - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'pnpm'
 
-      - name: install pnpm
-        run: npm i pnpm@latest -g
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Setup npmrc
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
-      - name: install dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: create and publish versions
