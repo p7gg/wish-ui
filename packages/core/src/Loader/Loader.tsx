@@ -11,7 +11,7 @@ import { useWishTheme } from '../WishProvider'
 
 import { classes } from './Loader.css'
 
-import type { WishColor, WishLoader, WishSize } from '../constants'
+import type { LoaderVariant, WishColor, WishSize } from '../constants'
 import type { Component, JSX } from 'solid-js'
 
 type SvgHTMLAttributes = JSX.IntrinsicElements['svg']
@@ -237,11 +237,11 @@ export interface LoaderProps extends AtomicStylesProps {
    * Loader appearance
    *
    * @remarks
-   * See {@link WishLoader| the WishLoader union} for more details.
+   * See {@link LoaderVariant| the LoaderVariant union} for more details.
    *
    * @default theme.defaultLoader
    */
-  variant?: WishLoader
+  variant?: LoaderVariant
 }
 export interface LoaderCompositions {}
 
