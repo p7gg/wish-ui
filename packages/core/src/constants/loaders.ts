@@ -1,6 +1,4 @@
-import { tuple } from '../utils'
+import { Tuple, tuple } from '../utils'
 
-export type WishLoader = (typeof wishLoaders)[number]
-export const wishLoaders = tuple('oval', 'bars', 'dots')
-export const isWishLoader = (loader: string): loader is WishLoader =>
-  wishLoaders.includes(loader as any)
+export type LoaderVariant = Tuple<typeof loaderVariants>
+export const loaderVariants = tuple('oval', 'bars', 'dots')

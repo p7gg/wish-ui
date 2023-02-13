@@ -1,7 +1,7 @@
 import { For } from 'solid-js'
 
 import { Box } from '~core/Box'
-import { wishColors, wishLoaders, wishSizes } from '~core/constants'
+import { loaderVariants, wishColors, wishSizes } from '~core/constants'
 import { Loader } from '~core/Loader'
 import { vars } from '~core/theme'
 
@@ -26,7 +26,7 @@ export default {
   argTypes: {
     variant: {
       control: { type: 'inline-radio' },
-      options: wishLoaders,
+      options: loaderVariants,
     },
     colorScheme: {
       control: { type: 'select' },
@@ -56,7 +56,7 @@ export const ColorSchemes: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishLoaders}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={loaderVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@ export const ColorSchemes: Story = {
               <tr>
                 <td style={sharedStyles}>{colorScheme}</td>
 
-                <For each={wishLoaders}>
+                <For each={loaderVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -95,7 +95,7 @@ export const Sizes: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishLoaders}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={loaderVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -104,7 +104,7 @@ export const Sizes: Story = {
               <tr>
                 <td style={sharedStyles}>{size}</td>
 
-                <For each={wishLoaders}>
+                <For each={loaderVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">

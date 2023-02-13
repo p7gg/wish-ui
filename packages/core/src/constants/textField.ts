@@ -1,4 +1,4 @@
 import { tuple } from '../utils'
 
-export type TextFieldVariant = (typeof wishTextFields)[number]
-export const wishTextFields = tuple('default', 'filled')
+export type TextFieldVariant = (typeof textFieldVariants)[number]
+export const textFieldVariants = tuple('default', 'filled')

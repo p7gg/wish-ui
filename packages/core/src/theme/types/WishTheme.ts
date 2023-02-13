@@ -1,10 +1,10 @@
-import type { WishColor, WishLoader } from '../../constants'
+import type { LoaderVariant, WishColor } from '../../constants'
 import type { ColorMode } from './ColorMode'
 
 export interface WishTheme {
   colorMode: ColorMode
   primaryColor: WishColor
-  defaultLoader: WishLoader
+  defaultLoader: LoaderVariant
 }
 
 export type WishThemeOverrides = Partial<WishTheme>

@@ -11,7 +11,7 @@ import { createPolymorphicComponent } from '../utils'
 
 import { classes } from './ActionIcon.css'
 
-import type { WishActionIcon, WishColor, WishSize } from '../constants'
+import type { ActionIconVariant, WishColor, WishSize } from '../constants'
 
 export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStylesProps {
   /**
@@ -28,11 +28,11 @@ export interface ActionIconProps extends KButton.ButtonRootOptions, AtomicStyles
    * Controls ActionIcon appearance
    *
    * @remarks
-   * See {@link WishActionIcon| the WishActionIcon union} for more details.
+   * See {@link ActionIconVariant| the ActionIconVariant union} for more details.
    *
    * @default subtle
    */
-  variant?: WishActionIcon
+  variant?: ActionIconVariant
 
   /**
    * ActionIcon size
