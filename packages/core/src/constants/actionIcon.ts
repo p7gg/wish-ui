@@ -1,4 +1,4 @@
-import { tuple } from '../utils'
+import { Tuple, tuple } from '../utils'
 
-export type WishActionIcon = (typeof actionIconVariants)[number]
+export type ActionIconVariant = Tuple<typeof actionIconVariants>
 export const actionIconVariants = tuple('subtle', 'filled', 'outline', 'light', 'default')
