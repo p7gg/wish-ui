@@ -15,7 +15,7 @@ import { ButtonGroup, useButtonGroup } from './ButtonGroup'
 
 import { buttonGroupBorderWidthVar, classes } from './Button.css'
 
-import type { WishButton, WishColor, WishSize } from '../constants'
+import type { ButtonVariant, WishColor, WishSize } from '../constants'
 
 export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProps {
   /**
@@ -52,11 +52,11 @@ export interface ButtonProps extends KButton.ButtonRootOptions, AtomicStylesProp
    * Controls button appearance
    *
    * @remarks
-   * See {@link WishButton| the WishButton union} for more details.
+   * See {@link ButtonVariant| the ButtonVariant union} for more details.
    *
    * @default filled
    */
-  variant?: WishButton
+  variant?: ButtonVariant
 
   /**
    * Reduce vertical and horizontal spacing

@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions'
 
 import { Box } from '~core/Box'
 import { Button } from '~core/Button'
-import { wishButtons, wishColors, wishSizes } from '~core/constants'
+import { buttonVariants, wishColors, wishSizes } from '~core/constants'
 import { vars } from '~core/theme'
 
 import type { Meta, StoryObj } from '../types'
@@ -29,7 +29,7 @@ export default {
   argTypes: {
     variant: {
       control: { type: 'inline-radio' },
-      options: wishButtons,
+      options: buttonVariants,
     },
     colorScheme: {
       control: { type: 'select' },
@@ -112,7 +112,7 @@ export const States: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={buttonVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -121,7 +121,7 @@ export const States: Story = {
               <tr>
                 <td style={sharedStyles}>{state.name}</td>
 
-                <For each={wishButtons}>
+                <For each={buttonVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -163,7 +163,7 @@ export const ColorSchemes: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={buttonVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -172,7 +172,7 @@ export const ColorSchemes: Story = {
               <tr>
                 <td style={sharedStyles}>{colorScheme}</td>
 
-                <For each={wishButtons}>
+                <For each={buttonVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -204,7 +204,7 @@ export const Sizes: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={buttonVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -213,7 +213,7 @@ export const Sizes: Story = {
               <tr>
                 <td style={sharedStyles}>{size}</td>
 
-                <For each={wishButtons}>
+                <For each={buttonVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -245,7 +245,7 @@ export const Radiuses: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={buttonVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -254,7 +254,7 @@ export const Radiuses: Story = {
               <tr>
                 <td style={sharedStyles}>{radius}</td>
 
-                <For each={wishButtons}>
+                <For each={buttonVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -312,7 +312,7 @@ export const LoaderPositions: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishButtons}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={buttonVariants}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
           </tr>
         </thead>
         <tbody>
@@ -321,7 +321,7 @@ export const LoaderPositions: Story = {
               <tr>
                 <td style={sharedStyles}>{loaderPosition}</td>
 
-                <For each={wishButtons}>
+                <For each={buttonVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
