@@ -3,7 +3,7 @@ import { For } from 'solid-js'
 import { AtSign } from 'lucide-solid'
 
 import { Box } from '~core/Box'
-import { wishColors, wishSizes, wishTextFields } from '~core/constants'
+import { textFieldVariants, wishColors, wishSizes } from '~core/constants'
 import { Loader } from '~core/Loader'
 import { TextField } from '~core/TextField'
 import { vars } from '~core/theme'
@@ -107,7 +107,9 @@ export const Sections: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishTextFields}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={textFieldVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
           </tr>
         </thead>
         <tbody>
@@ -116,7 +118,7 @@ export const Sections: Story = {
               <tr>
                 <td style={sharedStyles}>{state.name}</td>
 
-                <For each={wishTextFields}>
+                <For each={textFieldVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -145,7 +147,9 @@ export const Sizes: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishTextFields}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={textFieldVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
           </tr>
         </thead>
         <tbody>
@@ -154,7 +158,7 @@ export const Sizes: Story = {
               <tr>
                 <td style={sharedStyles}>{size}</td>
 
-                <For each={wishTextFields}>
+                <For each={textFieldVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">
@@ -189,7 +193,9 @@ export const Radiuses: Story = {
           <tr>
             <th style={sharedStyles}>&nbsp;</th>
 
-            <For each={wishTextFields}>{(variant) => <th style={sharedStyles}>{variant}</th>}</For>
+            <For each={textFieldVariants}>
+              {(variant) => <th style={sharedStyles}>{variant}</th>}
+            </For>
           </tr>
         </thead>
         <tbody>
@@ -198,7 +204,7 @@ export const Radiuses: Story = {
               <tr>
                 <td style={sharedStyles}>{radius}</td>
 
-                <For each={wishTextFields}>
+                <For each={textFieldVariants}>
                   {(variant) => (
                     <td style={sharedStyles}>
                       <Box display="flex" alignItems="center" justifyContent="center">

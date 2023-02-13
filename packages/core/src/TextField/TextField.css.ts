@@ -13,8 +13,6 @@ export const inputIconWidthVar = createVar()
 const inputSizeVar = createVar()
 const inputFontSizeVar = createVar()
 const inputRadiiVar = createVar()
-
-//
 const inputValidBorderColorVar = createVar()
 const inputValidBorderColorHoverVar = createVar()
 const inputValidBorderColorFocusVar = createVar()
