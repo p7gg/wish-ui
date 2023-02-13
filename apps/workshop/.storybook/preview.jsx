@@ -40,7 +40,7 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   decorators,
   options: {
-    parameters: { options: { showPanel: true, panelPosition: 'right' } },
+    panelPosition: 'right',
     storySort: {
       order: ['Button', 'Data entry', 'Data display', 'Navigation', 'Feedback', 'Overlay'],
     },
