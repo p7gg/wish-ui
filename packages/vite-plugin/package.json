@@ -53,9 +53,9 @@
   },
   "devDependencies": {
     "@wish-ui/tsconfig": "workspace:*",
-    "eslint": "^8.33.0",
+    "eslint": "^8.34.0",
     "eslint-config-wish": "workspace:*",
-    "tsup": "^6.5.0",
+    "tsup": "^6.6.3",
     "typescript": "^4.9.5",
     "vite": "^4.1.1"
   },
