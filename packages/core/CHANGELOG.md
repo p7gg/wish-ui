@@ -1,5 +1,11 @@
 # @wish-ui/core
 
+## 0.7.0
+
+### Minor Changes
+
+- 63d2920: Add Transition component
+
 ## 0.6.1
 
 ### Patch Changes
