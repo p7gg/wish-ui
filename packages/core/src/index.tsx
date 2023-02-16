@@ -16,7 +16,6 @@ export {
   type WishTheme,
   type WishThemeOverrides,
 } from './theme'
-export { Transition, type TransitionProps } from './Transition'
 export {
   UnstyledButton,
   type UnstyledButtonCompositions,

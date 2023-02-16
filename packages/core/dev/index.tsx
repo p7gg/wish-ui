@@ -1,5 +1,5 @@
 /* @refresh reload */
-import { Component, createSignal, For, Show } from 'solid-js'
+import { Component, createSignal, For } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { render } from 'solid-js/web'
 
@@ -12,7 +12,6 @@ import {
   Switch,
   Text,
   TextField,
-  Transition,
   wishColors,
   WishProvider,
   WishThemeOverrides,
@@ -26,6 +25,7 @@ const toggleColorMode = () => setTheme('colorMode', (pv) => (pv === 'dark' ? 'li
 
 const App: Component = () => {
   const [state, setState] = createSignal(false)
+  const toggleState = () => setState(!state())
 
   return (
     <>
@@ -36,25 +36,14 @@ const App: Component = () => {
         <For each={wishColors}>{(cs) => <option value={cs}>{cs}</option>}</For>
       </select>
 
-      <Transition name="w-fade">
-        <Show when={state()}>
-          <Button uppercase onClick={toggleColorMode}>
-            toggle
-          </Button>
-        </Show>
-      </Transition>
-
+      <Button uppercase onClick={toggleColorMode}>
+        toggle
+      </Button>
       <Button loading>toggle</Button>
 
       <Box p="$xl">
         <Switch disabled label="disabled label" />
-        <Switch
-          defaultIsChecked
-          label="this is a label"
-          description="descr..."
-          checked={state()}
-          onCheckedChange={setState}
-        />
+        <Switch defaultIsChecked label="this is a label" description="descr..." />
       </Box>
 
       <Box p="$xl">
