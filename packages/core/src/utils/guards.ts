@@ -42,9 +42,9 @@ export function isString<T>(data: T | string): data is DefinitelyString<T> {
  * @param data the variable to check
  * @returns true if the passed input is defined, false otherwise
  * @example
- *    R.isDefined('string') //=> true
- *    R.isDefined(null) //=> false
- *    R.isDefined(undefined) //=> false
+ *    isDefined('string') //=> true
+ *    isDefined(null) //=> false
+ *    isDefined(undefined) //=> false
  */
 export function isDefined<T>(data: T): data is NonNullable<T> {
   return typeof data !== 'undefined' && data !== null
