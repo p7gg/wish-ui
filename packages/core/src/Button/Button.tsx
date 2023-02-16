@@ -137,7 +137,9 @@ export const Button = createPolymorphicComponent<'button', ButtonProps, ButtonCo
         },
         get style() {
           return assignInlineVars({
-            [buttonGroupBorderWidthVar]: `${btnGroupContext?.buttonBorderWidth}px`,
+            ...(btnGroupContext && {
+              [buttonGroupBorderWidthVar]: `${btnGroupContext?.buttonBorderWidth}px`,
+            }),
           })
         },
       } as const,
