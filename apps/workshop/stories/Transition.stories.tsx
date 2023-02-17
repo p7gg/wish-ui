@@ -73,7 +73,14 @@ export const Transitions: Story = {
 
     return (
       <>
-        <Button onClick={() => setShow(!show())}>Toggle transitions</Button>
+        <Button
+          onClick={() => setShow(!show())}
+          top="50%"
+          right="20px"
+          style={{ position: 'fixed', transform: 'translateY(-50%)' }}
+        >
+          Toggle transitions
+        </Button>
 
         <table style={{ 'border-collapse': 'collapse' }}>
           <thead>
