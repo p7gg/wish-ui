@@ -164,3 +164,48 @@ export const TransitionBetweenComponents: Story = {
     name: 'w-pop',
   },
 }
+
+export const JsTransition: Story = {
+  name: 'JS Transition',
+  render: (args) => {
+    const [show, setShow] = createSignal(false)
+
+    return (
+      <>
+        <Button onClick={() => setShow(!show())}>Hello</Button>
+
+        <Transition {...args}>
+          <Show when={show()}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              padding="$lg"
+              my="$lg"
+              bg="$blue3"
+              fontWeight="bold"
+            >
+              hello
+            </Box>
+          </Show>
+        </Transition>
+      </>
+    )
+  },
+  args: {
+    onEnter(el, done) {
+      const a = el.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 600,
+      })
+
+      a.finished.then(done)
+    },
+    onExit(el, done) {
+      const a = el.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 600,
+      })
+
+      a.finished.then(done)
+    },
+  },
+}
