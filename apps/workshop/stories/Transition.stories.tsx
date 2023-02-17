@@ -172,7 +172,7 @@ export const JsTransition: Story = {
 
     return (
       <>
-        <Button onClick={() => setShow(!show())}>Hello</Button>
+        <Button onClick={() => setShow(!show())}>Toggle transition</Button>
 
         <Transition {...args}>
           <Show when={show()}>
