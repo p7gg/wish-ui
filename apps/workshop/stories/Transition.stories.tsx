@@ -1,12 +1,8 @@
-import { createSignal, For, Match, Switch } from 'solid-js'
-
-import { action } from '@storybook/addon-actions'
-
-import { ExternalLink, Settings2 } from 'lucide-solid'
+import { createSignal, For, Match, Show, Switch } from 'solid-js'
 
 import { Box } from '~core/Box'
 import { Button } from '~core/Button'
-import { wishColors, wishSizes, wishTransitions } from '~core/constants'
+import { wishTransitions } from '~core/constants'
 import { Text } from '~core/Text'
 import { vars } from '~core/theme'
 import { Transition } from '~core/Transition'
