@@ -174,7 +174,7 @@ export const JsTransition: Story = {
       <>
         <Button onClick={() => setShow(!show())}>Toggle transition</Button>
 
-        <Transition {...args}>
+        <Transition {...args} name={undefined}>
           <Show when={show()}>
             <Box
               display="flex"
@@ -193,6 +193,7 @@ export const JsTransition: Story = {
     )
   },
   args: {
+    name: undefined,
     onEnter(el, done) {
       const a = el.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: 600,
