@@ -84,12 +84,24 @@ const skewDown = styleVariants({
 const rotateLeft = styleVariants({
   enterFrom: { opacity: 0, transform: 'translateY(20px) rotate(-5deg)' },
   enterTo: { opacity: 1, transform: 'translateY(0) rotate(0deg)' },
-  enterActive: [base, { transformOrigin: 'bottom', transitionProperty: 'transform, opacity' }],
+  enterActive: [
+    base,
+    {
+      transformOrigin: 'bottom',
+      transitionProperty: 'transform, opacity',
+    },
+  ],
 })
 const rotateRight = styleVariants({
   enterFrom: { opacity: 0, transform: 'translateY(20px) rotate(5deg)' },
   enterTo: { opacity: 1, transform: 'translateY(0) rotate(0deg)' },
-  enterActive: [base, { transformOrigin: 'top', transitionProperty: 'transform, opacity' }],
+  enterActive: [
+    base,
+    {
+      transformOrigin: 'top',
+      transitionProperty: 'transform, opacity',
+    },
+  ],
 })
 const slideDown = styleVariants({
   enterFrom: { opacity: 0, transform: 'translateY(-100%)' },
