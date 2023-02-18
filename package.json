@@ -28,6 +28,7 @@
     "@changesets/cli": "^2.26.0",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.13.0",
+    "colorette": "^2.0.19",
     "eslint": "^8.34.0",
     "eslint-config-wish": "workspace:*",
     "fs-extra": "^11.1.0",

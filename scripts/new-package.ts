@@ -1,51 +1,49 @@
 /* eslint-disable no-console */
+import * as c from 'colorette'
 import { copy, pathExists, readFile, writeFile } from 'fs-extra'
-import { join } from 'path'
+import { join } from 'node:path'
 
-import { resolve } from './utils'
+import { r } from './utils'
 
 const name = process.argv.pop()
 
-if (!name || !/[a-z0-9-]+/.test(name) || name.match(/[a-z0-9-]+/)![0].length !== name.length)
-  throw `Incorrect package name argument: ${name}`
+if (!name || !/^[a-z0-9-]+$/.test(name)) {
+  throw new Error(`Incorrect package name argument: ${name}`)
+}
 
-const templateSrc = resolve('../template')
-const destSrc = resolve('../packages', name)
+const templateSrc = r('../template')
+const destSrc = r('../packages', name)
 const pkgPath = join(destSrc, 'package.json')
 const readmePath = join(destSrc, 'README.md')
 
 ;(async () => {
   const alreadyExists = await pathExists(destSrc)
 
-  if (alreadyExists) throw `Package ${name} already exists.`
+  if (alreadyExists) {
+    throw new Error(`Package ${name} already exists.`)
+  }
 
   try {
     // copy /template -> /packages/{name}
     await copy(templateSrc, destSrc)
 
     // replace "template-primitive" -> {name} in package.json
-    readFile(pkgPath, 'utf8')
-      .then((pkg) => {
-        pkg = pkg.replace(/template-primitive/g, name)
-        writeFile(pkgPath, pkg)
-      })
-      .catch((error) => {
-        console.log('replace package.json failed.')
-        console.error(error)
-      })
+    let pkgString = await readFile(pkgPath, 'utf8')
+
+    pkgString = pkgString.replace(/template-primitive/gi, name)
+    await writeFile(pkgPath, pkgString)
 
     // replace "template-primitive" -> {name} in README.md
-    readFile(readmePath, 'utf8')
-      .then((readme) => {
-        readme = readme.replace(/template-primitive/g, name)
-        writeFile(readmePath, readme)
-      })
-      .catch((error) => {
-        console.log('replace README.md failed')
-        console.error(error)
-      })
+    let readme = await readFile(readmePath, 'utf8')
+
+    readme = readme.replace(/template-primitive/gi, name)
+    await writeFile(readmePath, readme)
+
+    const pkgJson = JSON.parse(pkgString)
+
+    console.log(`Successfully created workspace: ${c.green(pkgJson.name)}`)
   } catch (error) {
-    console.log('Copying template failed')
-    console.error(error)
+    console.error('Copying template failed')
+    throw error
   }
 })()
